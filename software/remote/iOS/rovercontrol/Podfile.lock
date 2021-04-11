@@ -13,10 +13,10 @@ PODS:
   - ScrollableGraphView (4.0.6)
 
 DEPENDENCIES:
-  - JxContentTable (from `../../JxProjekte/JxContentTable/`)
-  - JxSwiftHelper (from `../../JxProjekte/JxSwiftHelper/`)
-  - JxSwiftHelperForUiKit (from `../../JxProjekte/JxSwiftHelperForUiKit/`)
-  - JxThemeManager (from `../../JxProjekte/JxThemeManager/`)
+  - JxContentTable (from `../../../../../ios/JxProjekte/JxContentTable/`)
+  - JxSwiftHelper (from `../../../../../ios/JxProjekte/JxSwiftHelper/`)
+  - JxSwiftHelperForUiKit (from `../../../../../ios/JxProjekte/JxSwiftHelperForUiKit/`)
+  - JxThemeManager (from `../../../../../ios/JxProjekte/JxThemeManager/`)
   - MJPEGStreamLib
 
 SPEC REPOS:
@@ -27,13 +27,13 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   JxContentTable:
-    :path: "../../JxProjekte/JxContentTable/"
+    :path: "../../../../../ios/JxProjekte/JxContentTable/"
   JxSwiftHelper:
-    :path: "../../JxProjekte/JxSwiftHelper/"
+    :path: "../../../../../ios/JxProjekte/JxSwiftHelper/"
   JxSwiftHelperForUiKit:
-    :path: "../../JxProjekte/JxSwiftHelperForUiKit/"
+    :path: "../../../../../ios/JxProjekte/JxSwiftHelperForUiKit/"
   JxThemeManager:
-    :path: "../../JxProjekte/JxThemeManager/"
+    :path: "../../../../../ios/JxProjekte/JxThemeManager/"
 
 SPEC CHECKSUMS:
   JxContentTable: ec2e069c3358f385240ebbc237e19df7d8c324dd
@@ -44,6 +44,6 @@ SPEC CHECKSUMS:
   PinchToZoomImageView: c743d831ac886f22900ccd8e38b3033c89ac8603
   ScrollableGraphView: 4af35d4ea9ecdec665d34a74da51da161ddff8ac
 
-PODFILE CHECKSUM: ea28b8ce2b8a5424da5b5e848f5826e81744a65e
+PODFILE CHECKSUM: b9b18f55d8a2301475c2c3fd6c357040dfbb81a4
 
 COCOAPODS: 1.10.1

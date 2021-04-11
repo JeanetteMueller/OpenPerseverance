@@ -9,10 +9,10 @@ target 'rovercontrol' do
 
   pod "MJPEGStreamLib"
   
-  pod 'JxSwiftHelper', :path => '../../JxProjekte/JxSwiftHelper/'
-  pod 'JxSwiftHelperForUiKit', :path => '../../JxProjekte/JxSwiftHelperForUiKit/'
-  pod 'JxContentTable', :path => '../../JxProjekte/JxContentTable/'
-  pod 'JxThemeManager', :path => '../../JxProjekte/JxThemeManager/'
+  pod 'JxSwiftHelper', :path => '../../../../../ios/JxProjekte/JxSwiftHelper/'
+  pod 'JxSwiftHelperForUiKit', :path => '../../../../../ios/JxProjekte/JxSwiftHelperForUiKit/'
+  pod 'JxContentTable', :path => '../../../../../ios/JxProjekte/JxContentTable/'
+  pod 'JxThemeManager', :path => '../../../../../ios/JxProjekte/JxThemeManager/'
 end
 
 
