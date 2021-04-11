@@ -1,0 +1,49 @@
+PODS:
+  - JxContentTable (0.1.3):
+    - JxSwiftHelperForUiKit
+    - JxThemeManager
+    - PinchToZoomImageView
+    - ScrollableGraphView
+  - JxSwiftHelper (0.1.3)
+  - JxSwiftHelperForUiKit (0.1.0):
+    - JxSwiftHelper
+  - JxThemeManager (0.1.0)
+  - MJPEGStreamLib (0.2.1)
+  - PinchToZoomImageView (1.1.2)
+  - ScrollableGraphView (4.0.6)
+
+DEPENDENCIES:
+  - JxContentTable (from `../../JxProjekte/JxContentTable/`)
+  - JxSwiftHelper (from `../../JxProjekte/JxSwiftHelper/`)
+  - JxSwiftHelperForUiKit (from `../../JxProjekte/JxSwiftHelperForUiKit/`)
+  - JxThemeManager (from `../../JxProjekte/JxThemeManager/`)
+  - MJPEGStreamLib
+
+SPEC REPOS:
+  trunk:
+    - MJPEGStreamLib
+    - PinchToZoomImageView
+    - ScrollableGraphView
+
+EXTERNAL SOURCES:
+  JxContentTable:
+    :path: "../../JxProjekte/JxContentTable/"
+  JxSwiftHelper:
+    :path: "../../JxProjekte/JxSwiftHelper/"
+  JxSwiftHelperForUiKit:
+    :path: "../../JxProjekte/JxSwiftHelperForUiKit/"
+  JxThemeManager:
+    :path: "../../JxProjekte/JxThemeManager/"
+
+SPEC CHECKSUMS:
+  JxContentTable: ec2e069c3358f385240ebbc237e19df7d8c324dd
+  JxSwiftHelper: 08abf204a1a66584759c92424b36bb07f34bfc8f
+  JxSwiftHelperForUiKit: 1185e64372d6331bd11da2ef6d34bfcd2f773334
+  JxThemeManager: d74d0ecd273cad4bc16c7742124a0b67c367ae3c
+  MJPEGStreamLib: 516e82b6bcd93cac6d671a37052a15908502e6c5
+  PinchToZoomImageView: c743d831ac886f22900ccd8e38b3033c89ac8603
+  ScrollableGraphView: 4af35d4ea9ecdec665d34a74da51da161ddff8ac
+
+PODFILE CHECKSUM: ea28b8ce2b8a5424da5b5e848f5826e81744a65e
+
+COCOAPODS: 1.10.1

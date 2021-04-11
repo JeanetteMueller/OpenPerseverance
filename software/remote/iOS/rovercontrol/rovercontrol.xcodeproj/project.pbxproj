@@ -1,0 +1,504 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		204D992CBBD2DF8E9C95C6C0 /* Pods_rovercontrol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4295EAB47F00ADAFDD5A391 /* Pods_rovercontrol.framework */; };
+		26218B992614CA1300F5993B /* MainVC+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26218B982614CA1300F5993B /* MainVC+Actions.swift */; };
+		2638028C26237A0D00B2F1F0 /* OptionsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2638028B26237A0D00B2F1F0 /* OptionsTVC.swift */; };
+		263802A226237E8000B2F1F0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802A126237E8000B2F1F0 /* Theme.swift */; };
+		263802AE26237F3300B2F1F0 /* Theme+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802AD26237F3300B2F1F0 /* Theme+Extras.swift */; };
+		263802B12623842500B2F1F0 /* OptionsRootTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802B02623842500B2F1F0 /* OptionsRootTVC.swift */; };
+		263802B42623903B00B2F1F0 /* OptionsLightsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802B32623903B00B2F1F0 /* OptionsLightsTVC.swift */; };
+		263802B72623910C00B2F1F0 /* OptionsSoundsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802B62623910C00B2F1F0 /* OptionsSoundsTVC.swift */; };
+		263802BA2623912000B2F1F0 /* OptionsActionsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802B92623912000B2F1F0 /* OptionsActionsTVC.swift */; };
+		2639030A261879A900261C1F /* IPAdress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26390309261879A900261C1F /* IPAdress.swift */; };
+		2643550B2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2643550A2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift */; };
+		2643550E26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2643550D26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift */; };
+		266D8E31260B8746000E66FC /* Rover+MovementManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266D8E30260B8746000E66FC /* Rover+MovementManagerDelegate.swift */; };
+		269A2A552605012600F3D314 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A2A542605012600F3D314 /* AppDelegate.swift */; };
+		269A2A572605012600F3D314 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A2A562605012600F3D314 /* SceneDelegate.swift */; };
+		269A2A592605012600F3D314 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A2A582605012600F3D314 /* MainVC.swift */; };
+		269A2A5C2605012600F3D314 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 269A2A5A2605012600F3D314 /* Main.storyboard */; };
+		269A2A5E2605012700F3D314 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 269A2A5D2605012700F3D314 /* Assets.xcassets */; };
+		269A2A612605012700F3D314 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 269A2A5F2605012700F3D314 /* LaunchScreen.storyboard */; };
+		269A2A6B260501A600F3D314 /* MovementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A2A6A260501A600F3D314 /* MovementManager.swift */; };
+		269A2A6E260503A800F3D314 /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A2A6D260503A800F3D314 /* CommunicationManager.swift */; };
+		269A2A71260503E000F3D314 /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A2A70260503E000F3D314 /* UDPClient.swift */; };
+		26B9110A260504C100ADB5A4 /* Rover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B91109260504C100ADB5A4 /* Rover.swift */; };
+		26B9110D2605055E00ADB5A4 /* Date+milliseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B9110C2605055E00ADB5A4 /* Date+milliseconds.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		26218B982614CA1300F5993B /* MainVC+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+Actions.swift"; sourceTree = "<group>"; };
+		2638028B26237A0D00B2F1F0 /* OptionsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsTVC.swift; sourceTree = "<group>"; };
+		263802A126237E8000B2F1F0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		263802AD26237F3300B2F1F0 /* Theme+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+Extras.swift"; sourceTree = "<group>"; };
+		263802B02623842500B2F1F0 /* OptionsRootTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsRootTVC.swift; sourceTree = "<group>"; };
+		263802B32623903B00B2F1F0 /* OptionsLightsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsLightsTVC.swift; sourceTree = "<group>"; };
+		263802B62623910C00B2F1F0 /* OptionsSoundsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsSoundsTVC.swift; sourceTree = "<group>"; };
+		263802B92623912000B2F1F0 /* OptionsActionsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsActionsTVC.swift; sourceTree = "<group>"; };
+		26390309261879A900261C1F /* IPAdress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPAdress.swift; sourceTree = "<group>"; };
+		2639030D2618844A00261C1F /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
+		2643550A2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+MovementManagerDelegate.swift"; sourceTree = "<group>"; };
+		2643550D26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+CommunicationManagerDelegate.swift"; sourceTree = "<group>"; };
+		266D8E30260B8746000E66FC /* Rover+MovementManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rover+MovementManagerDelegate.swift"; sourceTree = "<group>"; };
+		269A2A512605012600F3D314 /* rovercontrol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rovercontrol.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		269A2A542605012600F3D314 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		269A2A562605012600F3D314 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		269A2A582605012600F3D314 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		269A2A5B2605012600F3D314 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		269A2A5D2605012700F3D314 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		269A2A602605012700F3D314 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		269A2A622605012700F3D314 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		269A2A6A260501A600F3D314 /* MovementManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementManager.swift; sourceTree = "<group>"; };
+		269A2A6D260503A800F3D314 /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
+		269A2A70260503E000F3D314 /* UDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPClient.swift; sourceTree = "<group>"; };
+		26B91109260504C100ADB5A4 /* Rover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rover.swift; sourceTree = "<group>"; };
+		26B9110C2605055E00ADB5A4 /* Date+milliseconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+milliseconds.swift"; sourceTree = "<group>"; };
+		3FE09BD81EA867736B1D1B84 /* Pods-rovercontrol.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rovercontrol.release.xcconfig"; path = "Target Support Files/Pods-rovercontrol/Pods-rovercontrol.release.xcconfig"; sourceTree = "<group>"; };
+		55D31CA64448AD94F13EE362 /* Pods-rovercontrol.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rovercontrol.debug.xcconfig"; path = "Target Support Files/Pods-rovercontrol/Pods-rovercontrol.debug.xcconfig"; sourceTree = "<group>"; };
+		C4295EAB47F00ADAFDD5A391 /* Pods_rovercontrol.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_rovercontrol.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		269A2A4E2605012600F3D314 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				204D992CBBD2DF8E9C95C6C0 /* Pods_rovercontrol.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		263903082618799C00261C1F /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				26390309261879A900261C1F /* IPAdress.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		269A2A482605012600F3D314 = {
+			isa = PBXGroup;
+			children = (
+				269A2A532605012600F3D314 /* rovercontrol */,
+				269A2A522605012600F3D314 /* Products */,
+				D40999E78FB100C8B18ECF6E /* Pods */,
+				856CD8FC584C3BC233CB97F4 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		269A2A522605012600F3D314 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				269A2A512605012600F3D314 /* rovercontrol.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		269A2A532605012600F3D314 /* rovercontrol */ = {
+			isa = PBXGroup;
+			children = (
+				263903082618799C00261C1F /* Helper */,
+				269A2A692605019800F3D314 /* Manager */,
+				269A2A542605012600F3D314 /* AppDelegate.swift */,
+				269A2A562605012600F3D314 /* SceneDelegate.swift */,
+				269A2A582605012600F3D314 /* MainVC.swift */,
+				26218B982614CA1300F5993B /* MainVC+Actions.swift */,
+				2643550D26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift */,
+				2643550A2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift */,
+				269A2A5A2605012600F3D314 /* Main.storyboard */,
+				269A2A5D2605012700F3D314 /* Assets.xcassets */,
+				269A2A5F2605012700F3D314 /* LaunchScreen.storyboard */,
+				269A2A622605012700F3D314 /* Info.plist */,
+				2639030D2618844A00261C1F /* BridgeHeader.h */,
+				2638028B26237A0D00B2F1F0 /* OptionsTVC.swift */,
+				263802B02623842500B2F1F0 /* OptionsRootTVC.swift */,
+				263802B92623912000B2F1F0 /* OptionsActionsTVC.swift */,
+				263802B32623903B00B2F1F0 /* OptionsLightsTVC.swift */,
+				263802B62623910C00B2F1F0 /* OptionsSoundsTVC.swift */,
+				263802A126237E8000B2F1F0 /* Theme.swift */,
+				263802AD26237F3300B2F1F0 /* Theme+Extras.swift */,
+			);
+			path = rovercontrol;
+			sourceTree = "<group>";
+		};
+		269A2A692605019800F3D314 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				269A2A6A260501A600F3D314 /* MovementManager.swift */,
+				269A2A6D260503A800F3D314 /* CommunicationManager.swift */,
+				269A2A70260503E000F3D314 /* UDPClient.swift */,
+				26B91109260504C100ADB5A4 /* Rover.swift */,
+				266D8E30260B8746000E66FC /* Rover+MovementManagerDelegate.swift */,
+				26B9110C2605055E00ADB5A4 /* Date+milliseconds.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		856CD8FC584C3BC233CB97F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4295EAB47F00ADAFDD5A391 /* Pods_rovercontrol.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D40999E78FB100C8B18ECF6E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				55D31CA64448AD94F13EE362 /* Pods-rovercontrol.debug.xcconfig */,
+				3FE09BD81EA867736B1D1B84 /* Pods-rovercontrol.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		269A2A502605012600F3D314 /* rovercontrol */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 269A2A652605012700F3D314 /* Build configuration list for PBXNativeTarget "rovercontrol" */;
+			buildPhases = (
+				6394390C0FE0B047031E16F1 /* [CP] Check Pods Manifest.lock */,
+				269A2A4D2605012600F3D314 /* Sources */,
+				269A2A4E2605012600F3D314 /* Frameworks */,
+				269A2A4F2605012600F3D314 /* Resources */,
+				9D6632BD837D45767A2BB515 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = rovercontrol;
+			productName = rovercontrol;
+			productReference = 269A2A512605012600F3D314 /* rovercontrol.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		269A2A492605012600F3D314 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1230;
+				LastUpgradeCheck = 1230;
+				TargetAttributes = {
+					269A2A502605012600F3D314 = {
+						CreatedOnToolsVersion = 12.3;
+					};
+				};
+			};
+			buildConfigurationList = 269A2A4C2605012600F3D314 /* Build configuration list for PBXProject "rovercontrol" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 269A2A482605012600F3D314;
+			productRefGroup = 269A2A522605012600F3D314 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				269A2A502605012600F3D314 /* rovercontrol */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		269A2A4F2605012600F3D314 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				269A2A612605012700F3D314 /* LaunchScreen.storyboard in Resources */,
+				269A2A5E2605012700F3D314 /* Assets.xcassets in Resources */,
+				269A2A5C2605012600F3D314 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6394390C0FE0B047031E16F1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-rovercontrol-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D6632BD837D45767A2BB515 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-rovercontrol/Pods-rovercontrol-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-rovercontrol/Pods-rovercontrol-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-rovercontrol/Pods-rovercontrol-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		269A2A4D2605012600F3D314 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2638028C26237A0D00B2F1F0 /* OptionsTVC.swift in Sources */,
+				263802B72623910C00B2F1F0 /* OptionsSoundsTVC.swift in Sources */,
+				269A2A71260503E000F3D314 /* UDPClient.swift in Sources */,
+				263802AE26237F3300B2F1F0 /* Theme+Extras.swift in Sources */,
+				2643550B2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift in Sources */,
+				26B9110D2605055E00ADB5A4 /* Date+milliseconds.swift in Sources */,
+				269A2A6E260503A800F3D314 /* CommunicationManager.swift in Sources */,
+				269A2A592605012600F3D314 /* MainVC.swift in Sources */,
+				263802B42623903B00B2F1F0 /* OptionsLightsTVC.swift in Sources */,
+				26218B992614CA1300F5993B /* MainVC+Actions.swift in Sources */,
+				2639030A261879A900261C1F /* IPAdress.swift in Sources */,
+				269A2A552605012600F3D314 /* AppDelegate.swift in Sources */,
+				263802BA2623912000B2F1F0 /* OptionsActionsTVC.swift in Sources */,
+				269A2A6B260501A600F3D314 /* MovementManager.swift in Sources */,
+				269A2A572605012600F3D314 /* SceneDelegate.swift in Sources */,
+				263802B12623842500B2F1F0 /* OptionsRootTVC.swift in Sources */,
+				26B9110A260504C100ADB5A4 /* Rover.swift in Sources */,
+				263802A226237E8000B2F1F0 /* Theme.swift in Sources */,
+				2643550E26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift in Sources */,
+				266D8E31260B8746000E66FC /* Rover+MovementManagerDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		269A2A5A2605012600F3D314 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				269A2A5B2605012600F3D314 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		269A2A5F2605012700F3D314 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				269A2A602605012700F3D314 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		269A2A632605012700F3D314 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		269A2A642605012700F3D314 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		269A2A662605012700F3D314 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55D31CA64448AD94F13EE362 /* Pods-rovercontrol.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C6M676M9TH;
+				INFOPLIST_FILE = rovercontrol/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.themaverick.rovercontrol;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = rovercontrol/BridgeHeader.h;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		269A2A672605012700F3D314 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3FE09BD81EA867736B1D1B84 /* Pods-rovercontrol.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C6M676M9TH;
+				INFOPLIST_FILE = rovercontrol/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.themaverick.rovercontrol;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = rovercontrol/BridgeHeader.h;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		269A2A4C2605012600F3D314 /* Build configuration list for PBXProject "rovercontrol" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				269A2A632605012700F3D314 /* Debug */,
+				269A2A642605012700F3D314 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		269A2A652605012700F3D314 /* Build configuration list for PBXNativeTarget "rovercontrol" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				269A2A662605012700F3D314 /* Debug */,
+				269A2A672605012700F3D314 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 269A2A492605012600F3D314 /* Project object */;
+}
