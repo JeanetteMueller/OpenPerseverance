@@ -5,7 +5,7 @@
 //  Created by Jeanette Müller on 19.03.21.
 //
 
-import Foundation
+import UIKit
 
 extension Notification.Name {
     static var RoverDriveModeChanges = Notification.Name("RoverDriveModeChanges")
@@ -18,6 +18,8 @@ class Rover {
     typealias MotorInformation = (left:Float, leftCenter:Float, right:Float, rightCenter:Float)
     typealias ArmInformation = (joint1:Float, joint2:Float, joint3:Float, joint4:Float)
     typealias LightInformation = (light1:Int, light2:Int, light3:Int, light4:Int)
+    typealias TowerInformation = (position:Int, rotation:Int, tilt:Int)
+    typealias SoundInformation = (file:Int, action:Int)
     
     var pause: Bool = false {
         didSet {
@@ -41,9 +43,9 @@ class Rover {
         case Normal, Slow
     }
     
-    enum Tower {
-        case Up, Down
-    }
+//    enum Tower {
+//        case Up, Down
+//    }
     
     var driving = Drive.Drive {
         didSet {
@@ -53,13 +55,17 @@ class Rover {
                 let wr = Rover.WheelRotation(fl: self.maxSteerRadius + 43.45, fr: self.maxSteerRadius - 43.45,
                                              bl: self.maxSteerRadius - 43.45, br: self.maxSteerRadius + 43.45)
                 
-                CommunicationManager.shared.sendWheelRotation(wr)
+                self.topDownPositionView.updateWheelRotation(wr)
                 
+                CommunicationManager.shared.sendWheelRotation(wr)
                 
             }else{
                 append("Set drive: Drive")
+                
                 let wr = Rover.WheelRotation(fl: self.maxSteerRadius, fr: self.maxSteerRadius,
                                              bl: self.maxSteerRadius, br: self.maxSteerRadius)
+                
+                self.topDownPositionView.updateWheelRotation(wr)
                 
                 CommunicationManager.shared.sendWheelRotation(wr)
             }
@@ -67,7 +73,7 @@ class Rover {
             NotificationCenter.default.post(name: .RoverDriveModeChanges, object: self)
         }
     }
-    var speed = Speed.Slow {
+    var speed = Speed.Normal {
         didSet {
             switch self.speed {
             case .Slow:
@@ -82,12 +88,16 @@ class Rover {
     
     var lights = LightInformation(light1: 0, light2: 0, light3: 0, light4: 0) {
         didSet {
+            self.topDownPositionView.updateLightInformation(self.lights)
+            
             CommunicationManager.shared.sendLightInformation(self.lights)
         }
     }
     
-    var tower = Tower.Down {
+    var tower = TowerInformation(position:0, rotation:0, tilt:0) {
         didSet {
+            self.topDownPositionView.updateTowerInformation(self.tower)
+            
             CommunicationManager.shared.sendTowerInformation(self.tower)
         }
     }
@@ -116,14 +126,22 @@ class Rover {
     var status = ""
     
     var radStand: Float = 54
-    var width: Float = 57
+    var width: Float = 30 + (2 * 9) + 8.8
     
     let maxSteerRadius:Float = 80
     
     init() {
         
-        
-        
+    }
+    
+    private var roverTopDownPositionView:RoverTopDownPositionView?
+    var topDownPositionView: RoverTopDownPositionView {
+        get {
+            if self.roverTopDownPositionView == nil {
+                self.roverTopDownPositionView = RoverTopDownPositionView(withRover: self)
+            }
+            return self.roverTopDownPositionView!
+        }
     }
     
     func getStatus() -> String {
@@ -133,4 +151,8 @@ class Rover {
         
         return s
     }
+    
+    
+    var steeringCircleDistanceInner: Float?
+    var steeringCircleDistanceOuter: Float?
 }

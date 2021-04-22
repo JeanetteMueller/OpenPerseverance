@@ -31,6 +31,7 @@
 		269A2A71260503E000F3D314 /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A2A70260503E000F3D314 /* UDPClient.swift */; };
 		26B9110A260504C100ADB5A4 /* Rover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B91109260504C100ADB5A4 /* Rover.swift */; };
 		26B9110D2605055E00ADB5A4 /* Date+milliseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B9110C2605055E00ADB5A4 /* Date+milliseconds.swift */; };
+		26F90DF5262D84D900CED6AA /* RoverTopDownPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F90DF4262D84D900CED6AA /* RoverTopDownPositionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		269A2A70260503E000F3D314 /* UDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPClient.swift; sourceTree = "<group>"; };
 		26B91109260504C100ADB5A4 /* Rover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rover.swift; sourceTree = "<group>"; };
 		26B9110C2605055E00ADB5A4 /* Date+milliseconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+milliseconds.swift"; sourceTree = "<group>"; };
+		26F90DF4262D84D900CED6AA /* RoverTopDownPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoverTopDownPositionView.swift; sourceTree = "<group>"; };
 		3FE09BD81EA867736B1D1B84 /* Pods-rovercontrol.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rovercontrol.release.xcconfig"; path = "Target Support Files/Pods-rovercontrol/Pods-rovercontrol.release.xcconfig"; sourceTree = "<group>"; };
 		55D31CA64448AD94F13EE362 /* Pods-rovercontrol.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rovercontrol.debug.xcconfig"; path = "Target Support Files/Pods-rovercontrol/Pods-rovercontrol.debug.xcconfig"; sourceTree = "<group>"; };
 		C4295EAB47F00ADAFDD5A391 /* Pods_rovercontrol.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_rovercontrol.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,6 +139,7 @@
 				269A2A6D260503A800F3D314 /* CommunicationManager.swift */,
 				269A2A70260503E000F3D314 /* UDPClient.swift */,
 				26B91109260504C100ADB5A4 /* Rover.swift */,
+				26F90DF4262D84D900CED6AA /* RoverTopDownPositionView.swift */,
 				266D8E30260B8746000E66FC /* Rover+MovementManagerDelegate.swift */,
 				26B9110C2605055E00ADB5A4 /* Date+milliseconds.swift */,
 			);
@@ -280,6 +283,7 @@
 				263802AE26237F3300B2F1F0 /* Theme+Extras.swift in Sources */,
 				2643550B2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift in Sources */,
 				26B9110D2605055E00ADB5A4 /* Date+milliseconds.swift in Sources */,
+				26F90DF5262D84D900CED6AA /* RoverTopDownPositionView.swift in Sources */,
 				269A2A6E260503A800F3D314 /* CommunicationManager.swift in Sources */,
 				269A2A592605012600F3D314 /* MainVC.swift in Sources */,
 				263802B42623903B00B2F1F0 /* OptionsLightsTVC.swift in Sources */,

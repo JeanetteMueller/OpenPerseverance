@@ -36,9 +36,12 @@ def gotMessage(data):
         
         helper = Helper()
         
-        print("set tower %f" % tower)
-        
-        pwm.set_pwm(8, 0, int(helper.getPulseFromAngle(tower, servo_min, servo_max)))
+        if "position" in tower:
+            pwm.set_pwm(8, 0, int(helper.getPulseFromAngle(tower["position"], servo_min, servo_max)))
+        if "rotation" in tower:                  
+            pwm.set_pwm(9, 0, int(helper.getPulseFromAngle(tower["rotation"], servo_min, servo_max)))
+        if "tilt" in tower:                  
+            pwm.set_pwm(10, 0, int(helper.getPulseFromAngle(tower["tilt"], servo_min, servo_max)))
     
     
 while True:

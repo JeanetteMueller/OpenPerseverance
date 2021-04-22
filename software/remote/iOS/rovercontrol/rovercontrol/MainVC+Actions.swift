@@ -55,10 +55,10 @@ extension MainVC {
     @IBAction func actionTower(_ sender: Any) {
         if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
             if let r = mySceneDelegate.rover {
-                if r.tower == .Up {
-                    r.tower = .Down
+                if r.tower.position > 17 {
+                    r.tower = Rover.TowerInformation(position:17, rotation:0, tilt:0)
                 }else{
-                    r.tower = .Up
+                    r.tower = Rover.TowerInformation(position:110, rotation:0, tilt:0)
                 }
             }
         }

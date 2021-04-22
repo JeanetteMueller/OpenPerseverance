@@ -44,6 +44,9 @@ class MainVC: UIViewController {
     var camera2Stream: MJPEGStreamLib!
     @IBOutlet weak var camera2StartButton: UIButton!
     
+    @IBOutlet weak var roverTopDownContainerView: UIView!
+    var roverTopDownView: RoverTopDownPositionView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -76,6 +79,8 @@ class MainVC: UIViewController {
         CommunicationManager.shared.delegate = self
         
         MovementManager.shared.addDelegate(self)
+        
+        
         
     }
     func updateButtons() {
@@ -110,6 +115,8 @@ class MainVC: UIViewController {
         
         self.optionsContainer.layer.borderWidth = 1.0
         self.optionsContainer.layer.borderColor = UIColor.darkGray.cgColor
+        
+        
 
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -134,6 +141,16 @@ class MainVC: UIViewController {
         
         //udpTestSend()
         
+        
+        if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
+            if let r = mySceneDelegate.rover {
+                
+                self.roverTopDownView = r.topDownPositionView
+                self.roverTopDownView!.center = CGPoint(x: self.roverTopDownContainerView.frame.size.width / 2, y: self.roverTopDownContainerView.frame.size.height / 2)
+                self.roverTopDownView!.transform = CGAffineTransform(scaleX: 2, y: 2)
+                self.roverTopDownContainerView.addSubview(self.roverTopDownView!)
+            }
+        }
         
         updateRoverData()
         
@@ -209,44 +226,5 @@ class MainVC: UIViewController {
     var testValue: Float = 0
     var moveUp = true
     var wait: Double = 0
-    
-    func udpTestSend() {
-        print("udpTestSend")
-        
-        let wr = Rover.WheelRotation(fl: testValue, fr: testValue,
-                                                          bl: testValue, br: testValue)
-        
-        CommunicationManager.shared.sendWheelRotation(wr)
-        
-        if moveUp {
-            self.testValue += 10
-        }else{
-            self.testValue -= 10
-        }
-        
-        let maxValue: Float = 160
-        
-        if self.testValue > maxValue {
-            moveUp = !moveUp
-            self.testValue = maxValue
-            
-            wait = 1
-        }
-        if self.testValue < 0 {
-            moveUp = !moveUp
-            self.testValue = 0
-            
-            wait = 1
-        }
-        
-        Timer.scheduledTimer(withTimeInterval: 0.3 + wait, repeats: false) { (t) in
-            self.udpTestSend()
-            
-            self.wait = 0
-        }
-    }
-    
-    
-
     
 }

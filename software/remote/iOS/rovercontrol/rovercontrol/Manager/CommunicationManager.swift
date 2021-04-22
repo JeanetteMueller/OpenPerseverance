@@ -124,7 +124,7 @@ class CommunicationManager {
         udpRestart()
         
         if Date().millisecondsSince1970 < lastMovementWheelRotation.millisecondsSince1970 + 50 {
-            print("not send")
+            //print("not send")
 
             self.lastSendWheelRotation = wr
 
@@ -135,7 +135,7 @@ class CommunicationManager {
 
                 if let wr = self.lastSendWheelRotation{
 
-                    print("send again")
+                    //print("send again")
                     self.sendWheelRotation(wr)
                 }
             }
@@ -158,7 +158,7 @@ class CommunicationManager {
         udpRestart()
         
         if Date().millisecondsSince1970 < lastMovementMotorInformation.millisecondsSince1970 + 50 {
-            print("not send")
+            //print("not send")
             
             self.lastSendMotorInformation = mi
             
@@ -169,7 +169,7 @@ class CommunicationManager {
                 
                 if let mi = self.lastSendMotorInformation{
                     
-                    print("send again")
+                    //print("send again")
                     self.sendMotorInformation(mi)
                 }
             }
@@ -192,7 +192,7 @@ class CommunicationManager {
         udpRestart()
         
         if Date().millisecondsSince1970 < lastArmInformation.millisecondsSince1970 + 5 {
-            print("not send")
+            //print("not send")
 
             self.lastSendArmInformation = arm
 
@@ -203,7 +203,7 @@ class CommunicationManager {
 
                 if let mi = self.lastSendArmInformation{
 
-                    print("send again")
+                    //print("send again")
                     self.sendArmInformation(mi)
                 }
             }
@@ -236,20 +236,27 @@ class CommunicationManager {
         
         self.sendData(sendData, to: self.udpClient_Light)
     }
-    func sendTowerInformation(_ tower:Rover.Tower) {
+    func sendTowerInformation(_ tower:Rover.TowerInformation) {
         udpRestart()
         
         let sendData = [
-            "tower": tower == .Up ? 17 : 110
+            "tower": [
+                "position": tower.position,
+                "rotation": tower.rotation,
+                "tilt": tower.tilt
+            ]
         ]
         
         self.sendData(sendData, to: self.udpClient_Tower)
     }
-    func sendSoundInformation(_ tower:Rover.Tower) {
+    func sendSoundInformation(_ sound:Rover.SoundInformation) {
         udpRestart()
         
         let sendData = [
-            "sound": 0
+            "sound": [
+                "file": sound.file,
+                "action": sound.action
+            ]
         ]
         
         self.sendData(sendData, to: self.udpClient_Sound)

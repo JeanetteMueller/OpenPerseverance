@@ -56,179 +56,202 @@ extension Rover: MovementManagerDelegate {
                 //Nothing
                 print("Nothing to do")
             }
-            
-            
-            
-            if let v = value {
-                let analogValue = String(format: "%.2f", v)
-                
-                print("input \(analogValue)")
-                //            self.lastMovementLabel.text = button.rawValue + " " + analogValue
-                
-            }
-            
-            
-        }else{
-            if button == .R2 {
-                let mi = Rover.MotorInformation(left: 0,
-                                                leftCenter:0,
-                                                right: 0,
-                                                rightCenter: 0)
-                CommunicationManager.shared.sendMotorInformation(mi)
-            }
-        }
-        
-        if self.driving == .Drive {
-            if button == .R2 || button == .L2 {
-                
-                var mi = Rover.MotorInformation(left: 0,
-                                                leftCenter:0,
-                                                right: 0,
-                                                rightCenter: 0)
-                
-                if manager.current_TriggerR2 > 0 {
-                    append("Input: Trigger R2: \(manager.current_TriggerR2) ")
-                    mi.left         = manager.current_TriggerR2 * maxSpeed
-                    mi.leftCenter   = manager.current_TriggerR2 * maxSpeed
-                    mi.right        = manager.current_TriggerR2 * maxSpeed
-                    mi.rightCenter  = manager.current_TriggerR2 * maxSpeed
-                }else if manager.current_TriggerL2 > 0 {
-                    append("Input: Trigger L2: \(manager.current_TriggerL2) ")
-                    mi.left         = -(manager.current_TriggerL2 * maxSpeed)
-                    mi.leftCenter   = -(manager.current_TriggerL2 * maxSpeed)
-                    mi.right        = -(manager.current_TriggerL2 * maxSpeed)
-                    mi.rightCenter  = -(manager.current_TriggerL2 * maxSpeed)
-                }else{
-                    append("")
-                }
-                
-                CommunicationManager.shared.sendMotorInformation(mi)
-            }
         }
     }
     
     func inputManager(_ manager: MovementManager, thumbstick: MovementManager.ThumbstickType, x: Float, y: Float) {
         
-        statusReset()
-        
-        append("Input: Thumbstick: \(thumbstick.rawValue) \(x) / \(y)")
-        append("\n")
-        //        self.lastMovementLabel.text = thumbstick.rawValue + " \(x) / \(y)"
-        
-        
-        if thumbstick == .Right {
-            
-            //lenkung
-            if self.driving == .Drive {
-                
-                if x < 0 || x > 0 {
-                    
-                    let winkelbereich: Float = 55 //45
-                    
-                    let wunschwinkel = winkelbereich * x
-                    
-                    var positivWunschWinkel = wunschwinkel
-                    if positivWunschWinkel < 0 {
-                        positivWunschWinkel = positivWunschWinkel * -1
-                    }
-                    
-                    
-                    let winkelAmRad:Float = 90 - positivWunschWinkel
-                    let winkelImZentrum:Float = 90
-                    let winkelAnKreisMittelpunkt:Float = 180 - winkelImZentrum - winkelAmRad
-                    
-                    let alpha = winkelAnKreisMittelpunkt * Float(Double.pi) / 180
-                    let beta = winkelImZentrum * Float(Double.pi) / 180
-                    let gamma = winkelAmRad * Float(Double.pi) / 180
-                    
-                    
-                    let a = radStand / 2
-                    let b = (a * sin(gamma)) / sin(alpha)
-                    
-                    let bAussen = b + self.width
-                    let aAussen = sqrt( pow(bAussen, 2) - 2*bAussen * a * cos(beta) + pow(a, 2) )
-                    
-                    var gammaAussen = ((0.5 * pow(aAussen, 2)) - (0.5 * pow(bAussen, 2)) + (0.5 * pow(a, 2)) ) / (aAussen * a)
-                    gammaAussen = acos(gammaAussen) * 180 / Float(Double.pi)
-                    
-                    let wunschwinkelAussen = 90 - gammaAussen
-                    
-                    append("wunschwinkel innen \(positivWunschWinkel)")
-                    append("wunschwinkel aussen \(wunschwinkelAussen)")
-                    
-                    if x < 0 {
-                        //nach links
-                        let wheelRotation = Rover.WheelRotation(fl: self.maxSteerRadius - positivWunschWinkel,
-                                                                fr: self.maxSteerRadius - wunschwinkelAussen,
-                                                                bl: self.maxSteerRadius + positivWunschWinkel,
-                                                                br: self.maxSteerRadius + wunschwinkelAussen)
-                        
-                        
-                        CommunicationManager.shared.sendWheelRotation(wheelRotation)
-                    }else if x > 0{
-                        //nach rechts
-                        
-                        let wheelRotation = Rover.WheelRotation(fl: self.maxSteerRadius + wunschwinkelAussen,
-                                                                fr: self.maxSteerRadius + positivWunschWinkel,
-                                                                bl: self.maxSteerRadius - wunschwinkelAussen,
-                                                                br: self.maxSteerRadius - positivWunschWinkel)
-                        
-                        CommunicationManager.shared.sendWheelRotation(wheelRotation)
-                    }
-                }else{
-                    append("Geradeaus")
-                    
-                    let wheelRotation = Rover.WheelRotation(fl: self.maxSteerRadius,
-                                                            fr: self.maxSteerRadius,
-                                                            bl: self.maxSteerRadius,
-                                                            br: self.maxSteerRadius)
-                    
-                    CommunicationManager.shared.sendWheelRotation(wheelRotation)
-                }
-                
-                
-                
-//                let mi = Rover.MotorInformation(left: y * maxSpeed,
-//                                                leftCenter: y * maxSpeed,
-//                                                right: y * maxSpeed,
-//                                                rightCenter: y * maxSpeed)
-//
-//                CommunicationManager.shared.sendMotorInformation(mi)
-                
-                
-            }else if self.driving == .Rotate{
-                //nur Motor
-                
-                let mi = Rover.MotorInformation(left: -(x * maxSpeed),
-                                                leftCenter: -(x * maxSpeed * 0.9),
-                                                right: x * maxSpeed,
-                                                rightCenter: x * maxSpeed * 0.9)
-                CommunicationManager.shared.sendMotorInformation(mi)
-            }
-
-        }
-        
-        if thumbstick == .Left {
-            let maxArmRotation:Float = 170
-            
-            let halfArmRotation = maxArmRotation / 2
-            
-            let arm = Rover.ArmInformation(joint1: x * halfArmRotation + halfArmRotation,
-                                           joint2: halfArmRotation,
-                                           joint3: halfArmRotation,
-                                           joint4: halfArmRotation)
-            
-            CommunicationManager.shared.sendArmInformation(arm)
-        }
-        
-    
-        
     }
     func inputManagerDidChanged(_ manager: MovementManager, withUpdate update:MovementManager.MovementManagerUpdate){
         
-        print("updated position")
+        //print("updated position")
         
-        //        self.tachikoma?.updatePositions(manager, withUpdate: update)
+        statusReset()
+        
+
+        
+        
+        self.steeringCircleDistanceInner = nil
+        self.steeringCircleDistanceOuter = nil
+        
+        
+        
+        //lenkung
+        if self.driving == .Drive {
+            
+            if manager.current_rightThumbstick.x < 0 || manager.current_rightThumbstick.x > 0 {
+                
+                let winkelbereich: Float = 55 //45
+                
+                let wunschwinkel = winkelbereich * Float(manager.current_rightThumbstick.x)
+                
+                var positivWunschWinkel = wunschwinkel
+                if positivWunschWinkel < 0 {
+                    positivWunschWinkel = positivWunschWinkel * -1
+                }
+                
+                
+                let winkelAmRad:Float = 90 - positivWunschWinkel
+                let winkelImZentrum:Float = 90
+                let winkelAnKreisMittelpunkt:Float = 180 - winkelImZentrum - winkelAmRad
+                
+                let alpha = winkelAnKreisMittelpunkt * Float(Double.pi) / 180
+                let beta = winkelImZentrum * Float(Double.pi) / 180
+                let gamma = winkelAmRad * Float(Double.pi) / 180
+                
+                
+                let a = radStand / 2
+                let b = (a * sin(gamma)) / sin(alpha)
+                
+                self.steeringCircleDistanceInner = b
+                
+                let bAussen = b + self.width
+                self.steeringCircleDistanceOuter = bAussen
+                
+                let aAussen = sqrt( pow(bAussen, 2) - 2*bAussen * a * cos(beta) + pow(a, 2) )
+                
+                var gammaAussen = ((0.5 * pow(aAussen, 2)) - (0.5 * pow(bAussen, 2)) + (0.5 * pow(a, 2)) ) / (aAussen * a)
+                gammaAussen = acos(gammaAussen) * 180 / Float(Double.pi)
+                
+                let wunschwinkelAussen = 90 - gammaAussen
+                
+                append("wunschwinkel innen \(positivWunschWinkel)")
+                append("wunschwinkel aussen \(wunschwinkelAussen)")
+                
+                if manager.current_rightThumbstick.x < 0 {
+                    //nach links
+                    let wheelRotation = Rover.WheelRotation(fl: self.maxSteerRadius - positivWunschWinkel,
+                                                            fr: self.maxSteerRadius - wunschwinkelAussen,
+                                                            bl: self.maxSteerRadius + positivWunschWinkel,
+                                                            br: self.maxSteerRadius + wunschwinkelAussen)
+                    
+                    
+                    self.topDownPositionView.updateWheelRotation(wheelRotation)
+                    
+                    CommunicationManager.shared.sendWheelRotation(wheelRotation)
+                }else if manager.current_rightThumbstick.x > 0{
+                    //nach rechts
+                    
+                    let wheelRotation = Rover.WheelRotation(fl: self.maxSteerRadius + wunschwinkelAussen,
+                                                            fr: self.maxSteerRadius + positivWunschWinkel,
+                                                            bl: self.maxSteerRadius - wunschwinkelAussen,
+                                                            br: self.maxSteerRadius - positivWunschWinkel)
+                    
+                    self.topDownPositionView.updateWheelRotation(wheelRotation)
+                    
+                    CommunicationManager.shared.sendWheelRotation(wheelRotation)
+                }
+            }else{
+                append("Geradeaus")
+                
+                let wheelRotation = Rover.WheelRotation(fl: self.maxSteerRadius,
+                                                        fr: self.maxSteerRadius,
+                                                        bl: self.maxSteerRadius,
+                                                        br: self.maxSteerRadius)
+                
+                self.topDownPositionView.updateWheelRotation(wheelRotation)
+                
+                CommunicationManager.shared.sendWheelRotation(wheelRotation)
+            }
+            
+            
+
+
+            var mi = Rover.MotorInformation(left: 0,
+                                            leftCenter:0,
+                                            right: 0,
+                                            rightCenter: 0)
+            
+            var motorMultiplierLeft: Float = 1
+            var motorMultiplierLeftCenter: Float = 1
+            var motorMultiplierRight: Float = 1
+            var motorMultiplierRightCenter: Float = 1
+            
+            if let outer = steeringCircleDistanceOuter, let inner = steeringCircleDistanceInner {
+                
+                let a2 = pow(radStand / 2, 2)
+                let b2_inner = pow(inner, 2)
+                let b2_outer = pow(outer, 2)
+                let innerFront = sqrt(a2 + b2_inner)
+                let outerFront = sqrt(a2 + b2_outer)
+                
+                let motorPercentage = inner / outer
+                
+                print("motorPercentage \(motorPercentage)")
+                
+                if manager.current_rightThumbstick.x < 0 {
+                    //nach links
+                    motorMultiplierLeft = innerFront / outerFront
+                    motorMultiplierLeftCenter = motorPercentage
+                    motorMultiplierRightCenter = (outer + 2) / outerFront
+                }else if manager.current_rightThumbstick.x > 0{
+                    //nach rechts
+                    motorMultiplierRight = innerFront / outerFront
+                    motorMultiplierRightCenter = motorPercentage
+                    motorMultiplierLeftCenter = (outer + 2) / outerFront
+                }
+                
+                motorMultiplierLeft         = motorMultiplierLeft > 1.0 ? 1.0 : motorMultiplierLeft
+                motorMultiplierLeftCenter   = motorMultiplierLeftCenter > 1.0 ? 1.0 : motorMultiplierLeftCenter
+                motorMultiplierRight        = motorMultiplierRight > 1.0 ? 1.0 : motorMultiplierRight
+                motorMultiplierRightCenter  = motorMultiplierRightCenter > 1.0 ? 1.0 : motorMultiplierRightCenter
+            }
+            
+            
+            if manager.current_TriggerR2 > 0 {
+                append("Input: Trigger R2: \(manager.current_TriggerR2) ")
+                mi.left         = manager.current_TriggerR2 * maxSpeed * motorMultiplierLeft
+                mi.leftCenter   = manager.current_TriggerR2 * maxSpeed * motorMultiplierLeftCenter
+                mi.right        = manager.current_TriggerR2 * maxSpeed * motorMultiplierRight
+                mi.rightCenter  = manager.current_TriggerR2 * maxSpeed * motorMultiplierRightCenter
+            }else if manager.current_TriggerL2 > 0 {
+                append("Input: Trigger L2: \(manager.current_TriggerL2) ")
+                mi.left         = -(manager.current_TriggerL2 * maxSpeed * motorMultiplierLeft)
+                mi.leftCenter   = -(manager.current_TriggerL2 * maxSpeed * motorMultiplierLeftCenter)
+                mi.right        = -(manager.current_TriggerL2 * maxSpeed * motorMultiplierRight)
+                mi.rightCenter  = -(manager.current_TriggerL2 * maxSpeed * motorMultiplierRightCenter)
+            }else{
+                append("")
+            }
+            
+            self.topDownPositionView.updateMotorInformation(mi)
+            
+            CommunicationManager.shared.sendMotorInformation(mi)
+            
+            
+            
+            
+            
+            
+        }else if self.driving == .Rotate{
+            //nur Motor
+            
+            let mi = Rover.MotorInformation(left: -(Float(manager.current_rightThumbstick.x) * maxSpeed),
+                                            leftCenter: -(Float(manager.current_rightThumbstick.x) * maxSpeed * 0.9),
+                                            right: Float(manager.current_rightThumbstick.x) * maxSpeed,
+                                            rightCenter: Float(manager.current_rightThumbstick.x) * maxSpeed * 0.9)
+            
+            self.topDownPositionView.updateMotorInformation(mi)
+            
+            CommunicationManager.shared.sendMotorInformation(mi)
+        }
+        
+        
+        // Left Thumbstick
+        
+        let maxArmRotation:Float = 170
+        
+        let halfArmRotation = maxArmRotation / 2
+        
+        let arm = Rover.ArmInformation(joint1: Float(manager.current_leftThumbstick.x) * halfArmRotation + halfArmRotation,
+                                       joint2: halfArmRotation,
+                                       joint3: halfArmRotation,
+                                       joint4: halfArmRotation)
+        
+        self.topDownPositionView.updateArmInformation(arm)
+        
+        CommunicationManager.shared.sendArmInformation(arm)
+        
     }
     func statusReset() {
         self.status = ""
