@@ -41,53 +41,53 @@ def gotMessage(data):
             ml = drive["ml"]
 
             if ml > 0:
-                Motor.MotorRun(motorController1, 0,'forward', ml)
-                Motor.MotorRun(motorController3, 0,'forward', ml)
+                Motor.MotorRun(motorController1, 1,'forward', ml)
+                Motor.MotorRun(motorController3, 1,'forward', ml)
             elif ml < 0:
                 ml = ml * -1
-                Motor.MotorRun(motorController1, 0, 'backward', ml)
-                Motor.MotorRun(motorController3, 0, 'backward', ml)
+                Motor.MotorRun(motorController1, 1, 'backward', ml)
+                Motor.MotorRun(motorController3, 1, 'backward', ml)
             else:
-                Motor.MotorStop(motorController1, 0)
-                Motor.MotorStop(motorController3, 0)
+                Motor.MotorStop(motorController1, 1)
+                Motor.MotorStop(motorController3, 1)
 
         if "mlc" in drive:
             mlc = drive["mlc"]
             print("motor left center")
 
             if mlc > 0:
-                Motor.MotorRun(motorController2, 0,'forward', mlc)
+                Motor.MotorRun(motorController2, 1,'forward', mlc)
             elif mlc < 0:
-                Motor.MotorRun(motorController2, 0, 'backward', mlc * -1)
+                Motor.MotorRun(motorController2, 1, 'backward', mlc * -1)
             else:
-                Motor.MotorStop(motorController2, 0)
+                Motor.MotorStop(motorController2, 1)
         
 
         if "mr" in drive:
             mr = drive["mr"]
 
             if mr > 0:
-                Motor.MotorRun(motorController1, 1,'backward', mr)
-                Motor.MotorRun(motorController3, 1,'backward', mr)
+                Motor.MotorRun(motorController1, 0,'backward', mr)
+                Motor.MotorRun(motorController3, 0,'backward', mr)
             elif mr < 0:
                 mr = mr * -1
-                Motor.MotorRun(motorController1, 1, 'forward', mr)
-                Motor.MotorRun(motorController3, 1, 'forward', mr)
+                Motor.MotorRun(motorController1, 0, 'forward', mr)
+                Motor.MotorRun(motorController3, 0, 'forward', mr)
             else:
                 print("stop")
-                Motor.MotorStop(motorController1, 1)
-                Motor.MotorStop(motorController3, 1)
+                Motor.MotorStop(motorController1, 0)
+                Motor.MotorStop(motorController3, 0)
 
 
         if "mrc" in drive:
             mrc = drive["mrc"]
 
             if mrc > 0:
-                Motor.MotorRun(motorController2, 1,'backward', mrc)
+                Motor.MotorRun(motorController2, 0,'backward', mrc)
             elif mrc < 0:
-                Motor.MotorRun(motorController2, 1, 'forward', mrc * -1)
+                Motor.MotorRun(motorController2, 0, 'forward', mrc * -1)
             else:
-                Motor.MotorStop(motorController2, 1)
+                Motor.MotorStop(motorController2, 0)
 
     
 while True:

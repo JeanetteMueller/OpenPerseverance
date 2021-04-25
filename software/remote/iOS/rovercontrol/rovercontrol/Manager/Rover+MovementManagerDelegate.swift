@@ -35,7 +35,7 @@ extension Rover: MovementManagerDelegate {
     
     var maxSpeed: Float {
         get {
-            return self.speed == .Slow ? 25 : 100
+            return self.speed == .Slow ? 50 : 100
         }
     }
     
@@ -81,7 +81,7 @@ extension Rover: MovementManagerDelegate {
             
             if manager.current_rightThumbstick.x < 0 || manager.current_rightThumbstick.x > 0 {
                 
-                let winkelbereich: Float = 55 //45
+                let winkelbereich: Float = 45
                 
                 let wunschwinkel = winkelbereich * Float(manager.current_rightThumbstick.x)
                 
