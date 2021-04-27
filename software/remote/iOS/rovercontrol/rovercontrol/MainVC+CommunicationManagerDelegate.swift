@@ -22,12 +22,14 @@ extension MainVC: CommunicationManagerDelegate {
             case .Cancelled:
                 print("State: Cancelled")
                 self.robotConnectionState.backgroundColor = .darkGray
+                self.updateButtons()
             case .Connecting:
                 print("State: Preparing")
                 self.robotConnectionState.backgroundColor = .yellow
             default:
                 print("ERROR! State not defined!\n")
                 self.robotConnectionState.backgroundColor = .red
+                self.updateButtons()
             }
         }
     }

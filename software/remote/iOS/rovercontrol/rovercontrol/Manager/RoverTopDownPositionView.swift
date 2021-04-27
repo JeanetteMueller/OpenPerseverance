@@ -33,8 +33,8 @@ class RoverTopDownPositionView: UIView {
         let wheelWidth: CGFloat = 8.8
         let wheelHeight: CGFloat = 12
         
-        let infoLabelWidth: CGFloat = 45
-        let infoLabelHeight: CGFloat = wheelHeight
+        let infoLabelWidth: CGFloat = 74 //45
+        let infoLabelHeight: CGFloat = wheelHeight * 2
         let infoLabelDistance: CGFloat = 4
         
         body = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 56))
@@ -49,8 +49,8 @@ class RoverTopDownPositionView: UIView {
         
         infoLeftFront = UILabel(frame: CGRect(x: 0, y: 0,   width: infoLabelWidth, height: infoLabelHeight))
         infoRightFront = UILabel(frame: CGRect(x: 0, y: 0,  width: infoLabelWidth, height: infoLabelHeight))
-        infoLeftCenter = UILabel(frame: CGRect(x: 0, y: 0,  width: infoLabelWidth, height: infoLabelHeight))
-        infoRightCenter = UILabel(frame: CGRect(x: 0, y: 0, width: infoLabelWidth, height: infoLabelHeight))
+        infoLeftCenter = UILabel(frame: CGRect(x: 0, y: 0,  width: infoLabelWidth, height: infoLabelHeight * 0.7))
+        infoRightCenter = UILabel(frame: CGRect(x: 0, y: 0, width: infoLabelWidth, height: infoLabelHeight * 0.7))
         infoLeftBack = UILabel(frame: CGRect(x: 0, y: 0,    width: infoLabelWidth, height: infoLabelHeight))
         infoRightBack = UILabel(frame: CGRect(x: 0, y: 0,   width: infoLabelWidth, height: infoLabelHeight))
         
@@ -81,7 +81,7 @@ class RoverTopDownPositionView: UIView {
         wheelLeftFront.backgroundColor = .red
         
         self.addSubview(infoLeftFront)
-        infoLeftFront.center = CGPoint(x: wheelLeftFront.center.x - infoLabelWidth/2 - wheelWidth/2 - infoLabelDistance, y: wheelLeftFront.center.y)
+        infoLeftFront.center = CGPoint(x: wheelLeftFront.center.x - infoLabelWidth/2 - wheelWidth/2 - infoLabelDistance - 2, y: wheelLeftFront.center.y)
         
         
         self.addSubview(wheelLeftCenter)
@@ -95,7 +95,7 @@ class RoverTopDownPositionView: UIView {
         wheelLeftBack.center = CGPoint(x: self.center.x-24 - wheelWidth/2, y: self.center.y + 27)
         
         self.addSubview(infoLeftBack)
-        infoLeftBack.center = CGPoint(x: wheelLeftBack.center.x - infoLabelWidth/2 - wheelWidth/2 - infoLabelDistance, y: wheelLeftBack.center.y)
+        infoLeftBack.center = CGPoint(x: wheelLeftBack.center.x - infoLabelWidth/2 - wheelWidth/2 - infoLabelDistance - 2, y: wheelLeftBack.center.y)
         
 
         
@@ -106,7 +106,7 @@ class RoverTopDownPositionView: UIView {
         wheelRightFront.backgroundColor = .green
         
         self.addSubview(infoRightFront)
-        infoRightFront.center = CGPoint(x: wheelRightFront.center.x + infoLabelWidth/2 + wheelWidth/2 + infoLabelDistance, y: wheelRightFront.center.y)
+        infoRightFront.center = CGPoint(x: wheelRightFront.center.x + infoLabelWidth/2 + wheelWidth/2 + infoLabelDistance + 2, y: wheelRightFront.center.y)
         
         
         self.addSubview(wheelRightCenter)
@@ -120,7 +120,7 @@ class RoverTopDownPositionView: UIView {
         wheelRightBack.center = CGPoint(x: self.center.x+24 + wheelWidth/2, y: self.center.y + 27)
         
         self.addSubview(infoRightBack)
-        infoRightBack.center = CGPoint(x: wheelRightBack.center.x + infoLabelWidth/2 + wheelWidth/2 + infoLabelDistance, y: wheelRightBack.center.y)
+        infoRightBack.center = CGPoint(x: wheelRightBack.center.x + infoLabelWidth/2 + wheelWidth/2 + infoLabelDistance + 2, y: wheelRightBack.center.y)
         
         
         
@@ -138,9 +138,9 @@ class RoverTopDownPositionView: UIView {
         w.backgroundColor = .darkGray
     }
     private func applyInfoDesign(_ l: UILabel) {
-        l.layer.borderWidth = 0.2
+        l.layer.borderWidth = 0.5
         l.layer.borderColor = UIColor.darkGray.cgColor
-        l.font = UIFont.systemFont(ofSize: 5)
+        l.font = UIFont.systemFont(ofSize: 9)
         l.textAlignment = .left
         l.numberOfLines = 0
     }
@@ -189,13 +189,13 @@ class RoverTopDownPositionView: UIView {
         
         
         
-        self.infoLeftFront.text =   String(format: "Motor %.1f %%\nRotation %.2f°", motor.left, wheel.fl - 80)
-        self.infoLeftCenter.text =  String(format: "Motor %.1f %%", motor.leftCenter)
-        self.infoLeftBack.text =    String(format: "Motor %.1f %%\nRotation %.2f°", motor.left, wheel.bl - 80)
+        self.infoLeftFront.text =   String(format: " Motor %.1f %%\n Rotation %.2f°", motor.left, wheel.fl - 80)
+        self.infoLeftCenter.text =  String(format: " Motor %.1f %%", motor.leftCenter)
+        self.infoLeftBack.text =    String(format: " Motor %.1f %%\n Rotation %.2f°", motor.left, wheel.bl - 80)
         
-        self.infoRightFront.text =  String(format: "Motor %.1f %%\nRotation %.2f°", motor.right, wheel.fr - 80)
-        self.infoRightCenter.text = String(format: "Motor %.1f %%", motor.rightCenter)
-        self.infoRightBack.text =   String(format: "Motor %.1f %%\nRotation %.2f°", motor.right, wheel.br - 80)
+        self.infoRightFront.text =  String(format: " Motor %.1f %%\n Rotation %.2f°", motor.right, wheel.fr - 80)
+        self.infoRightCenter.text = String(format: " Motor %.1f %%", motor.rightCenter)
+        self.infoRightBack.text =   String(format: " Motor %.1f %%\n Rotation %.2f°", motor.right, wheel.br - 80)
         
         
         if let l = self.steeringLeftPoly {
@@ -212,7 +212,7 @@ class RoverTopDownPositionView: UIView {
             self.steeringLeftPoly = leftShape
             
             leftShape.opacity = 0.5
-            leftShape.lineWidth = 1
+            leftShape.lineWidth = 0.5
             leftShape.lineJoin = CAShapeLayerLineJoin.miter
             leftShape.strokeColor = UIColor.red.cgColor
             leftShape.fillColor = UIColor.red.withAlphaComponent(0.5).cgColor
@@ -222,7 +222,7 @@ class RoverTopDownPositionView: UIView {
             self.steeringRightPoly = rightShape
             
             rightShape.opacity = 0.5
-            rightShape.lineWidth = 1
+            rightShape.lineWidth = 0.5
             rightShape.lineJoin = CAShapeLayerLineJoin.miter
             rightShape.strokeColor = UIColor.green.cgColor
             rightShape.fillColor = UIColor.green.withAlphaComponent(0.5).cgColor

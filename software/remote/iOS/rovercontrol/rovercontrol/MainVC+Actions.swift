@@ -44,11 +44,7 @@ extension MainVC {
     @IBAction func actionSpeed(_ sender: Any) {
         if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
             if let r = mySceneDelegate.rover {
-                if r.speed == .Normal {
-                    r.speed = .Slow
-                }else{
-                    r.speed = .Normal
-                }
+                r.toggleSpeed()
             }
         }
     }

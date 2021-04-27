@@ -84,23 +84,23 @@ class MainVC: UIViewController {
         
     }
     func updateButtons() {
-        
-        if CommunicationManager.shared.state == .Connected, MovementManager.shared.state == .Connected {
+        for b in [buttonDriveMode,
+                  buttonLights,
+                  buttonSound,
+                  buttonSpeed,
+                  buttonTower,
+                  buttonPower] {
+            if CommunicationManager.shared.state == .Connected, MovementManager.shared.state == .Connected {
                 
-                buttonDriveMode.isEnabled = true
-                buttonLights.isEnabled = true
-//                buttonSound.isEnabled = true
-                buttonSpeed.isEnabled = true
-            buttonTower.isEnabled = true
-            buttonPower.isEnabled = true
                 
-        }else{
-            buttonDriveMode.isEnabled = false
-            buttonLights.isEnabled = false
-            //                buttonSound.isEnabled = false
-            buttonSpeed.isEnabled = false
-            buttonTower.isEnabled = false
-            buttonPower.isEnabled = false
+                
+                b?.isEnabled = true
+                b?.backgroundColor = .white
+                
+            }else{
+                b?.isEnabled = false
+                b?.backgroundColor = .lightGray
+            }
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -146,9 +146,14 @@ class MainVC: UIViewController {
             if let r = mySceneDelegate.rover {
                 
                 self.roverTopDownView = r.topDownPositionView
-                self.roverTopDownView!.center = CGPoint(x: self.roverTopDownContainerView.frame.size.width / 2, y: self.roverTopDownContainerView.frame.size.height / 2)
-                self.roverTopDownView!.transform = CGAffineTransform(scaleX: 2, y: 2)
+                self.roverTopDownView!.center = CGPoint(x: self.roverTopDownContainerView.frame.size.width / 2,
+                                                        y: self.roverTopDownContainerView.frame.size.height / 2)
+                let scale:CGFloat = 1.6
+                
+                self.roverTopDownView!.transform = CGAffineTransform(scaleX: scale, y: scale)
                 self.roverTopDownContainerView.addSubview(self.roverTopDownView!)
+                
+                self.view.bringSubviewToFront(self.optionsContainer)
             }
         }
         
@@ -181,9 +186,14 @@ class MainVC: UIViewController {
     func setActionButtonStyle(_ buttons:[UIButton]) {
         
         for b in buttons {
-            b.backgroundColor = .black
-            b.layer.borderWidth = 1.0
-            b.layer.borderColor = UIColor.darkGray.cgColor
+            b.backgroundColor = .white
+            b.setTitleColor(.black, for: .normal)
+            b.setTitleColor(.darkGray, for: .disabled)
+            b.tintColor = .black
+            b.layer.cornerRadius = 10
+            
+            b.imageView?.contentMode = .scaleAspectFit
+
         }
         
     }
@@ -200,7 +210,15 @@ class MainVC: UIViewController {
                 
                 self.buttonDriveMode.isSelected = rover.driving == .Rotate
                 
-                self.buttonSpeed.isSelected = rover.speed == .Slow
+                
+                switch rover.speed {
+                case .Normal:
+                    self.buttonSpeed.setImage(UIImage(named: "speed_normal"), for: .normal)
+                case .Fast:
+                    self.buttonSpeed.setImage(UIImage(named: "speed_fast"), for: .normal)
+                default:
+                    self.buttonSpeed.setImage(UIImage(named: "speed_slow"), for: .normal)
+                }
 
             }else{
                 self.statusLabel.text?.append("No Rover")

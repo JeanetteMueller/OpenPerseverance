@@ -35,9 +35,24 @@ extension Rover: MovementManagerDelegate {
     
     var maxSpeed: Float {
         get {
-            return self.speed == .Slow ? 50 : 100
+            
+            switch self.speed {
+            case .Normal:
+                return 80
+            case .Fast:
+                return 100
+            default:
+                return 40
+            }
         }
     }
+    
+
+    var armJoint1max:Float { get { return 170 }}
+    var armJoint1min:Float { get { return -20 }}
+    
+    var armJoint2max:Float { get { return 105 }}
+    var armJoint2min:Float { get { return 6 }}
     
     func inputManager(_ manager: MovementManager, button: MovementManager.ButtonType, isPressed pressed: Bool, pressValue value: Float?) {
         
@@ -51,11 +66,86 @@ extension Rover: MovementManagerDelegate {
                 }else{
                     self.driving = .Drive
                 }
+            case .R1:
+                self.toggleSpeed()
             
+            case .DpadLeft, .DpadRight, .DpadUp, .DpadDown:
+                
+                self.dpadPressedButton = button
+                
+                self.dpadRepearTimerAction(nil)
+                
+                self.dPadRepeatTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.dpadRepearTimerAction(_:)), userInfo: nil, repeats: true)
+                
             default:
                 //Nothing
                 print("Nothing to do")
             }
+        } else{
+            switch button {
+            
+                case .DpadLeft, .DpadRight, .DpadUp, .DpadDown:
+                    
+                    if let t = self.dPadRepeatTimer {
+                        t.invalidate()
+                    }
+                    self.dPadRepeatTimer = nil
+                    self.dpadPressedButton = nil
+                
+            default:
+                //Nothing
+                print("Nothing to do")
+            }
+        }
+        
+        
+    }
+    @objc func dpadRepearTimerAction(_ sender: Any?) {
+        
+        print("dpadRepearTimerAction")
+        
+        if let button = self.dpadPressedButton {
+            if button == .DpadLeft {
+                self.armJoint1 += 1
+            }else if button == .DpadRight {
+                self.armJoint1 -= 1
+            }
+            if self.armJoint1 < self.armJoint1min {
+                self.armJoint1 = self.armJoint1min
+            }else if self.armJoint1 > self.armJoint1max {
+                self.armJoint1 = self.armJoint1max
+            }
+            
+            if button == .DpadUp {
+                self.armJoint2 += 1
+            }else if button == .DpadDown {
+                self.armJoint2 -= 1
+            }
+            if self.armJoint2 < self.armJoint2min {
+                self.armJoint2 = self.armJoint2min
+            }else if self.armJoint2 > self.armJoint2max {
+                self.armJoint2 = self.armJoint2max
+            }
+            
+            //                let joint1_maxArmRotation:Float = 170
+            //                let joint2_maxArmRotation:Float = 100
+            //                let joint3_maxArmRotation:Float = 170
+            //                let joint4_maxArmRotation:Float = 170
+            //
+            //                let joint1_halfArmRotation = joint1_maxArmRotation / 2
+            //                let joint2_halfArmRotation = joint2_maxArmRotation / 2
+            //                let joint3_halfArmRotation = joint3_maxArmRotation / 2
+            //                let joint4_halfArmRotation = joint4_maxArmRotation / 2
+            
+            
+            let arm = Rover.ArmInformation(joint1: self.armJoint1,
+                                           joint2: self.armJoint2,
+                                           joint3: self.armJoint3,
+                                           joint4: self.armJoint4)
+            
+            self.topDownPositionView.updateArmInformation(arm)
+            
+            CommunicationManager.shared.sendArmInformation(arm)
         }
     }
     
@@ -237,20 +327,7 @@ extension Rover: MovementManagerDelegate {
         }
         
         
-        // Left Thumbstick
-        
-        let maxArmRotation:Float = 170
-        
-        let halfArmRotation = maxArmRotation / 2
-        
-        let arm = Rover.ArmInformation(joint1: Float(manager.current_leftThumbstick.x) * halfArmRotation + halfArmRotation,
-                                       joint2: halfArmRotation,
-                                       joint3: halfArmRotation,
-                                       joint4: halfArmRotation)
-        
-        self.topDownPositionView.updateArmInformation(arm)
-        
-        CommunicationManager.shared.sendArmInformation(arm)
+
         
     }
     func statusReset() {

@@ -40,7 +40,7 @@ class Rover {
     }
     
     enum Speed {
-        case Normal, Slow
+        case Slow, Normal, Fast
     }
     
 //    enum Tower {
@@ -73,7 +73,7 @@ class Rover {
             NotificationCenter.default.post(name: .RoverDriveModeChanges, object: self)
         }
     }
-    var speed = Speed.Normal {
+    var speed = Speed.Slow {
         didSet {
             switch self.speed {
             case .Slow:
@@ -85,6 +85,24 @@ class Rover {
             NotificationCenter.default.post(name: .RoverSpeedModeChanges, object: self)
         }
     }
+    func toggleSpeed() {
+        if self.speed == .Slow {
+            self.speed = .Normal
+        }else if self.speed == .Normal {
+            self.speed = .Fast
+        }else{
+            self.speed = .Slow
+        }
+    }
+    
+    var armJoint1:Float = 170 / 2
+    var armJoint2:Float = 170 / 2
+    var armJoint3:Float = 170 / 2
+    var armJoint4:Float = 170 / 2
+    
+    var dpadPressedButton: MovementManager.ButtonType?
+    var dPadRepeatTimer:Timer?
+    
     
     var lights = LightInformation(light1: 0, light2: 0, light3: 0, light4: 0) {
         didSet {
