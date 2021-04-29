@@ -24,4 +24,4 @@ All Programming is done in python (i am new with python so this would be a great
 
 ## Main Body
 ### UHF Antenna
-Needs 6 Carbon Rods: 40mm on front, 44mm on center and 41mm on the back. two of each. 
+Needs 6 Carbon Rods: 40mm on front, 44mm on center and 41mm on the back. Two of each with a diameter of 2mm. 
