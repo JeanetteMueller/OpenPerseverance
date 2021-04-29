@@ -2,7 +2,7 @@
 This is a large Project about building your own Perseverance Mars Rover. 
 3D printed and remote controlled. 
 
-![CAD of Percy, 25. April 2021](https://github.com/JeanetteMueller/OpenPerseverance/blob/main/images/progress/state_2021-04-25_19.35.18.png)
+![CAD of Percy, 29. April 2021](https://github.com/JeanetteMueller/OpenPerseverance/blob/main/images/progress/state_2021-04-29_10.36.57.png)
 
 ![Image of Percy, 9. April 2021](https://github.com/JeanetteMueller/OpenPerseverance/blob/main/images/progress/IMG_1283.jpeg)
 
@@ -19,3 +19,9 @@ I designed everything to controll the rover with a PS4 Gamepad, connected to an 
 ## Rover brain
 The Rover runs on a Raspberry Pi Zero with 3 MotorController Boards and a Servo Shield. 
 All Programming is done in python (i am new with python so this would be a great opportunity to make this project better)
+
+
+
+## Main Body
+### UHF Antenna
+Needs 6 Carbon Rods: 40mm on front, 44mm on center and 41mm on the back. two of each. 
