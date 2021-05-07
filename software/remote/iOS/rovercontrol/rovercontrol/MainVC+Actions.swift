@@ -48,42 +48,38 @@ extension MainVC {
             }
         }
     }
-    @IBAction func actionTower(_ sender: Any) {
-        if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
-            if let r = mySceneDelegate.rover {
-                if r.tower.position > 17 {
-                    r.tower = Rover.TowerInformation(position:17, rotation:0, tilt:0)
-                }else{
-                    r.tower = Rover.TowerInformation(position:110, rotation:0, tilt:0)
-                }
-            }
-        }
-    }
-    @IBAction func actionPower(_ sender: Any) {
-        CommunicationManager.shared.sendPowerInformation()
-    }
     
     @IBAction func actionStartCamera1(_ sender: UIButton) {
+        print("actionStartCamera1")
         
-        sender.isHidden = true
+        if sender.title(for: .normal) == "Start" {
         
-        // Set the ImageView to the stream object
-        camera1Stream = MJPEGStreamLib(imageView: camera1ImageView)
-        // Start Loading Indicator
-        camera1Stream.didStartLoading = { [unowned self] in
-            self.camera1LoadingIndicator.startAnimating()
-            self.videoConnectionState.backgroundColor = .orange
+            sender.setTitle("", for: .normal)
+            
+            // Set the ImageView to the stream object
+            camera1Stream = MJPEGStreamLib(imageView: camera1ImageView)
+            // Start Loading Indicator
+            camera1Stream.didStartLoading = { [unowned self] in
+                self.camera1LoadingIndicator.startAnimating()
+                self.videoConnectionState.backgroundColor = .orange
+            }
+            // Stop Loading Indicator
+            camera1Stream.didFinishLoading = { [unowned self] in
+                self.camera1LoadingIndicator.stopAnimating()
+                self.videoConnectionState.backgroundColor = .green
+            }
+            
+            // Your stream url should be here !
+            //let url = URL(string: "http://192.168.178.44:81/stream")
+            let url = URL(string: "http://10.0.0.87:81/stream")
+            camera1Stream.contentURL = url
+            camera1Stream.play() // Play the stream
+            
+        }else{
+            camera1Stream.stop()
+            camera1ImageView.image = nil
+            sender.setTitle("Start", for: .normal)
         }
-        // Stop Loading Indicator
-        camera1Stream.didFinishLoading = { [unowned self] in
-            self.camera1LoadingIndicator.stopAnimating()
-            self.videoConnectionState.backgroundColor = .green
-        }
-        
-        // Your stream url should be here !
-        let url = URL(string: "http://192.168.178.44:81/stream")
-        camera1Stream.contentURL = url
-        camera1Stream.play() // Play the stream
     }
     @IBAction func actionStartCamera2(_ sender: UIButton) {
         

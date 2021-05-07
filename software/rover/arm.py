@@ -4,19 +4,16 @@ from __future__ import division
 import socket
 import json
 import time
+import math
+from time import sleep
 import Adafruit_PCA9685
 from Communication import Communication
 from Helper import Helper
 
 com = Communication("arm")
 
-UDP_IP = com.ip
-UDP_PORT = com.getPortForArm()
-UDP_BUFFER = com.udpBuffer
-
 sock = com.getSocket()
-sock.bind((UDP_IP, UDP_PORT))
-
+sock.bind((com.ip, com.getPortForArm()))
 
 #### Servo
 pwm = Adafruit_PCA9685.PCA9685(address=0x40)
@@ -27,7 +24,6 @@ pwm.set_pwm_freq(60)
 
 def gotMessage(data):
 
-#    i2cdetect -y
     jsonData = json.loads(data)
     
     if "arm" in jsonData:
@@ -46,7 +42,7 @@ def gotMessage(data):
     
     
 while True:
-    data, addr = sock.recvfrom(UDP_BUFFER)
+    data, addr = sock.recvfrom(com.udpBuffer)
     print("received message: %s" % data)
     
     gotMessage(data)

@@ -21,6 +21,11 @@ class UDPClient {
     var port: NWEndpoint.Port
     var delegate: UDPClientDelegate?
     private var listening = true
+    var isListening: Bool {
+        get {
+            return listening
+        }
+    }
     
     var resultHandler = NWConnection.SendCompletion.contentProcessed { NWError in
         guard NWError == nil else {
@@ -84,20 +89,28 @@ class UDPClient {
         
         if self.listening {
             self.connection.receiveMessage { data, context, isComplete, error in
-                print("Receive isComplete: " + isComplete.description)
-                guard let data = data else {
-                    print("Error: Received nil Data")
-                    return
+                if isComplete {
+                    print("Receive isComplete: " + isComplete.description)
+                    guard let data = data else {
+                        //print("Error: Received nil Data")
+                        return
+                    }
+                    print("Data Received")
+                    
+                    self.delegate?.udpClient(self, didReceive: data)
                 }
-                print("Data Received")
-                
-                self.delegate?.udpClient(self, didReceive: data)
                 
             }
             DispatchQueue.global().asyncAfter(deadline: .now() + 0.20) {
                 self.listen()
             }
         }
+        
+    }
+    func disconnect() {
+        
+        self.connection.cancel()
+        self.connection.cancelCurrentEndpoint()
         
     }
 }

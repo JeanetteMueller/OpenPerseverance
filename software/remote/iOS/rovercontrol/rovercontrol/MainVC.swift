@@ -27,8 +27,6 @@ class MainVC: UIViewController {
     @IBOutlet weak var buttonLights: UIButton!
     @IBOutlet weak var buttonSound: UIButton!
     @IBOutlet weak var buttonSpeed: UIButton!
-    @IBOutlet weak var buttonTower: UIButton!
-    @IBOutlet weak var buttonPower: UIButton!
     @IBOutlet weak var statusLabel: UILabel!
     
     
@@ -46,6 +44,9 @@ class MainVC: UIViewController {
     
     @IBOutlet weak var roverTopDownContainerView: UIView!
     var roverTopDownView: RoverTopDownPositionView?
+    
+    @IBOutlet weak var roverSpeedContainerView: UIView!
+    var roverSpeedView: RoverSpeedView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,9 +88,7 @@ class MainVC: UIViewController {
         for b in [buttonDriveMode,
                   buttonLights,
                   buttonSound,
-                  buttonSpeed,
-                  buttonTower,
-                  buttonPower] {
+                  buttonSpeed] {
             if CommunicationManager.shared.state == .Connected, MovementManager.shared.state == .Connected {
                 
                 
@@ -109,9 +108,8 @@ class MainVC: UIViewController {
         self.setActionButtonStyle([buttonDriveMode,
                                    buttonLights,
                                    buttonSound,
-                                   buttonSpeed,
-                                   buttonTower,
-                                   buttonPower])
+                                   buttonSpeed
+                                   ])
         
         self.optionsContainer.layer.borderWidth = 1.0
         self.optionsContainer.layer.borderColor = UIColor.darkGray.cgColor
@@ -148,10 +146,17 @@ class MainVC: UIViewController {
                 self.roverTopDownView = r.topDownPositionView
                 self.roverTopDownView!.center = CGPoint(x: self.roverTopDownContainerView.frame.size.width / 2,
                                                         y: self.roverTopDownContainerView.frame.size.height / 2)
-                let scale:CGFloat = 1.6
+                let scale:CGFloat = 1.0
                 
                 self.roverTopDownView!.transform = CGAffineTransform(scaleX: scale, y: scale)
                 self.roverTopDownContainerView.addSubview(self.roverTopDownView!)
+                
+                
+                self.roverSpeedView = r.speedView
+                self.roverSpeedView!.center = CGPoint(x: self.roverSpeedContainerView.frame.size.width / 2,
+                                                      y: self.roverSpeedContainerView.frame.size.height / 2)
+                self.roverSpeedContainerView.addSubview(self.roverSpeedView!)
+                
                 
                 self.view.bringSubviewToFront(self.optionsContainer)
             }
@@ -159,8 +164,15 @@ class MainVC: UIViewController {
         
         updateRoverData()
         
-        
+        self.infoTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.loadRoverInfo), userInfo: nil, repeats: true)
     }
+    var infoTimer: Timer?
+    
+    @objc func loadRoverInfo() {
+        
+        //CommunicationManager.shared.sendInfoInformation()
+    }
+    
     func showOptionsOverlay() {
         self.optionsContainer.isHidden = false
         

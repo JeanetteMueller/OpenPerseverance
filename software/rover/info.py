@@ -7,38 +7,25 @@ import time
 
 from Communication import Communication
 
-com = Communication("power")
-
-UDP_IP = com.ip
-UDP_PORT = com.getPortForPower()
-UDP_BUFFER = com.udpBuffer
+com = Communication("info")
 
 sock = com.getSocket()
-sock.bind((UDP_IP, UDP_PORT))
-
+sock.bind((com.ip, com.getPortForInfo()))
 
 def gotMessage(data, addr):
 
-#    i2cdetect -y
     jsonData = json.loads(data)
     
-    if "power" in jsonData:
-        power = jsonData["power"]
-        
-        if "get" in power:
-            
+    if "info" in jsonData:
+        info = jsonData["info"]
+        if "get" in info:
             answer = {"get": "Das hier ist meine Antwort"}
-            
             print("send message: %s" % answer["get"])
-            
             message = json.dumps(answer)
-            
             sock.sendto(message, addr)
 
-    
-    
 while True:
-    data, addr = sock.recvfrom(UDP_BUFFER)
+    data, addr = sock.recvfrom(com.udpBuffer)
     print("received message: %s" % data)
     
     gotMessage(data, addr)

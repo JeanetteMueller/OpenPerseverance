@@ -1,5 +1,10 @@
 
 class Helper:
+    
+    def findI2C(self):
+        i2cdetect -y
+        #i2cdetect -y 1
+        
     def getPulseFromAngle(self, angle, servo_min, servo_max):
         
         #print("Helper getPulseFromAngle angle: %f - %f - %f" % (angle, servo_min, servo_max))

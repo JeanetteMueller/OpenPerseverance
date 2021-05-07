@@ -29,7 +29,9 @@ class RoverTopDownPositionView: UIView {
     var infoRightBack: UILabel
     
     init(withRover r:Rover) {
+        
         self.rover = r
+        
         let wheelWidth: CGFloat = 8.8
         let wheelHeight: CGFloat = 12
         
@@ -168,7 +170,7 @@ class RoverTopDownPositionView: UIView {
         self.updateMovableParts()
     }
     
-    var currentTowerInformation: Rover.TowerInformation = Rover.TowerInformation(position:0, rotation:0, tilt:0)
+    var currentTowerInformation: Rover.TowerInformation = Rover.TowerInformation(rotation: 170 / 2, tilt: 170 / 2)
     func updateTowerInformation(_ v: Rover.TowerInformation) {
         self.currentTowerInformation = v
         self.updateMovableParts()

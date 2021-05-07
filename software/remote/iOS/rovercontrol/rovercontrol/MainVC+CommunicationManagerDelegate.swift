@@ -41,7 +41,7 @@ extension MainVC: CommunicationManagerDelegate {
                 
                 print("didReceive \(result)")
                 
-                self.statusLabel.text?.append("\n\(result)")
+                self.statusLabel.text = "\(Date()): \(result)"
             }
             
             do {

@@ -18,7 +18,7 @@ class Rover {
     typealias MotorInformation = (left:Float, leftCenter:Float, right:Float, rightCenter:Float)
     typealias ArmInformation = (joint1:Float, joint2:Float, joint3:Float, joint4:Float)
     typealias LightInformation = (light1:Int, light2:Int, light3:Int, light4:Int)
-    typealias TowerInformation = (position:Int, rotation:Int, tilt:Int)
+    typealias TowerInformation = (rotation:Float, tilt:Float)
     typealias SoundInformation = (file:Int, action:Int)
     
     var pause: Bool = false {
@@ -112,7 +112,14 @@ class Rover {
         }
     }
     
-    var tower = TowerInformation(position:0, rotation:0, tilt:0) {
+    
+    let maxTowerRotate:Float = 180
+    let rangeTowerRotate:Float = 6
+    
+    let maxTowerTilt:Float = 170
+    let rangeTowerTilt:Float = 80
+    
+    var tower = TowerInformation(rotation: 170 / 2, tilt: 170 / 2) {
         didSet {
             self.topDownPositionView.updateTowerInformation(self.tower)
             
@@ -159,6 +166,16 @@ class Rover {
                 self.roverTopDownPositionView = RoverTopDownPositionView(withRover: self)
             }
             return self.roverTopDownPositionView!
+        }
+    }
+    
+    private var roverSpeedView: RoverSpeedView?
+    var speedView: RoverSpeedView {
+        get {
+            if self.roverSpeedView == nil {
+                self.roverSpeedView = RoverSpeedView(withRover: self)
+            }
+            return self.roverSpeedView!
         }
     }
     

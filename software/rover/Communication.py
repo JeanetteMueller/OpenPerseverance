@@ -4,7 +4,6 @@ class Communication:
     ip = "" #"192.168.178.55"
     #ip = "10.0.0.5"
     
-    
     udpBuffer = 2048
     
     def __init__(self, name):
@@ -28,7 +27,7 @@ class Communication:
     def getPortForSound(self):
         return 5006
         
-    def getPortForPower(self):
+    def getPortForInfo(self):
         return 5007
     
     def getSocket(self): 

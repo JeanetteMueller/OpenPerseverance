@@ -15,7 +15,6 @@ com = Communication("steer")
 sock = com.getSocket()
 sock.bind((com.ip, com.getPortForSteer()))
 
-
 #### Servo
 pwm = Adafruit_PCA9685.PCA9685(address=0x40)
 servo_min = 150.0  # Min pulse length out of 4096
@@ -25,7 +24,6 @@ pwm.set_pwm_freq(60)
 
 def gotMessage(data):
 
-#    i2cdetect -y
     jsonData = json.loads(data)
     
     if "steer" in jsonData:

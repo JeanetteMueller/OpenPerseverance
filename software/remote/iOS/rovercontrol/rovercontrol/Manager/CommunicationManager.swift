@@ -24,7 +24,7 @@ class CommunicationManager {
     var udpClient_Light: UDPClient?
     var udpClient_Tower: UDPClient?
     var udpClient_Sound: UDPClient?
-    var udpClient_Power: UDPClient?
+    var udpClient_Info: UDPClient?
     
     var delegate: CommunicationManagerDelegate?
     
@@ -111,13 +111,14 @@ class CommunicationManager {
             self.udpClient_Sound!.connect()
         }
         
-        if self.udpClient_Power == nil {
-            self.udpClient_Power = self.startUdpClient(port: 5007, asListener: false)
-        }else if udpClient_Power!.state != .ready{
-            self.udpClient_Power!.connect()
+    }
+    
+    func udpRestart_Info() {
+        if self.udpClient_Info == nil {
+            self.udpClient_Info = self.startUdpClient(port: 5007, asListener: true)
+        }else if udpClient_Info!.state != .ready{
+            self.udpClient_Info!.connect()
         }
-        
-        
     }
     
     func sendWheelRotation(_ wr: Rover.WheelRotation) {
@@ -241,7 +242,7 @@ class CommunicationManager {
         
         let sendData = [
             "tower": [
-                "position": tower.position,
+//                "position": tower.position,
                 "rotation": tower.rotation,
                 "tilt": tower.tilt
             ]
@@ -261,16 +262,17 @@ class CommunicationManager {
         
         self.sendData(sendData, to: self.udpClient_Sound)
     }
-    func sendPowerInformation() {
-        udpRestart()
+    func sendInfoInformation() {
+        udpRestart_Info()
         
         let sendData = [
-            "power": [
+            "info": [
                 "get": "accu"
+                
             ]
         ]
         
-        self.sendData(sendData, to: self.udpClient_Power)
+        self.sendData(sendData, to: self.udpClient_Info)
     }
     func sendData(_ data: Any, to client:UDPClient?) {
         print("sendData \(data)")
@@ -317,5 +319,18 @@ extension CommunicationManager: UDPClientDelegate {
         
         self.delegate?.communicationManager(self, didReceive: data, fromClient: client)
         
+        if client.isListening {
+            
+            if client.port == self.udpClient_Info?.port {
+                
+                client.disconnect()
+                
+                client.delegate = nil
+                self.udpClient_Info?.delegate = nil
+                self.udpClient_Info = nil
+                
+            }
+            
+        }
     }
 }
