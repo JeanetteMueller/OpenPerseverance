@@ -1,0 +1,11 @@
+[Unit]
+Description=Rover Tower Control
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/tower.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

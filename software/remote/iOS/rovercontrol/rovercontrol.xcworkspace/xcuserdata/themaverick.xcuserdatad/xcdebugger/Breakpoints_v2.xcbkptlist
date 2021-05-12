@@ -46,8 +46,8 @@
             filePath = "rovercontrol/OptionsTVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "selectRow(at:)"
             landmarkType = "7">
          </BreakpointContent>

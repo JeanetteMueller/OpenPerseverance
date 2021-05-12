@@ -25,9 +25,14 @@ class MainVC: UIViewController {
     
     @IBOutlet weak var buttonDriveMode: UIButton!
     @IBOutlet weak var buttonLights: UIButton!
-    @IBOutlet weak var buttonSound: UIButton!
     @IBOutlet weak var buttonSpeed: UIButton!
     @IBOutlet weak var statusLabel: UILabel!
+    
+    
+    
+    
+
+    
     
     
     @IBOutlet weak var camera1Label: UILabel!
@@ -35,17 +40,32 @@ class MainVC: UIViewController {
     @IBOutlet weak var camera1LoadingIndicator: UIActivityIndicatorView!
     var camera1Stream: MJPEGStreamLib!
     @IBOutlet weak var camera1StartButton: UIButton!
+    @IBOutlet weak var camera1ZoomButton: UIButton!
+    @IBOutlet weak var camera1height: NSLayoutConstraint!
+    
     
     @IBOutlet weak var camera2Label: UILabel!
     @IBOutlet weak var camera2ImageView: UIImageView!
     @IBOutlet weak var camera2LoadingIndicator: UIActivityIndicatorView!
     var camera2Stream: MJPEGStreamLib!
     @IBOutlet weak var camera2StartButton: UIButton!
+    @IBOutlet weak var camera2ZoomButton: UIButton!
+    @IBOutlet weak var camera2Height: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var camera3Label: UILabel!
+    @IBOutlet weak var camera3ImageView: UIImageView!
+    @IBOutlet weak var camera3LoadingIndicator: UIActivityIndicatorView!
+    var camera3Stream: MJPEGStreamLib!
+    @IBOutlet weak var camera3StartButton: UIButton!
+    @IBOutlet weak var camera3ZoomButton: UIButton!
+    @IBOutlet weak var camera3Height: NSLayoutConstraint!
+    
     
     @IBOutlet weak var roverTopDownContainerView: UIView!
     var roverTopDownView: RoverTopDownPositionView?
     
-    @IBOutlet weak var roverSpeedContainerView: UIView!
+    @IBOutlet weak var roverSpeedContainerView: UIView?
     var roverSpeedView: RoverSpeedView?
     
     override func viewDidLoad() {
@@ -77,6 +97,9 @@ class MainVC: UIViewController {
         self.camera2ImageView.layer.borderColor = UIColor.lightGray.cgColor
         self.camera2ImageView.layer.borderWidth = 1
         
+        self.camera3ImageView.layer.borderColor = UIColor.lightGray.cgColor
+        self.camera3ImageView.layer.borderWidth = 1
+        
         CommunicationManager.shared.delegate = self
         
         MovementManager.shared.addDelegate(self)
@@ -87,32 +110,25 @@ class MainVC: UIViewController {
     func updateButtons() {
         for b in [buttonDriveMode,
                   buttonLights,
-                  buttonSound,
                   buttonSpeed] {
-            if CommunicationManager.shared.state == .Connected, MovementManager.shared.state == .Connected {
+            
+            b?.isEnabled = true
+            b?.backgroundColor = .white
                 
-                
-                
-                b?.isEnabled = true
-                b?.backgroundColor = .white
-                
-            }else{
-                b?.isEnabled = false
-                b?.backgroundColor = .lightGray
-            }
         }
+        
+        buttonPause.backgroundColor = .red
+        buttonPause.setTitleColor(.white, for: .normal)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.setActionButtonStyle([buttonDriveMode,
+        self.setActionButtonStyle([buttonPause,
+                                   buttonDriveMode,
                                    buttonLights,
-                                   buttonSound,
                                    buttonSpeed
                                    ])
         
-        self.optionsContainer.layer.borderWidth = 1.0
-        self.optionsContainer.layer.borderColor = UIColor.darkGray.cgColor
         
         
 
@@ -137,7 +153,10 @@ class MainVC: UIViewController {
                                                object: nil)
         
         
-        //udpTestSend()
+        camera1height.constant = camera1BasicHeight
+        camera2Height.constant = camera2BasicHeight
+        camera3Height.constant = camera3BasicHeight
+        self.view.layoutIfNeeded()
         
         
         if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
@@ -153,20 +172,25 @@ class MainVC: UIViewController {
                 
                 
                 self.roverSpeedView = r.speedView
-                self.roverSpeedView!.center = CGPoint(x: self.roverSpeedContainerView.frame.size.width / 2,
-                                                      y: self.roverSpeedContainerView.frame.size.height / 2)
-                self.roverSpeedContainerView.addSubview(self.roverSpeedView!)
+                self.roverSpeedView!.center = CGPoint(x: (self.roverSpeedContainerView?.frame.size.width ?? 2) / 2,
+                                                      y: (self.roverSpeedContainerView?.frame.size.height ?? 2) / 2)
+                self.roverSpeedContainerView?.addSubview(self.roverSpeedView!)
                 
                 
                 self.view.bringSubviewToFront(self.optionsContainer)
             }
         }
         
+        self.camera3ImageView.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
+        
         updateRoverData()
         
         self.infoTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.loadRoverInfo), userInfo: nil, repeats: true)
     }
     var infoTimer: Timer?
+    
+
+    
     
     @objc func loadRoverInfo() {
         
@@ -175,6 +199,7 @@ class MainVC: UIViewController {
     
     func showOptionsOverlay() {
         self.optionsContainer.isHidden = false
+        self.view.bringSubviewToFront(self.optionsContainer)
         
         if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
             if let r = mySceneDelegate.rover {

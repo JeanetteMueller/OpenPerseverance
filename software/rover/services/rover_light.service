@@ -1,0 +1,11 @@
+[Unit]
+Description=Rover Light Control
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/light.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

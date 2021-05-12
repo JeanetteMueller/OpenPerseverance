@@ -122,8 +122,8 @@ enum Theme: Int, ThemeProtocol {
     var cornerRadiusPercent: CGFloat { return 10 }
     var contentInsetFromDisplayBorder: CGFloat { return 10 }
     
-    var tableViewCellDefaultHeight: CGFloat { return 60 }
-    var tableViewHeadlineHeight: CGFloat { return 40 }
+    var tableViewCellDefaultHeight: CGFloat { return 40 }
+    var tableViewHeadlineHeight: CGFloat { return 30 }
     
     var minimalBorderWidth: CGFloat { return 1 }
     

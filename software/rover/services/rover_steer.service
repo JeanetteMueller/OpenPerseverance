@@ -1,0 +1,11 @@
+[Unit]
+Description=Rover Steer Control
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/steer.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

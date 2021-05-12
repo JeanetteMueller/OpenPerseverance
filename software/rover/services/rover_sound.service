@@ -1,0 +1,11 @@
+[Unit]
+Description=Rover Sound Control
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/sound.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

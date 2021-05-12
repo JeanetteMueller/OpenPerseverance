@@ -19,7 +19,9 @@ class Rover {
     typealias ArmInformation = (joint1:Float, joint2:Float, joint3:Float, joint4:Float)
     typealias LightInformation = (light1:Int, light2:Int, light3:Int, light4:Int)
     typealias TowerInformation = (rotation:Float, tilt:Float)
-    typealias SoundInformation = (file:Int, action:Int)
+    typealias SoundInformation = (file:String, action:Int)
+    
+    typealias HeadInformation = (colorRed:Int, colorGreen:Int, colorBlue:Int)
     
     var pause: Bool = false {
         didSet {
@@ -113,11 +115,11 @@ class Rover {
     }
     
     
-    let maxTowerRotate:Float = 180
+    let maxTowerRotate:Float = 170
     let rangeTowerRotate:Float = 6
     
     let maxTowerTilt:Float = 170
-    let rangeTowerTilt:Float = 80
+    let rangeTowerTilt:Float = 85
     
     var tower = TowerInformation(rotation: 170 / 2, tilt: 170 / 2) {
         didSet {

@@ -1,0 +1,11 @@
+[Unit]
+Description=Rover Arm Control
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/arm.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

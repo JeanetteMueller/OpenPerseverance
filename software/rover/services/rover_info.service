@@ -1,0 +1,12 @@
+[Unit]
+Description=Rover Info Control
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/info.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

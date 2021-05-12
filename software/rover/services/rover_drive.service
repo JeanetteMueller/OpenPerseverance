@@ -1,0 +1,11 @@
+[Unit]
+Description=Rover Drive Control
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/drive.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

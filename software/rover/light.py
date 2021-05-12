@@ -10,12 +10,8 @@ from Helper import Helper
 
 com = Communication("light")
 
-UDP_IP = com.ip
-UDP_PORT = com.getPortForLight()
-UDP_BUFFER = com.udpBuffer
-
 sock = com.getSocket()
-sock.bind((UDP_IP, UDP_PORT))
+sock.bind((com.ip, com.getPortForLight()))
 
 
 #### Servo
@@ -45,7 +41,7 @@ def gotMessage(data):
     
     
 while True:
-    data, addr = sock.recvfrom(UDP_BUFFER)
+    data, addr = sock.recvfrom(com.udpBuffer)
     print("received message: %s" % data)
     
     gotMessage(data)

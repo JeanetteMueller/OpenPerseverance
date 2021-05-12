@@ -19,18 +19,21 @@ class OptionsRootTVC: OptionsTVC {
         var c = [ContentTableViewCellData]()
         
         
-        c.append(DetailViewCell.BasicCell(withTitle: "Actions",  andAction: { (cell, path) in
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OptionsActionsTVC") as? OptionsActionsTVC {
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }))
+        
         c.append(DetailViewCell.BasicCell(withTitle: "Sounds", andAction: { (cell, path) in
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OptionsSoundsTVC") as? OptionsSoundsTVC {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }))
+        
         c.append(DetailViewCell.BasicCell(withTitle: "Lights", andAction: { (cell, path) in
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OptionsLightsTVC") as? OptionsLightsTVC {
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }))
+        
+        c.append(DetailViewCell.BasicCell(withTitle: "Actions",  andAction: { (cell, path) in
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OptionsActionsTVC") as? OptionsActionsTVC {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }))
