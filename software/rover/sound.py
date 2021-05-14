@@ -37,7 +37,7 @@ def gotMessage(data):
         
 
 def loop():
-    fileName = "Directive.mp3"
+    fileName = "Startup iMac.mp3"
     f = "omxplayer '/home/pi/sounds/" + fileName + "' &"
     
     print(f)

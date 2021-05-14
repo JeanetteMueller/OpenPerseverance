@@ -181,7 +181,7 @@ class MainVC: UIViewController {
             }
         }
         
-        self.camera3ImageView.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
+        //self.camera3ImageView.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
         
         updateRoverData()
         

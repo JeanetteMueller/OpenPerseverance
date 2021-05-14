@@ -14,9 +14,9 @@ com = Communication("light")
 sock = com.getSocket()
 sock.bind((com.ip, com.getPortForLight()))
 
-ledPin_red = 23
+ledPin_red = 25
 ledPin_green = 24
-ledPin_blue = 25
+ledPin_blue = 23
 
 def setup():
     GPIO.setmode(GPIO.BCM) #BOARD
