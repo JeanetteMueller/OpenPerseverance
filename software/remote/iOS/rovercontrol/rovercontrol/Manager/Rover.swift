@@ -23,15 +23,16 @@ class Rover {
     
     typealias HeadInformation = (colorRed:Int, colorGreen:Int, colorBlue:Int)
     
-    var pause: Bool = false {
-        didSet {
-            if self.pause {
-                MovementManager.shared.removeDelegate(self)
-            }else{
-                MovementManager.shared.addDelegate(self)
-            }
-        }
-    }
+    var pause: Bool = false
+//    {
+//        didSet {
+//            if self.pause {
+//                MovementManager.shared.removeDelegate(self)
+//            }else{
+//                MovementManager.shared.addDelegate(self)
+//            }
+//        }
+//    }
     
     enum Wheels {
         case FrontRight, FrontLeft, BackRight, BackLeft

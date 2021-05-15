@@ -91,6 +91,7 @@ extension MainVC {
             self.view.bringSubviewToFront(camera1ImageView)
             self.view.bringSubviewToFront(camera1StartButton)
             self.view.bringSubviewToFront(camera1Label)
+            self.view.bringSubviewToFront(camera1LoadingIndicator)
             self.view.bringSubviewToFront(sender)
         }
         
@@ -141,6 +142,7 @@ extension MainVC {
             self.view.bringSubviewToFront(camera2ImageView)
             self.view.bringSubviewToFront(camera2StartButton)
             self.view.bringSubviewToFront(camera2Label)
+            self.view.bringSubviewToFront(camera2LoadingIndicator)
             self.view.bringSubviewToFront(sender)
         }
         
@@ -197,6 +199,7 @@ extension MainVC {
             self.view.bringSubviewToFront(camera3ImageView)
             self.view.bringSubviewToFront(camera3StartButton)
             self.view.bringSubviewToFront(camera3Label)
+            self.view.bringSubviewToFront(camera3LoadingIndicator)
             self.view.bringSubviewToFront(sender)
         }
         

@@ -12,21 +12,25 @@ from Helper import Helper
 com = Communication("sound")
 
 sock = com.getSocket()
-# sock.bind((com.ip, com.getPortForSound()))
+sock.bind((com.ip, com.getPortForSound()))
 
 
 def gotMessage(data):
-
+    print("gotMessage")
 #    i2cdetect -y
     jsonData = json.loads(data)
     
     if "sound" in jsonData:
         sound = jsonData["sound"]
         
+        print("got sound")
+        
         if "file" in sound:
             fileName = sound["file"]
             
-            f = "omxplayer '/home/pi/sounds/" + fileName + "' &"
+            print("got file")
+            
+            f = "omxplayer '/home/pi/sounds/" + fileName + "'"
             
             print(f)
         
@@ -38,24 +42,25 @@ def gotMessage(data):
 
 def loop():
     fileName = "Startup iMac.mp3"
-    f = "omxplayer '/home/pi/sounds/" + fileName + "' &"
-    
+    f = "omxplayer '/home/pi/sounds/" + fileName + "'"
+
     print(f)
 
     os.system(f)
-    
-    while True:
-        data, addr = sock.recvfrom(com.udpBuffer)
-        print("received message: %s" % data)
-    
-        gotMessage(data)
-    
+
+
 def destroy():
     print("Exiting")
-        
-if __name__ == '__main__': # Program start from here 
-    try: 
+
+if __name__ == '__main__': # Program start from here
+    try:
         loop()
-    except KeyboardInterrupt: 
+    except KeyboardInterrupt:
         # When 'Ctrl+C' is pressed, the child program destroy() will be executed.
         destroy()
+        
+while True:
+    data, addr = sock.recvfrom(com.udpBuffer)
+    print("received message: %s" % data)
+
+    gotMessage(data)

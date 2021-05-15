@@ -70,36 +70,38 @@ extension Rover: MovementManagerDelegate {
                 self.toggleSpeed()
             
             case .DpadLeft, .DpadRight, .DpadUp, .DpadDown:
-                
-                self.dpadPressedButton = button
-                
-                self.dpadRepeatTimerAction(nil)
-                
-                self.dPadRepeatTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.dpadRepeatTimerAction(_:)), userInfo: nil, repeats: true)
+                if !self.pause {
+                    self.dpadPressedButton = button
+                    
+                    self.dpadRepeatTimerAction(nil)
+                    
+                    self.dPadRepeatTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.dpadRepeatTimerAction(_:)), userInfo: nil, repeats: true)
             
 //            case .L2:
 //                self.updateDrivingAndSteering(manager)
 //            case .R2:
 //                self.updateDrivingAndSteering(manager)
-                
+                }
             default:
                 //Nothing
                 print("Nothing to do")
             }
         } else{
-            switch button {
-            
-                case .DpadLeft, .DpadRight, .DpadUp, .DpadDown:
-                    
-                    if let t = self.dPadRepeatTimer {
-                        t.invalidate()
-                    }
-                    self.dPadRepeatTimer = nil
-                    self.dpadPressedButton = nil
+            if !self.pause {
+                switch button {
                 
-            default:
-                //Nothing
-                print("Nothing to do")
+                    case .DpadLeft, .DpadRight, .DpadUp, .DpadDown:
+                        
+                        if let t = self.dPadRepeatTimer {
+                            t.invalidate()
+                        }
+                        self.dPadRepeatTimer = nil
+                        self.dpadPressedButton = nil
+                    
+                default:
+                    //Nothing
+                    print("Nothing to do")
+                }
             }
         }
         
