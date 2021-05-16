@@ -41,20 +41,7 @@ class OptionsSoundsTVC: OptionsTVC {
             "Vocal Beeps 2.mp3",
             "Wall-E, No.mp3",
             "WALLE 1.mp3",
-            "Whoa.mp3",
-            "Rock Music.mp3",
-            "Arrest that robot.mp3",
-            "Beeps 1.mp3",
-            "Beeps 2.mp3",
-            "Beeps 3.mp3",
-            "citizen of the earth, you will be destroyed.mp3",
-            "Countdown - 10, 9, 8.mp3",
-            "Destroy.mp3",
-            "Directive.mp3",
-            "Distance to target.mp3",
-            "Hahaha.mp3",
-            "Identification please.mp3",
-            "Ignition.mp3"
+            "Whoa.mp3"
         ]
         
         for file in files {

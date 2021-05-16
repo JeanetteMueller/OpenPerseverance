@@ -78,10 +78,10 @@
             filePath = "rovercontrol/Manager/Rover+MovementManagerDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
             landmarkName = "updateDrivingAndSteering(_:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -94,10 +94,10 @@
             filePath = "rovercontrol/Manager/Rover+MovementManagerDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "inputManagerDidChanged(_:withUpdate:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -110,8 +110,8 @@
             filePath = "rovercontrol/Manager/Rover+MovementManagerDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "inputManager(_:button:isPressed:pressValue:)"
             landmarkType = "7">
          </BreakpointContent>

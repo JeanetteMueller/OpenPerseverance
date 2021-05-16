@@ -24,11 +24,12 @@ class MainVC: UIViewController {
     
     
     @IBOutlet weak var buttonDriveMode: UIButton!
-    @IBOutlet weak var buttonLights: UIButton!
     @IBOutlet weak var buttonSpeed: UIButton!
+    
     @IBOutlet weak var statusLabel: UILabel!
     
-    
+    @IBOutlet weak var buttonLightRed: UIButton!
+    @IBOutlet weak var buttonLightGreen: UIButton!
     
     
 
@@ -109,8 +110,9 @@ class MainVC: UIViewController {
     }
     func updateButtons() {
         for b in [buttonDriveMode,
-                  buttonLights,
-                  buttonSpeed] {
+                  buttonSpeed,
+                  buttonLightRed,
+                  buttonLightGreen] {
             
             b?.isEnabled = true
             b?.backgroundColor = .white
@@ -119,14 +121,18 @@ class MainVC: UIViewController {
         
         buttonPause.backgroundColor = .red
         buttonPause.setTitleColor(.white, for: .normal)
+        
+        buttonLightRed.setTitleColor(.red, for: .normal)
+        buttonLightGreen.setTitleColor(.green, for: .normal)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.setActionButtonStyle([buttonPause,
                                    buttonDriveMode,
-                                   buttonLights,
-                                   buttonSpeed
+                                   buttonSpeed,
+                                   buttonLightRed,
+                                   buttonLightGreen
                                    ])
         
         
@@ -200,6 +206,9 @@ class MainVC: UIViewController {
     func showOptionsOverlay() {
         self.optionsContainer.isHidden = false
         self.view.bringSubviewToFront(self.optionsContainer)
+        
+        self.optionsContainer.layer.borderWidth = 1.0
+        self.optionsContainer.layer.borderColor = UIColor.lightGray.cgColor
         
         if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
             if let r = mySceneDelegate.rover {

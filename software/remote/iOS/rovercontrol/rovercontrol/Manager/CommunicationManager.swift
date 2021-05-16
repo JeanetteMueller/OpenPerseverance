@@ -165,6 +165,7 @@ class CommunicationManager {
         self.sendData(sendData, to: self.udpClient_Steer)
     }
     func sendMotorInformation(_ mi: Rover.MotorInformation) {
+    
         udpRestart()
         
         if Date().millisecondsSince1970 < lastMovementMotorInformation.millisecondsSince1970 + 50 {

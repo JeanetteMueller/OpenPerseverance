@@ -60,11 +60,25 @@ extension Rover: MovementManagerDelegate {
         
         if pressed {
             switch button {
+            case .ButtonA:
+                if !self.pause {
+                    
+                }
             case .ButtonB:
-                if self.driving == .Drive {
-                    self.driving = .Rotate
-                }else{
-                    self.driving = .Drive
+                if !self.pause {
+                    if self.driving == .Drive {
+                        self.driving = .Rotate
+                    }else{
+                        self.driving = .Drive
+                    }
+                }
+            case .ButtonX:
+                if !self.pause {
+                    
+                }
+            case .ButtonY:
+                if !self.pause {
+                    
                 }
             case .R1:
                 self.toggleSpeed()
