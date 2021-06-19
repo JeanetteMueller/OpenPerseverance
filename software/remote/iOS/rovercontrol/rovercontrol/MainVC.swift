@@ -30,7 +30,7 @@ class MainVC: UIViewController {
     
     @IBOutlet weak var buttonLightRed: UIButton!
     @IBOutlet weak var buttonLightGreen: UIButton!
-    
+    @IBOutlet weak var buttonLaser: UIButton!
     
 
     
@@ -112,7 +112,8 @@ class MainVC: UIViewController {
         for b in [buttonDriveMode,
                   buttonSpeed,
                   buttonLightRed,
-                  buttonLightGreen] {
+                  buttonLightGreen,
+                  buttonLaser] {
             
             b?.isEnabled = true
             b?.backgroundColor = .white
@@ -124,6 +125,8 @@ class MainVC: UIViewController {
         
         buttonLightRed.setTitleColor(.red, for: .normal)
         buttonLightGreen.setTitleColor(.green, for: .normal)
+        
+        buttonLaser.setTitleColor(.red, for: .normal)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -132,8 +135,8 @@ class MainVC: UIViewController {
                                    buttonDriveMode,
                                    buttonSpeed,
                                    buttonLightRed,
-                                   buttonLightGreen
-                                   ])
+                                   buttonLightGreen,
+                                   buttonLaser])
         
         
         

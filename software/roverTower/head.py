@@ -14,9 +14,12 @@ com = Communication("light")
 sock = com.getSocket()
 sock.bind((com.ip, com.getPortForLight()))
 
+#// pin belegung nach PGIO
 ledPin_red = 25
 ledPin_green = 24
 ledPin_blue = 23
+laserPin_power = 27
+laserPin_ground = 22
 
 def setup():
     GPIO.setmode(GPIO.BCM) #BOARD
@@ -28,6 +31,9 @@ def setup():
 
     GPIO.setup(ledPin_blue, GPIO.OUT, initial=GPIO.HIGH)
     # GPIO.output(ledPin_blue, GPIO.LOW)
+    
+    GPIO.setup(laserPin_power, GPIO.OUT, initial=GPIO.LOW)
+    GPIO.setup(laserPin_ground, GPIO.OUT, initial=GPIO.LOW)
 
 red = 0
 green = 0
@@ -43,25 +49,38 @@ def gotMessage(data):
         
         if "r" in head:
             red = int(head["r"])
+            
+            if red == 1:
+                GPIO.output(ledPin_red, GPIO.LOW)
+            else: 
+                GPIO.output(ledPin_red, GPIO.HIGH)
+                
         if "g" in head:
             green = int(head["g"])
+            
+            if green == 1: 
+                GPIO.output(ledPin_green, GPIO.LOW)
+            else: 
+                GPIO.output(ledPin_green, GPIO.HIGH)
+                
         if "b" in head:
             blue = int(head["b"])
             
-        if red == 1:
-            GPIO.output(ledPin_red, GPIO.LOW)
-        else: 
-            GPIO.output(ledPin_red, GPIO.HIGH)
+            if blue == 1: 
+                GPIO.output(ledPin_blue, GPIO.LOW)
+            else:
+                GPIO.output(ledPin_blue, GPIO.HIGH)
             
-        if green == 1: 
-            GPIO.output(ledPin_green, GPIO.LOW)
-        else: 
-            GPIO.output(ledPin_green, GPIO.HIGH)
+        if "l" in head:
+            laser = int(head["l"])    
             
-        if blue == 1: 
-            GPIO.output(ledPin_blue, GPIO.LOW)
-        else:
-            GPIO.output(ledPin_blue, GPIO.HIGH)   
+            if laser == 1:
+                GPIO.output(laserPin_power, GPIO.HIGH)
+                GPIO.output(laserPin_ground, GPIO.LOW)
+            else:
+                GPIO.output(laserPin_power, GPIO.LOW)
+                GPIO.output(laserPin_ground, GPIO.LOW)
+        
             
 def loop():
     print ('main loop')

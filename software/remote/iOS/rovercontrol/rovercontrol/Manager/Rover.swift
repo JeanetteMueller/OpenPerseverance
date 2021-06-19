@@ -13,6 +13,7 @@ extension Notification.Name {
 }
 
 
+
 class Rover {
     typealias WheelRotation = (fl:Float, fr:Float, bl:Float, br:Float)
     typealias MotorInformation = (left:Float, leftCenter:Float, right:Float, rightCenter:Float)
@@ -21,7 +22,12 @@ class Rover {
     typealias TowerInformation = (rotation:Float, tilt:Float)
     typealias SoundInformation = (file:String, action:Int)
     
-    typealias HeadInformation = (colorRed:Int, colorGreen:Int, colorBlue:Int)
+    struct HeadInformation {
+        var colorRed: Int?
+        var colorGreen: Int?
+        var colorBlue: Int?
+        var laser: Int?
+    }
     
     var pause: Bool = false
 //    {

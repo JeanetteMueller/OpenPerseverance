@@ -300,6 +300,22 @@
                                     <action selector="actionLighGreen:" destination="BYZ-38-t0r" eventType="touchUpInside" id="S1h-9K-i9t"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUR-64-Tgw">
+                                <rect key="frame" x="772" y="263" width="80" height="60"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="0iy-Js-eTC"/>
+                                    <constraint firstAttribute="width" constant="80" id="knH-cJ-TMY"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                <state key="normal" title="LASER">
+                                    <color key="titleColor" systemColor="systemRedColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionLaser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c9z-LT-Gg9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -321,6 +337,7 @@
                             <constraint firstItem="ITE-PM-Vqg" firstAttribute="trailing" secondItem="13Y-bk-na4" secondAttribute="trailing" id="H8s-BO-OTg"/>
                             <constraint firstItem="7eB-2P-iSm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HbF-Ld-Y6o"/>
                             <constraint firstItem="LWZ-Oh-p5w" firstAttribute="top" secondItem="7eB-2P-iSm" secondAttribute="top" id="I0c-Un-L1k"/>
+                            <constraint firstItem="tW5-rF-bpr" firstAttribute="top" secondItem="mUR-64-Tgw" secondAttribute="bottom" constant="10" id="Idd-QV-vRa"/>
                             <constraint firstItem="1dC-hJ-E0D" firstAttribute="top" secondItem="7eB-2P-iSm" secondAttribute="top" id="Idd-bY-gHV"/>
                             <constraint firstItem="J2g-8P-cD0" firstAttribute="top" secondItem="9Rz-iO-A5i" secondAttribute="top" id="KPN-if-kqh"/>
                             <constraint firstItem="J2g-8P-cD0" firstAttribute="leading" secondItem="9Rz-iO-A5i" secondAttribute="leading" id="LQV-jU-N9v"/>
@@ -350,6 +367,7 @@
                             <constraint firstItem="35t-i5-ZFc" firstAttribute="centerX" secondItem="lur-z4-0fW" secondAttribute="centerX" id="hXb-Kn-scq"/>
                             <constraint firstItem="9Rz-iO-A5i" firstAttribute="bottom" secondItem="o1m-lq-MjH" secondAttribute="bottom" id="i0d-fA-UDl"/>
                             <constraint firstItem="ANW-ec-SqH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="i4Y-QC-N1w"/>
+                            <constraint firstItem="mUR-64-Tgw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="iAl-AZ-PtO"/>
                             <constraint firstItem="RPm-D3-v3W" firstAttribute="top" secondItem="13Y-bk-na4" secondAttribute="top" id="lac-hm-kEU"/>
                             <constraint firstItem="JM9-pC-GcE" firstAttribute="top" secondItem="lur-z4-0fW" secondAttribute="top" id="ltC-ge-U7r"/>
                             <constraint firstItem="T7j-oT-K0E" firstAttribute="top" secondItem="9Rz-iO-A5i" secondAttribute="top" id="mew-Rj-8Cq"/>
@@ -376,6 +394,7 @@
                     </view>
                     <connections>
                         <outlet property="buttonDriveMode" destination="7eB-2P-iSm" id="POR-Ul-aI7"/>
+                        <outlet property="buttonLaser" destination="mUR-64-Tgw" id="dmA-J5-Wcu"/>
                         <outlet property="buttonLightGreen" destination="tW5-rF-bpr" id="tJe-vF-gtP"/>
                         <outlet property="buttonLightRed" destination="QfQ-8l-eDb" id="MW8-LZ-Y1b"/>
                         <outlet property="buttonPause" destination="QIP-n1-24n" id="16F-nW-kI7"/>

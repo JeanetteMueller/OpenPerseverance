@@ -80,6 +80,25 @@ extension MainVC {
             CommunicationManager.shared.sendHeadInformation(d)
         }
     }
+    
+    @IBAction func actionLaser(_ sender: UIButton) {
+        
+        if sender.isSelected {
+            let d = Rover.HeadInformation(laser: 0)
+            CommunicationManager.shared.sendHeadInformation(d)
+            sender.setTitleColor(sender.backgroundColor, for: .normal)
+            sender.backgroundColor = .white
+            sender.isSelected = false
+        }else{
+            sender.backgroundColor = .red
+            sender.setTitleColor(.white, for: .normal)
+            sender.isSelected = true
+            
+            let d = Rover.HeadInformation(laser: 1)
+            CommunicationManager.shared.sendHeadInformation(d)
+        }
+    }
+    
     @IBAction func actionStartCamera1(_ sender: UIButton) {
         print("actionStartCamera1")
         

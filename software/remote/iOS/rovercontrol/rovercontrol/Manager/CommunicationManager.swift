@@ -287,13 +287,22 @@ class CommunicationManager {
     func sendHeadInformation(_ d:Rover.HeadInformation) {
         udpRestart()
         
-        let sendData = [
-            "head":[
-                "r": d.colorRed,
-                "g": d.colorGreen,
-                "b": d.colorBlue
-            ]
-        ]
+        var head = [String: Int]()
+        
+        if let r = d.colorRed{
+            head["r"] = r
+        }
+        if let g = d.colorGreen{
+            head["g"] = g
+        }
+        if let b = d.colorBlue{
+            head["b"] = b
+        }
+        if let l = d.laser{
+            head["l"] = l
+        }
+        
+        let sendData = ["head":head]
         
         self.sendData(sendData, to: self.udpClient_Head)
     }
