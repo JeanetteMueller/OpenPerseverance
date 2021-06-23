@@ -123,7 +123,7 @@ class Rover {
     
     
     let maxTowerRotate:Float = 170
-    let rangeTowerRotate:Float = 6
+    let rangeTowerRotate:Float = 4
     
     let maxTowerTilt:Float = 170
     let rangeTowerTilt:Float = 85

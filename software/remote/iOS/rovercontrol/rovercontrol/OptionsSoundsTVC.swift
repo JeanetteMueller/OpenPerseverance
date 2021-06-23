@@ -40,6 +40,7 @@ class OptionsSoundsTVC: OptionsTVC {
             "Terminate.mp3",
             "Vocal Beeps 2.mp3",
             "Wall-E, No.mp3",
+            "WALL-E Solar Charge and Boot.mp3",
             "WALLE 1.mp3",
             "Whoa.mp3"
         ]
