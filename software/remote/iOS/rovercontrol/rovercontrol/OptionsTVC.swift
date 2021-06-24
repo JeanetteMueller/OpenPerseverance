@@ -72,10 +72,12 @@ extension OptionsTVC: MovementManagerDelegate {
     func inputManager(_ manager: MovementManager, button: MovementManager.ButtonType, isPressed pressed: Bool, pressValue value: Float?) {
         
         if pressed {
+            let numberOfSections = tableView.numberOfSections
+            
             if button == .DpadDown{
                 let oldSelectedPath = self.selectedIndexPath
                 
-                let numberOfSections = tableView.numberOfSections
+                
                 let numberOfRows = tableView.numberOfRows(inSection: oldSelectedPath.section)
                 
                 if oldSelectedPath.row < numberOfRows-1 {
@@ -88,6 +90,10 @@ extension OptionsTVC: MovementManagerDelegate {
                     
                     selectedIndexPath = IndexPath(row: 0, section: oldSelectedPath.section + 1)
                     
+                    self.tableView.selectRow(at: selectedIndexPath, animated: true, scrollPosition: .middle)
+                }else{
+                    
+                    selectedIndexPath = IndexPath(row: 0, section: 0)
                     self.tableView.selectRow(at: selectedIndexPath, animated: true, scrollPosition: .middle)
                 }
             } else if button == .DpadUp {
@@ -104,6 +110,12 @@ extension OptionsTVC: MovementManagerDelegate {
                     let numberOfRows = tableView.numberOfRows(inSection: oldSelectedPath.section - 1)
                     
                     selectedIndexPath = IndexPath(row: numberOfRows - 1, section: oldSelectedPath.section - 1)
+                    
+                    self.tableView.selectRow(at: selectedIndexPath, animated: true, scrollPosition: .middle)
+                }else{
+                    
+                    let numberOfRowsInSection = tableView.numberOfRows(inSection: numberOfSections - 1)
+                    selectedIndexPath = IndexPath(row: numberOfRowsInSection - 1, section: numberOfSections - 1)
                     
                     self.tableView.selectRow(at: selectedIndexPath, animated: true, scrollPosition: .middle)
                 }

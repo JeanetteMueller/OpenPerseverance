@@ -173,12 +173,39 @@ extension Rover: MovementManagerDelegate {
     func inputManager(_ manager: MovementManager, thumbstick: MovementManager.ThumbstickType, x: Float, y: Float) {
         
         if thumbstick == .Left {
-            self.tower = Rover.TowerInformation(rotation:Float(manager.current_leftThumbstick.x * -1) * (rangeTowerRotate / 2) + (maxTowerRotate / 2),
-                                                tilt:Float(manager.current_leftThumbstick.y) * (rangeTowerTilt / 2) + (maxTowerTilt / 2))
+            
+            if !towerIsTilting {
+                repeatActionTowerTilt()
+            }
         }
         if thumbstick == .Right {
             self.updateDrivingAndSteering(manager)
             self.speedView.updateInformation(x, y)
+        }
+    }
+    func repeatActionTowerTilt() {
+        
+        self.towerIsTilting = true
+        
+        
+        let manager = MovementManager.shared
+        
+        currentTowerTilt += Float(manager.current_leftThumbstick.y * 4 )
+        //Float(manager.current_leftThumbstick.y) * (rangeTowerTilt / 2) + (maxTowerTilt / 2)
+        
+        
+        self.tower = Rover.TowerInformation(rotation:Float(manager.current_leftThumbstick.x * -1) * (rangeTowerRotate / 2) + (maxTowerRotate / 2),
+                                            tilt:currentTowerTilt)
+        
+        if MovementManager.shared.current_leftThumbstick.x > 0.05 || MovementManager.shared.current_leftThumbstick.x < -0.05 ||
+            MovementManager.shared.current_leftThumbstick.y > 0.05 || MovementManager.shared.current_leftThumbstick.y < -0.05{
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.repeatActionTowerTilt()
+                
+            }
+        }else{
+            self.towerIsTilting = false
         }
     }
     func inputManagerDidChanged(_ manager: MovementManager, withUpdate update:MovementManager.MovementManagerUpdate){

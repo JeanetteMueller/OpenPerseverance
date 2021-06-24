@@ -121,6 +121,26 @@ class CommunicationManager {
             self.udpClient_Head!.connect()
         }
     }
+    func udpDisconnect() {
+        self.udpClient_Drive?.disconnect()
+        self.udpClient_Steer?.disconnect()
+        self.udpClient_Arm?.disconnect()
+        self.udpClient_Light?.disconnect()
+        self.udpClient_Tower?.disconnect()
+        self.udpClient_Sound?.disconnect()
+        self.udpClient_Head?.disconnect()
+        
+        
+        self.udpClient_Drive = nil
+        self.udpClient_Steer = nil
+        self.udpClient_Arm = nil
+        self.udpClient_Light = nil
+        self.udpClient_Tower = nil
+        self.udpClient_Sound = nil
+        self.udpClient_Head = nil
+    }
+
+    
     
     func udpRestart_Info() {
         if self.udpClient_Info == nil {

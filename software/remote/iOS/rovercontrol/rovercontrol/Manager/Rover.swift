@@ -127,6 +127,8 @@ class Rover {
     
     let maxTowerTilt:Float = 170
     let rangeTowerTilt:Float = 85
+    var currentTowerTilt:Float = 85
+    var towerIsTilting:Bool = false
     
     var tower = TowerInformation(rotation: 170 / 2, tilt: 170 / 2) {
         didSet {

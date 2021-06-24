@@ -48,6 +48,7 @@ class UDPClient {
         address = .ipv4(codedAddress)
         port = codedPort
         listening = isListener
+        
         connection = NWConnection(host: address, port: port, using: .udp)
         
         connect()
@@ -55,7 +56,7 @@ class UDPClient {
     
     func connect() {
         connection.stateUpdateHandler = { newState in
-            
+            print("stateUpdateHandler")
             self.state = newState
             
             switch (newState) {
@@ -66,9 +67,6 @@ class UDPClient {
                     print("State: Setup")
                 case .cancelled:
                     print("State: Cancelled")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        self.connect()
-                    }
                     
                 case .preparing:
                     print("State: Preparing")

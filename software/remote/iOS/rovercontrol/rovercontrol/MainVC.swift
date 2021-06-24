@@ -33,8 +33,9 @@ class MainVC: UIViewController {
     @IBOutlet weak var buttonLaser: UIButton!
     
 
-    
-    
+    @IBOutlet weak var cameraContainer1: UIView!
+    @IBOutlet weak var cameraContainer2: UIView!
+    @IBOutlet weak var cameraContainer3: UIView!
     
     @IBOutlet weak var camera1Label: UILabel!
     @IBOutlet weak var camera1ImageView: UIImageView!
@@ -42,7 +43,8 @@ class MainVC: UIViewController {
     var camera1Stream: MJPEGStreamLib!
     @IBOutlet weak var camera1StartButton: UIButton!
     @IBOutlet weak var camera1ZoomButton: UIButton!
-    @IBOutlet weak var camera1height: NSLayoutConstraint!
+    @IBOutlet weak var camera1PhotoButton: UIButton!
+    @IBOutlet weak var camera1Height: NSLayoutConstraint!
     
     
     @IBOutlet weak var camera2Label: UILabel!
@@ -51,6 +53,7 @@ class MainVC: UIViewController {
     var camera2Stream: MJPEGStreamLib!
     @IBOutlet weak var camera2StartButton: UIButton!
     @IBOutlet weak var camera2ZoomButton: UIButton!
+    @IBOutlet weak var camera2PhotoButton: UIButton!
     @IBOutlet weak var camera2Height: NSLayoutConstraint!
     
     
@@ -60,6 +63,7 @@ class MainVC: UIViewController {
     var camera3Stream: MJPEGStreamLib!
     @IBOutlet weak var camera3StartButton: UIButton!
     @IBOutlet weak var camera3ZoomButton: UIButton!
+    @IBOutlet weak var camera3PhotoButton: UIButton!
     @IBOutlet weak var camera3Height: NSLayoutConstraint!
     
     
@@ -106,6 +110,7 @@ class MainVC: UIViewController {
         MovementManager.shared.addDelegate(self)
         
         
+        updateCameraButtons()
         
     }
     func updateButtons() {
@@ -127,6 +132,15 @@ class MainVC: UIViewController {
         buttonLightGreen.setTitleColor(.green, for: .normal)
         
         buttonLaser.setTitleColor(.red, for: .normal)
+    }
+    func updateCameraButtons() {
+        for b in [camera1StartButton, camera1ZoomButton, camera1PhotoButton,
+                  camera2StartButton, camera2ZoomButton, camera2PhotoButton,
+                  camera3StartButton, camera3ZoomButton, camera3PhotoButton] {
+        
+            b?.setTitleColor(.white, for: .normal)
+        }
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -162,7 +176,7 @@ class MainVC: UIViewController {
                                                object: nil)
         
         
-        camera1height.constant = camera1BasicHeight
+        camera1Height.constant = camera1BasicHeight
         camera2Height.constant = camera2BasicHeight
         camera3Height.constant = camera3BasicHeight
         self.view.layoutIfNeeded()

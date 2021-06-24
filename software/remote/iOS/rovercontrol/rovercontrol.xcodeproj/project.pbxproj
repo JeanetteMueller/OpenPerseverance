@@ -19,6 +19,7 @@
 		2639030A261879A900261C1F /* IPAdress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26390309261879A900261C1F /* IPAdress.swift */; };
 		2643550B2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2643550A2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift */; };
 		2643550E26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2643550D26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift */; };
+		2654865E2684F476002DDE36 /* MainVC+CameraActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2654865D2684F476002DDE36 /* MainVC+CameraActions.swift */; };
 		266D8E31260B8746000E66FC /* Rover+MovementManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266D8E30260B8746000E66FC /* Rover+MovementManagerDelegate.swift */; };
 		269A2A552605012600F3D314 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A2A542605012600F3D314 /* AppDelegate.swift */; };
 		269A2A572605012600F3D314 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A2A562605012600F3D314 /* SceneDelegate.swift */; };
@@ -48,6 +49,7 @@
 		2639030D2618844A00261C1F /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		2643550A2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+MovementManagerDelegate.swift"; sourceTree = "<group>"; };
 		2643550D26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+CommunicationManagerDelegate.swift"; sourceTree = "<group>"; };
+		2654865D2684F476002DDE36 /* MainVC+CameraActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+CameraActions.swift"; sourceTree = "<group>"; };
 		266D8E30260B8746000E66FC /* Rover+MovementManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rover+MovementManagerDelegate.swift"; sourceTree = "<group>"; };
 		269A2A512605012600F3D314 /* rovercontrol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rovercontrol.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		269A2A542605012600F3D314 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				269A2A562605012600F3D314 /* SceneDelegate.swift */,
 				269A2A582605012600F3D314 /* MainVC.swift */,
 				26218B982614CA1300F5993B /* MainVC+Actions.swift */,
+				2654865D2684F476002DDE36 /* MainVC+CameraActions.swift */,
 				2643550D26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift */,
 				2643550A2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift */,
 				269A2A5A2605012600F3D314 /* Main.storyboard */,
@@ -299,6 +302,7 @@
 				269A2A572605012600F3D314 /* SceneDelegate.swift in Sources */,
 				263802B12623842500B2F1F0 /* OptionsRootTVC.swift in Sources */,
 				26B9110A260504C100ADB5A4 /* Rover.swift in Sources */,
+				2654865E2684F476002DDE36 /* MainVC+CameraActions.swift in Sources */,
 				263802A226237E8000B2F1F0 /* Theme.swift in Sources */,
 				2643550E26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift in Sources */,
 				266D8E31260B8746000E66FC /* Rover+MovementManagerDelegate.swift in Sources */,

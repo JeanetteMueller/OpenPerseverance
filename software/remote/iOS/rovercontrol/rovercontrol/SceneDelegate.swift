@@ -21,8 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.rover = Rover()
         
-        MovementManager.shared.addDelegate(self.rover!)
         
+        _ = MovementManager.shared
         
         guard let _ = (scene as? UIWindowScene) else { return }
     }
@@ -39,12 +39,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
 
         
-        _ = MovementManager.shared
+        
+        
+        MovementManager.shared.addDelegate(self.rover!)
+        
+        CommunicationManager.shared.udpRestart()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
+        
+        MovementManager.shared.removeDelegate(self.rover!)
+        
+        CommunicationManager.shared.udpDisconnect()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
