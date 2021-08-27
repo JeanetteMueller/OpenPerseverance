@@ -2,9 +2,9 @@
 This is a large Project about building your own Perseverance Mars Rover. 
 3D printed and remote controlled. 
 
-![CAD of Percy, 21. June 2021](https://github.com/JeanetteMueller/OpenPerseverance/blob/main/images/progress/state_2021-06-21_12.24.54.png)
+![CAD of Percy, 19. August 2021](https://github.com/JeanetteMueller/OpenPerseverance/blob/main/images/progress/state_2021-08-19_17.00.37.png)
 
-![Image of Percy, 21. June 2021](https://github.com/JeanetteMueller/OpenPerseverance/blob/main/images/progress/IMG_1653.jpeg)
+![Image of Percy, 21. June 2021](https://github.com/JeanetteMueller/OpenPerseverance/blob/main/images/progress/IMG_2082.jpeg)
 
 ## Build your own rover
 Under the Directory "stl" you find all needed printable parts for your rover. I printed all parts with PLA at 0.1 Layer Height. 

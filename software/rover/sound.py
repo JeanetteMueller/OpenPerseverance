@@ -41,8 +41,8 @@ def gotMessage(data):
         
 
 def loop():
-    fileName = "WALL-E Solar Charge and Boot.mp3"
-    f = "omxplayer '/home/pi/sounds/" + fileName + "'"
+    fileName = "Identification please.mp3"
+    f = "omxplayer '/home/pi/sounds/" + fileName + "' --vol 352"
 
     print(f)
 

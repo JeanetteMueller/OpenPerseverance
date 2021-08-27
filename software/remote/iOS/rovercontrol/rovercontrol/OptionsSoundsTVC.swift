@@ -33,16 +33,21 @@ class OptionsSoundsTVC: OptionsTVC {
             "Identification please.mp3",
             "Ignition.mp3",
             "Lock on Target.mp3",
+            "Nr 5 - Malfunction.mp3",
+            "Nr 5 - Robot alert.mp3",
+            "Nr 5 - Software.mp3",
+            "Nr 5 - What planet.mp3",
             "Override.mp3",
             "Self Destruct initiated.mp3",
             "Startup iMac.mp3",
             "System override.mp3",
             "Terminate.mp3",
+            "Terminator - Ill be back.mp3",
             "Vocal Beeps 2.mp3",
-            "Wall-E, No.mp3",
-            "WALL-E Solar Charge and Boot.mp3",
-            "WALLE 1.mp3",
-            "Whoa.mp3"
+            "Wall-E - No.mp3",
+            "Wall-E - Solar Charge and Boot.mp3",
+            "Wall-E - 1.mp3",
+            "Whoa.mp3",
         ]
         
         for file in files {
@@ -64,7 +69,8 @@ class OptionsSoundsTVC: OptionsTVC {
         
         
         files = [
-            "Rock Music.mp3"
+            "Terminator Theme Song.mp3",
+            "Rock Music.mp3",
         ]
         
         for file in files {

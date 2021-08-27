@@ -10,6 +10,9 @@ import Adafruit_PCA9685
 from Communication import Communication
 from Helper import Helper
 
+from DRV8825 import DRV8825
+import RPi.GPIO as GPIO
+
 com = Communication("arm")
 
 sock = com.getSocket()

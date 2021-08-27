@@ -51,17 +51,13 @@ def oneCycle(targetDegree, fromDegree):
     
     global lastPos
     
-    #differenz = fromDegree + targetDegree
-    
     if targetDegree > fromDegree:
         
         target = targetDegree - fromDegree
     elif targetDegree < fromDegree:
         print("targetDegree < fromDegree")
-        
         target = 0.0
-
-        #pwm.set_pwm(4, 0, int(helper.getPulseFromAngle(pos, servo_min, servo_max)))
+        
     else:
         print("ich mach hier mal nix")  
         
@@ -86,37 +82,11 @@ def oneCycle(targetDegree, fromDegree):
         
         pwm.set_pwm(4, 0, int(helper.getPulseFromAngle(pos, servo_min, servo_max)))
         
-        #position = teil * target
-        
-        #print("set servo step %f position %f" % (step, position))
-        
-        
-        
         if step == steps:
             lastPos = pos
         
         sleep(0.08)
         
-    
-    
-    
-
-    #for degrees in range(0, 180):
-  
-        # radians = (degrees * math.pi) / 180.0
-        
-        #for servo in range(4, 5):
-    
-            # Map the sin() function to the servomin..servomax range
-            
-        #position = (math.sin(radians) + 1.0) * ((servo_max - servo_min) / 2.0) + servo_min
-         
-        #position = helper.getPulseFromAngle(degrees, servo_min, servo_max)
-           
-        #pwm.set_pwm(4, 0, int(position))
-            # radians += (2.0 * math.pi) / (16.0 * 4);  # Advance 1/16th of a circle
-    
-        #sleep(0.1)  #  3600 milliseconds per cycle
 
 while True:
     data, addr = sock.recvfrom(com.udpBuffer)
