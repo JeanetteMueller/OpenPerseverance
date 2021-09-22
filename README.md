@@ -2,7 +2,7 @@
 This is a large Project about building your own Perseverance Mars Rover. 
 3D printed and remote controlled. 
 
-![CAD of Percy, 22. September 2021](https://github.com/JeanetteMueller/OpenPerseverance/blob/main/images/progress/state_2021-09-22_13.15.png)
+![CAD of Percy, 22. September 2021](https://github.com/JeanetteMueller/OpenPerseverance/blob/main/images/progress/state_2021-09-22-13.20.24.png)
 
 ![Image of Percy with her Maker, 8. September 2021](https://github.com/JeanetteMueller/OpenPerseverance/blob/main/images/progress/2021-09-08_Perseverance_006.jpg)
 
