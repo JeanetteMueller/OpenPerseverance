@@ -11,7 +11,7 @@ import MJPEGStreamLib
 extension MainVC {
     
     enum CameraType {
-        case Tower, Front, Back
+        case Tower, Front
     }
     
     
@@ -21,17 +21,15 @@ extension MainVC {
         }
     }
     
-    var camera1BasicHeight: CGFloat { get {return 200} }
-    var camera2BasicHeight: CGFloat { get {return 200} }
-    var camera3BasicHeight: CGFloat { get {return 200} }
+    var camera1BasicHeight: CGFloat { get {return 270} }
+    var camera2BasicHeight: CGFloat { get {return 270} }
+    var camera3BasicHeight: CGFloat { get {return 270} }
     
     
     func getImageViewByCam(_ cam: CameraType) -> UIImageView {
         switch cam {
         case .Front:
             return self.camera1ImageView
-        case .Back:
-            return self.camera2ImageView
         case .Tower:
             return self.camera3ImageView
         }
@@ -62,9 +60,6 @@ extension MainVC {
     }
     @IBAction func actionPhotoCamera1(_ sender: UIButton) {
         self.savePhotoForCam(.Front, withButton: sender)
-    }
-    @IBAction func actionPhotoCamera2(_ sender: UIButton) {
-        self.savePhotoForCam(.Back, withButton: sender)
     }
     @IBAction func actionPhotoCamera3(_ sender: UIButton) {
         self.savePhotoForCam(.Tower, withButton: sender)
@@ -110,65 +105,19 @@ extension MainVC {
         
         if camera1Height.constant == self.view.bounds.height {
             camera1Height.constant = camera1BasicHeight
-            
+            camera1Height.priority = UILayoutPriority(rawValue: 1000)
+            camera3Height.constant = camera3BasicHeight
+            camera3Height.priority = UILayoutPriority(rawValue: 1000)
         }else{
             camera1Height.constant = self.view.bounds.height
-            camera2Height.constant = camera2BasicHeight
+            camera1Height.priority = UILayoutPriority(rawValue: 1000)
             camera3Height.constant = camera3BasicHeight
+            camera3Height.priority = UILayoutPriority(rawValue: 800)
             self.view.bringSubviewToFront(cameraContainer1)
         }
         
         animateCameraScreen()
     }
-    
-    @IBAction func actionStartCamera2(_ sender: UIButton) {
-        
-        if sender.title(for: .normal) == "Start" {
-            
-            sender.setTitle("", for: .normal)
-            
-            // Set the ImageView to the stream object
-            camera2Stream = MJPEGStreamLib(imageView: camera2ImageView)
-            // Start Loading Indicator
-            camera2Stream.didStartLoading = { [unowned self] in
-                self.camera2LoadingIndicator.startAnimating()
-                self.videoConnectionState.backgroundColor = .orange
-            }
-            // Stop Loading Indicator
-            camera2Stream.didFinishLoading = { [unowned self] in
-                self.camera2LoadingIndicator.stopAnimating()
-                self.videoConnectionState.backgroundColor = .green
-            }
-            
-            // Your stream url should be here !
-            //let url = URL(string: "http://192.168.178.75:81/stream")
-            let url = URL(string: "http://10.0.0.74:81/stream")
-            camera2Stream.contentURL = url
-            camera2Stream.play() // Play the stream
-            camera2PhotoButton.isHidden = false
-        }else{
-            camera2Stream.stop()
-            camera2ImageView.image = nil
-            self.camera2LoadingIndicator.stopAnimating()
-            sender.setTitle("Start", for: .normal)
-            camera2PhotoButton.isHidden = true
-        }
-        
-    }
-    @IBAction func actionZoomCamera2(_ sender: UIButton) {
-        
-        if camera2Height.constant == self.view.bounds.height {
-            camera2Height.constant = camera2BasicHeight
-        }else{
-            camera1Height.constant = camera1BasicHeight
-            camera2Height.constant = self.view.bounds.height
-            camera3Height.constant = camera3BasicHeight
-            self.view.bringSubviewToFront(cameraContainer2)
-        }
-        
-        animateCameraScreen()
-    }
-    
     
     @IBAction func actionStartCamera3(_ sender: UIButton) {
         
@@ -211,12 +160,14 @@ extension MainVC {
         
         if camera3Height.constant == self.view.bounds.height {
             camera1Height.constant = camera1BasicHeight
-            camera2Height.constant = camera2BasicHeight
+            camera1Height.priority = UILayoutPriority(rawValue: 1000)
             camera3Height.constant = camera3BasicHeight
+            camera1Height.priority = UILayoutPriority(rawValue: 1000)
         }else{
-            camera1Height.constant = camera1BasicHeight - 106
-            camera2Height.constant = camera2BasicHeight - 106
+            camera1Height.constant = camera1BasicHeight
+            camera1Height.priority = UILayoutPriority(rawValue: 800)
             camera3Height.constant = self.view.bounds.height
+            camera3Height.priority = UILayoutPriority(rawValue: 1000)
             self.view.bringSubviewToFront(cameraContainer3)
         }
         

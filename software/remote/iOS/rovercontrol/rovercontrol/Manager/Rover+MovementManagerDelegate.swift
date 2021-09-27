@@ -118,9 +118,8 @@ extension Rover: MovementManagerDelegate {
                 }
             }
         }
-        
-        
     }
+    
     @objc func dpadRepeatTimerAction(_ sender: Any?) {
         
         print("dpadRepearTimerAction")
@@ -183,16 +182,14 @@ extension Rover: MovementManagerDelegate {
             self.speedView.updateInformation(x, y)
         }
     }
+    
     func repeatActionTowerTilt() {
         
         self.towerIsTilting = true
         
-        
         let manager = MovementManager.shared
         
         currentTowerTilt += Float(manager.current_leftThumbstick.y * 4 )
-        //Float(manager.current_leftThumbstick.y) * (rangeTowerTilt / 2) + (maxTowerTilt / 2)
-        
         
         self.tower = Rover.TowerInformation(rotation:Float(manager.current_leftThumbstick.x * -1) * (rangeTowerRotate / 2) + (maxTowerRotate / 2),
                                             tilt:currentTowerTilt)
@@ -208,14 +205,15 @@ extension Rover: MovementManagerDelegate {
             self.towerIsTilting = false
         }
     }
+    
     func inputManagerDidChanged(_ manager: MovementManager, withUpdate update:MovementManager.MovementManagerUpdate){
         
         //print("updated position")
         
         statusReset()
-        
 
     }
+    
     func updateDrivingAndSteering(_ manager: MovementManager) {
         
 
@@ -345,10 +343,6 @@ extension Rover: MovementManagerDelegate {
                 motorMultiplierRightCenter  = motorMultiplierRightCenter > 1.0 ? 1.0 : motorMultiplierRightCenter
             }
             
-            //update motor
-            
-//            var power:Float = Float(sqrt(pow(0, 2) + pow(manager.current_rightThumbstick.y, 2)))
-
             let positiveX = manager.current_rightThumbstick.x >= 0 ? manager.current_rightThumbstick.x : manager.current_rightThumbstick.x * -1
             
             var power:Float = Float(manager.current_rightThumbstick.y * (1 + positiveX))
@@ -358,37 +352,10 @@ extension Rover: MovementManagerDelegate {
                 power = -1
             }
             
-            print("power \(power)")
-            
-//            if manager.current_rightThumbstick.y >= 0 {
-                mi.left         = power * maxSpeed * motorMultiplierLeft
-                mi.leftCenter   = power * maxSpeed * motorMultiplierLeftCenter
-                mi.right        = power * maxSpeed * motorMultiplierRight
-                mi.rightCenter  = power * maxSpeed * motorMultiplierRightCenter
-//            }else{
-//                mi.left         = -(power * maxSpeed * motorMultiplierLeft)
-//                mi.leftCenter   = -(power * maxSpeed * motorMultiplierLeftCenter)
-//                mi.right        = -(power * maxSpeed * motorMultiplierRight)
-//                mi.rightCenter  = -(power * maxSpeed * motorMultiplierRightCenter)
-//            }
-            
-            
-            
-//            if manager.current_TriggerR2 > 0 {
-//                append("Input: Trigger R2: \(manager.current_TriggerR2) ")
-//                mi.left         = manager.current_TriggerR2 * maxSpeed * motorMultiplierLeft
-//                mi.leftCenter   = manager.current_TriggerR2 * maxSpeed * motorMultiplierLeftCenter
-//                mi.right        = manager.current_TriggerR2 * maxSpeed * motorMultiplierRight
-//                mi.rightCenter  = manager.current_TriggerR2 * maxSpeed * motorMultiplierRightCenter
-//            }else if manager.current_TriggerL2 > 0 {
-//                append("Input: Trigger L2: \(manager.current_TriggerL2) ")
-//                mi.left         = -(manager.current_TriggerL2 * maxSpeed * motorMultiplierLeft)
-//                mi.leftCenter   = -(manager.current_TriggerL2 * maxSpeed * motorMultiplierLeftCenter)
-//                mi.right        = -(manager.current_TriggerL2 * maxSpeed * motorMultiplierRight)
-//                mi.rightCenter  = -(manager.current_TriggerL2 * maxSpeed * motorMultiplierRightCenter)
-//            }else{
-//                append("")
-//            }
+            mi.left         = power * maxSpeed * motorMultiplierLeft
+            mi.leftCenter   = power * maxSpeed * motorMultiplierLeftCenter
+            mi.right        = power * maxSpeed * motorMultiplierRight
+            mi.rightCenter  = power * maxSpeed * motorMultiplierRightCenter
             
             self.topDownPositionView.updateMotorInformation(mi)
             
@@ -398,18 +365,20 @@ extension Rover: MovementManagerDelegate {
             //nur Motor
             
             let mi = Rover.MotorInformation(left: (Float(manager.current_rightThumbstick.x) * maxSpeed),
-                                            leftCenter: (Float(manager.current_rightThumbstick.x) * maxSpeed * 0.9),
+                                            leftCenter: (Float(manager.current_rightThumbstick.x) * maxSpeed * 0.95),
                                             right: -(Float(manager.current_rightThumbstick.x) * maxSpeed),
-                                            rightCenter: -(Float(manager.current_rightThumbstick.x) * maxSpeed * 0.9))
+                                            rightCenter: -(Float(manager.current_rightThumbstick.x) * maxSpeed * 0.95))
             
             self.topDownPositionView.updateMotorInformation(mi)
             
             CommunicationManager.shared.sendMotorInformation(mi)
         }
     }
+    
     func statusReset() {
         self.status = ""
     }
+    
     func append(_ t:String) {
         self.status.append("\(t)\n")
         

@@ -41,42 +41,65 @@ extension MainVC {
         }
     }
     func resetLightButtons() {
-        for b in [self.buttonLightRed, self.buttonLightGreen] {
+        for b in [self.buttonLightRed, self.buttonLightGreen, self.buttonLightBlue] {
             if b?.backgroundColor != .white {
                 b?.setTitleColor(b?.backgroundColor, for: .normal)
                 b?.backgroundColor = .white
-                
-                b?.isSelected = false
             }
+            b?.isSelected = false
         }
     }
+    
     @IBAction func actionLightRed(_ sender: UIButton) {
-        if sender.isSelected {
-            resetLightButtons()
-            let d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 0)
-            CommunicationManager.shared.sendHeadInformation(d)
-        }else{
-            resetLightButtons()
-            sender.backgroundColor = .red
-            sender.setTitleColor(.white, for: .normal)
-            sender.isSelected = true
-            
-            let d = Rover.HeadInformation(colorRed: 1, colorGreen: 0, colorBlue: 0)
-            CommunicationManager.shared.sendHeadInformation(d)
-        }
+        self.actionLight(sender, color: .red)
+//        if sender.isSelected {
+//            resetLightButtons()
+//            let d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 0)
+//            CommunicationManager.shared.sendHeadInformation(d)
+//            sender.isSelected = false
+//        }else{
+//            resetLightButtons()
+//            sender.backgroundColor = .red
+//            sender.setTitleColor(.white, for: .normal)
+//            sender.isSelected = true
+//
+//            let d = Rover.HeadInformation(colorRed: 1, colorGreen: 0, colorBlue: 0)
+//            CommunicationManager.shared.sendHeadInformation(d)
+//        }
     }
     @IBAction func actionLighGreen(_ sender: UIButton) {
+        self.actionLight(sender, color: .green)
+        
+    }
+    @IBAction func actionLighBlue(_ sender: UIButton) {
+        self.actionLight(sender, color: .blue)
+        
+    }
+    func actionLight(_ sender: UIButton, color: UIColor) {
         if sender.isSelected {
             resetLightButtons()
             let d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 0)
             CommunicationManager.shared.sendHeadInformation(d)
+            sender.isSelected = false
         }else{
             resetLightButtons()
-            sender.backgroundColor = .green
+            sender.backgroundColor = color
             sender.setTitleColor(.white, for: .normal)
             sender.isSelected = true
             
-            let d = Rover.HeadInformation(colorRed: 0, colorGreen: 1, colorBlue: 0)
+            var d:Rover.HeadInformation
+            
+            switch color {
+            case .red:
+                d = Rover.HeadInformation(colorRed: 1, colorGreen: 0, colorBlue: 0)
+            case .green:
+                d = Rover.HeadInformation(colorRed: 0, colorGreen: 1, colorBlue: 0)
+            case .blue:
+                d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 1)
+            default:
+                d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 0)
+            }
+            
             CommunicationManager.shared.sendHeadInformation(d)
         }
     }

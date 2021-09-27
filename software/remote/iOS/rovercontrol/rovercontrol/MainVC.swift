@@ -11,6 +11,9 @@ import MJPEGStreamLib
 
 class MainVC: UIViewController {
     
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    
     @IBOutlet weak var stateContainer: UIView!
     @IBOutlet weak var robotConnectionState: UIView!
     @IBOutlet weak var videoConnectionState: UIView!
@@ -30,6 +33,7 @@ class MainVC: UIViewController {
     
     @IBOutlet weak var buttonLightRed: UIButton!
     @IBOutlet weak var buttonLightGreen: UIButton!
+    @IBOutlet weak var buttonLightBlue: UIButton!
     @IBOutlet weak var buttonLaser: UIButton!
     
 
@@ -45,16 +49,6 @@ class MainVC: UIViewController {
     @IBOutlet weak var camera1ZoomButton: UIButton!
     @IBOutlet weak var camera1PhotoButton: UIButton!
     @IBOutlet weak var camera1Height: NSLayoutConstraint!
-    
-    
-    @IBOutlet weak var camera2Label: UILabel!
-    @IBOutlet weak var camera2ImageView: UIImageView!
-    @IBOutlet weak var camera2LoadingIndicator: UIActivityIndicatorView!
-    var camera2Stream: MJPEGStreamLib!
-    @IBOutlet weak var camera2StartButton: UIButton!
-    @IBOutlet weak var camera2ZoomButton: UIButton!
-    @IBOutlet weak var camera2PhotoButton: UIButton!
-    @IBOutlet weak var camera2Height: NSLayoutConstraint!
     
     
     @IBOutlet weak var camera3Label: UILabel!
@@ -99,9 +93,6 @@ class MainVC: UIViewController {
         self.camera1ImageView.layer.borderColor = UIColor.lightGray.cgColor
         self.camera1ImageView.layer.borderWidth = 1
         
-        self.camera2ImageView.layer.borderColor = UIColor.lightGray.cgColor
-        self.camera2ImageView.layer.borderWidth = 1
-        
         self.camera3ImageView.layer.borderColor = UIColor.lightGray.cgColor
         self.camera3ImageView.layer.borderWidth = 1
         
@@ -112,30 +103,87 @@ class MainVC: UIViewController {
         
         updateCameraButtons()
         
+        
+        self.nameLabel.text = self.systemInfo()
+        
+    }
+    func systemInfo(_ format: String = "%@\nVersion %@\nBuild %@") -> String {
+        
+        if let bundleDict = Bundle.main.infoDictionary {
+            var name = ""
+            var shortVersion = ""
+            var version = ""
+            
+            if let x = bundleDict["CFBundleDisplayName"] as? String {
+                name = x
+            }
+            if let x = bundleDict["CFBundleShortVersionString"] as? String {
+                shortVersion = x
+            }
+            if let x = bundleDict["CFBundleVersion"] as? String {
+                version = x
+            }
+            
+            return String(format: format,
+                          name,
+                          shortVersion,
+                          version
+                          
+            )
+        }
+        return "SOMETHING WENT WRONG!"
     }
     func updateButtons() {
         for b in [buttonDriveMode,
                   buttonSpeed,
                   buttonLightRed,
                   buttonLightGreen,
+                  buttonLightBlue,
                   buttonLaser] {
             
             b?.isEnabled = true
             b?.backgroundColor = .white
                 
         }
+        if buttonLightRed.isSelected {
+            buttonLightRed.backgroundColor = .red
+            buttonLightRed.setTitleColor(.white, for: .normal)
+        }else{
+            buttonLightRed.setTitleColor(.red, for: .normal)
+            buttonLightRed.backgroundColor = .white
+        }
+        
+        if buttonLightGreen.isSelected {
+            buttonLightGreen.backgroundColor = .green
+            buttonLightGreen.setTitleColor(.white, for: .normal)
+        }else{
+            buttonLightGreen.setTitleColor(.green, for: .normal)
+            buttonLightGreen.backgroundColor = .white
+        }
+        
+        if buttonLightBlue.isSelected {
+            buttonLightBlue.backgroundColor = .blue
+            buttonLightBlue.setTitleColor(.white, for: .normal)
+        }else{
+            buttonLightBlue.setTitleColor(.blue, for: .normal)
+            buttonLightBlue.backgroundColor = .white
+        }
+        
+        
+        if buttonLaser.isSelected {
+            buttonLaser.backgroundColor = .red
+            buttonLaser.setTitleColor(.white, for: .normal)
+        }else{
+            buttonLaser.setTitleColor(.red, for: .normal)
+            buttonLaser.backgroundColor = .white
+        }
+        
         
         buttonPause.backgroundColor = .red
         buttonPause.setTitleColor(.white, for: .normal)
-        
-        buttonLightRed.setTitleColor(.red, for: .normal)
-        buttonLightGreen.setTitleColor(.green, for: .normal)
-        
-        buttonLaser.setTitleColor(.red, for: .normal)
     }
     func updateCameraButtons() {
         for b in [camera1StartButton, camera1ZoomButton, camera1PhotoButton,
-                  camera2StartButton, camera2ZoomButton, camera2PhotoButton,
                   camera3StartButton, camera3ZoomButton, camera3PhotoButton] {
         
             b?.setTitleColor(.white, for: .normal)
@@ -150,6 +198,7 @@ class MainVC: UIViewController {
                                    buttonSpeed,
                                    buttonLightRed,
                                    buttonLightGreen,
+                                   buttonLightBlue,
                                    buttonLaser])
         
         
@@ -177,7 +226,6 @@ class MainVC: UIViewController {
         
         
         camera1Height.constant = camera1BasicHeight
-        camera2Height.constant = camera2BasicHeight
         camera3Height.constant = camera3BasicHeight
         self.view.layoutIfNeeded()
         
@@ -188,7 +236,7 @@ class MainVC: UIViewController {
                 self.roverTopDownView = r.topDownPositionView
                 self.roverTopDownView!.center = CGPoint(x: self.roverTopDownContainerView.frame.size.width / 2,
                                                         y: self.roverTopDownContainerView.frame.size.height / 2)
-                let scale:CGFloat = 1.0
+                let scale:CGFloat = 1.3
                 
                 self.roverTopDownView!.transform = CGAffineTransform(scaleX: scale, y: scale)
                 self.roverTopDownContainerView.addSubview(self.roverTopDownView!)
