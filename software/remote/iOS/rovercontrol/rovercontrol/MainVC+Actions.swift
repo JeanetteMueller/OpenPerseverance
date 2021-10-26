@@ -50,6 +50,10 @@ extension MainVC {
         }
     }
     
+    @IBAction func openSettings(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "SettingsVC", sender: sender)
+    }
+    
     @IBAction func actionLightRed(_ sender: UIButton) {
         self.actionLight(sender, color: .red)
 //        if sender.isSelected {

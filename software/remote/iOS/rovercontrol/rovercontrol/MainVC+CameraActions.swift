@@ -86,8 +86,7 @@ extension MainVC {
             }
             
             // Your stream url should be here !
-            //let url = URL(string: "http://192.168.178.44:81/stream")
-            let url = URL(string: "http://10.0.0.87:81/stream")
+            let url = URL(string: "http://\( CommunicationManager.shared.frontCameraIpAdress ):81/stream")
             camera1Stream.contentURL = url
             camera1Stream.play() // Play the stream
             
@@ -142,6 +141,9 @@ extension MainVC {
             }
             
             // Your stream url should be here !
+            
+            // MUSS WAS NEUES mit 192.168.50.??? sein
+            
             //let url = URL(string: "http://192.168.178.55:8081/?action=stream")
             let url = URL(string: "http://10.0.0.85:8081/?action=stream")
             camera3Stream.contentURL = url

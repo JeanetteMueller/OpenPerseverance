@@ -15,7 +15,22 @@ extension Notification.Name {
 
 
 class Rover {
-    typealias WheelRotation = (fl:Float, fr:Float, bl:Float, br:Float)
+    
+    struct WheelRotation {
+        let fl: Float
+        let fr: Float
+        let bl: Float
+        let br: Float
+        
+        init(fl: Float, fr: Float, bl: Float, br: Float) {
+            self.fl = fl + GlobalSettings.getCalibrationFrontLeft() ///+ 5
+            self.fr = fr + GlobalSettings.getCalibrationFrontRight() ///- 5
+            self.bl = bl + GlobalSettings.getCalibrationBackLeft() ///+ 3
+            self.br = br + GlobalSettings.getCalibrationBackRight() ///- 7
+        }
+    }
+    
+    //typealias WheelRotation = (fl:Float, fr:Float, bl:Float, br:Float)
     typealias MotorInformation = (left:Float, leftCenter:Float, right:Float, rightCenter:Float)
     typealias ArmInformation = (joint1:Float, joint2:Float, joint3:Float, joint4:Float)
     typealias LightInformation = (light1:Int, light2:Int, light3:Int, light4:Int)
@@ -30,15 +45,6 @@ class Rover {
     }
     
     var pause: Bool = false
-//    {
-//        didSet {
-//            if self.pause {
-//                MovementManager.shared.removeDelegate(self)
-//            }else{
-//                MovementManager.shared.addDelegate(self)
-//            }
-//        }
-//    }
     
     enum Wheels {
         case FrontRight, FrontLeft, BackRight, BackLeft
@@ -48,13 +54,11 @@ class Rover {
         case Drive, Rotate
     }
     
-    enum Speed {
-        case Slow, Normal, Fast
+    enum Speed: Float {
+        case Slow = 50
+        case Normal = 75
+        case Fast = 100
     }
-    
-//    enum Tower {
-//        case Up, Down
-//    }
     
     var driving = Drive.Drive {
         didSet {

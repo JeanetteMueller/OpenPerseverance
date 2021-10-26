@@ -35,15 +35,7 @@ extension Rover: MovementManagerDelegate {
     
     var maxSpeed: Float {
         get {
-            
-            switch self.speed {
-            case .Normal:
-                return 80
-            case .Fast:
-                return 100
-            default:
-                return 40
-            }
+            return self.speed.rawValue
         }
     }
     

@@ -40,20 +40,13 @@ class CommunicationManager {
         
         instance.udpRestart()
         
-        
-        
         return instance
     }()
     
     func startUdpClient(adress: String, port: Int32, asListener listen:Bool = false) -> UDPClient? {
         
-        var client:UDPClient?
-        if let ip = String.getIPAddress(), ip.hasPrefix("10.0"){
-            client = UDPClient(address: adress, port: port, listener: listen)
-        }else{
-            //client = UDPClient(address: "192.168.178.55", port: port, listener: listen) // pi zero
-            client = UDPClient(address: adress, port: port, listener: listen) // pi 3
-        }
+        let client = UDPClient(address: adress, port: port, listener: listen)
+        
         client?.delegate = self
         
         client?.connect()
@@ -74,49 +67,76 @@ class CommunicationManager {
     
     var calibrate = 0
     
+    var mainIpAdress: String {
+        get {
+            switch GlobalSettings.getEnvironment() {
+            case .Dev:
+                return "192.168.178.37"
+            default:
+                return "192.168.50.10"
+            }
+        }
+    }
+    var towerIpAdress: String {
+        get {
+            switch GlobalSettings.getEnvironment() {
+            case .Dev:
+                return "192.168.178.44"
+            default:
+                return "10.0.0.85"
+            }
+        }
+    }
+    
+    var frontCameraIpAdress: String {
+        get {
+            return "10.0.0.87"
+        }
+    }
+    
     func udpRestart() {
         
         calibrate = 0
         
         if self.udpClient_Drive == nil {
-            self.udpClient_Drive = self.startUdpClient(adress: "10.0.0.5", port: 5001)
+            self.udpClient_Drive = self.startUdpClient(adress: mainIpAdress, port: 5001)
         }else if udpClient_Drive!.state != .ready{
             self.udpClient_Drive!.connect()
         }
         
         if self.udpClient_Steer == nil {
-            self.udpClient_Steer = self.startUdpClient(adress: "10.0.0.5", port: 5002)
+            self.udpClient_Steer = self.startUdpClient(adress: mainIpAdress, port: 5002)
         }else if udpClient_Steer!.state != .ready{
             self.udpClient_Steer!.connect()
         }
 
         if self.udpClient_Arm == nil {
-            self.udpClient_Arm = self.startUdpClient(adress: "10.0.0.5", port: 5003)
+            self.udpClient_Arm = self.startUdpClient(adress: mainIpAdress, port: 5003)
         }else if udpClient_Arm!.state != .ready{
             self.udpClient_Arm!.connect()
         }
         
         if self.udpClient_Light == nil {
-            self.udpClient_Light = self.startUdpClient(adress: "10.0.0.5", port: 5004)
+            self.udpClient_Light = self.startUdpClient(adress: mainIpAdress, port: 5004)
         }else if udpClient_Light!.state != .ready{
             self.udpClient_Light!.connect()
         }
         
         if self.udpClient_Tower == nil {
-            self.udpClient_Tower = self.startUdpClient(adress: "10.0.0.5", port: 5005)
+            self.udpClient_Tower = self.startUdpClient(adress: mainIpAdress, port: 5005)
         }else if udpClient_Tower!.state != .ready{
             self.udpClient_Tower!.connect()
         }
         
         if self.udpClient_Sound == nil {
-            self.udpClient_Sound = self.startUdpClient(adress: "10.0.0.5", port: 5006)
+            self.udpClient_Sound = self.startUdpClient(adress: mainIpAdress, port: 5006)
         }else if udpClient_Sound!.state != .ready{
             self.udpClient_Sound!.connect()
         }
         
         
         if self.udpClient_Head == nil {
-            self.udpClient_Head = self.startUdpClient(adress: "10.0.0.85", port: 5004)
+            self.udpClient_Head = self.startUdpClient(adress: towerIpAdress, port: 5004)
         }else if udpClient_Head!.state != .ready{
             self.udpClient_Head!.connect()
         }
@@ -144,7 +164,7 @@ class CommunicationManager {
     
     func udpRestart_Info() {
         if self.udpClient_Info == nil {
-            self.udpClient_Info = self.startUdpClient(adress: "10.0.0.5", port: 5007, asListener: true)
+            self.udpClient_Info = self.startUdpClient(adress: mainIpAdress, port: 5007, asListener: true)
         }else if udpClient_Info!.state != .ready{
             self.udpClient_Info!.connect()
         }

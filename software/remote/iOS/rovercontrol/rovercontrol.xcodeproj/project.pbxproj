@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		204D992CBBD2DF8E9C95C6C0 /* Pods_rovercontrol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4295EAB47F00ADAFDD5A391 /* Pods_rovercontrol.framework */; };
 		26218B992614CA1300F5993B /* MainVC+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26218B982614CA1300F5993B /* MainVC+Actions.swift */; };
+		2625D8862726C9CF006FC168 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625D8852726C9CF006FC168 /* SettingsVC.swift */; };
+		2625D888272706D6006FC168 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625D887272706D6006FC168 /* SettingsManager.swift */; };
 		2638028C26237A0D00B2F1F0 /* OptionsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2638028B26237A0D00B2F1F0 /* OptionsTVC.swift */; };
 		263802A226237E8000B2F1F0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802A126237E8000B2F1F0 /* Theme.swift */; };
 		263802AE26237F3300B2F1F0 /* Theme+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802AD26237F3300B2F1F0 /* Theme+Extras.swift */; };
@@ -38,6 +40,8 @@
 
 /* Begin PBXFileReference section */
 		26218B982614CA1300F5993B /* MainVC+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+Actions.swift"; sourceTree = "<group>"; };
+		2625D8852726C9CF006FC168 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		2625D887272706D6006FC168 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		2638028B26237A0D00B2F1F0 /* OptionsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsTVC.swift; sourceTree = "<group>"; };
 		263802A126237E8000B2F1F0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		263802AD26237F3300B2F1F0 /* Theme+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme+Extras.swift"; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 				263802B62623910C00B2F1F0 /* OptionsSoundsTVC.swift */,
 				263802A126237E8000B2F1F0 /* Theme.swift */,
 				263802AD26237F3300B2F1F0 /* Theme+Extras.swift */,
+				2625D8852726C9CF006FC168 /* SettingsVC.swift */,
 			);
 			path = rovercontrol;
 			sourceTree = "<group>";
@@ -148,6 +153,7 @@
 				26DC172B264148410049770D /* RoverSpeedView.swift */,
 				266D8E30260B8746000E66FC /* Rover+MovementManagerDelegate.swift */,
 				26B9110C2605055E00ADB5A4 /* Date+milliseconds.swift */,
+				2625D887272706D6006FC168 /* SettingsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -288,6 +294,7 @@
 				269A2A71260503E000F3D314 /* UDPClient.swift in Sources */,
 				263802AE26237F3300B2F1F0 /* Theme+Extras.swift in Sources */,
 				2643550B2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift in Sources */,
+				2625D8862726C9CF006FC168 /* SettingsVC.swift in Sources */,
 				26B9110D2605055E00ADB5A4 /* Date+milliseconds.swift in Sources */,
 				26F90DF5262D84D900CED6AA /* RoverTopDownPositionView.swift in Sources */,
 				26DC172C264148410049770D /* RoverSpeedView.swift in Sources */,
@@ -303,6 +310,7 @@
 				263802B12623842500B2F1F0 /* OptionsRootTVC.swift in Sources */,
 				26B9110A260504C100ADB5A4 /* Rover.swift in Sources */,
 				2654865E2684F476002DDE36 /* MainVC+CameraActions.swift in Sources */,
+				2625D888272706D6006FC168 /* SettingsManager.swift in Sources */,
 				263802A226237E8000B2F1F0 /* Theme.swift in Sources */,
 				2643550E26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift in Sources */,
 				266D8E31260B8746000E66FC /* Rover+MovementManagerDelegate.swift in Sources */,

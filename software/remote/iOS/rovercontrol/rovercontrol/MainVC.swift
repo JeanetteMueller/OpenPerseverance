@@ -12,7 +12,7 @@ import MJPEGStreamLib
 class MainVC: UIViewController {
     
     @IBOutlet weak var nameLabel: UILabel!
-    
+    @IBOutlet weak var settingsButton: UIButton!
     
     @IBOutlet weak var stateContainer: UIView!
     @IBOutlet weak var robotConnectionState: UIView!
