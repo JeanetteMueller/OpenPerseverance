@@ -183,21 +183,21 @@ class RoverTopDownPositionView: UIView {
         let motor = self.currentMotorInformation
         
         
-        self.wheelLeftFront.transform = CGAffineTransform(rotationAngle: CGFloat((wheel.fl - 80) * Float(Double.pi) / 180))
-        self.wheelRightFront.transform = CGAffineTransform(rotationAngle: CGFloat((wheel.fr - 80) * Float(Double.pi) / 180))
+        self.wheelLeftFront.transform = CGAffineTransform(rotationAngle: CGFloat((wheel.fl - 80     - GlobalSettings.getCalibrationFrontLeft()) * Float(Double.pi) / 180))
+        self.wheelRightFront.transform = CGAffineTransform(rotationAngle: CGFloat((wheel.fr - 80    - GlobalSettings.getCalibrationFrontRight()) * Float(Double.pi) / 180))
         
-        self.wheelLeftBack.transform = CGAffineTransform(rotationAngle: CGFloat((wheel.bl - 80) * Float(Double.pi) / 180))
-        self.wheelRightBack.transform = CGAffineTransform(rotationAngle: CGFloat((wheel.br - 80) * Float(Double.pi) / 180))
+        self.wheelLeftBack.transform = CGAffineTransform(rotationAngle: CGFloat((wheel.bl - 80      - GlobalSettings.getCalibrationBackLeft()) * Float(Double.pi) / 180))
+        self.wheelRightBack.transform = CGAffineTransform(rotationAngle: CGFloat((wheel.br - 80     - GlobalSettings.getCalibrationBackRight()) * Float(Double.pi) / 180))
         
         
         
-        self.infoLeftFront.text =   String(format: " Motor %.1f %%\n Rotation %.2f°", motor.left, wheel.fl - 80)
+        self.infoLeftFront.text =   String(format: " Motor %.1f %%\n Rotation %.2f°", motor.left, wheel.fl - 80 - GlobalSettings.getCalibrationFrontLeft())
         self.infoLeftCenter.text =  String(format: " Motor %.1f %%", motor.leftCenter)
-        self.infoLeftBack.text =    String(format: " Motor %.1f %%\n Rotation %.2f°", motor.left, wheel.bl - 80)
+        self.infoLeftBack.text =    String(format: " Motor %.1f %%\n Rotation %.2f°", motor.left, wheel.bl - 80 - GlobalSettings.getCalibrationBackLeft())
         
-        self.infoRightFront.text =  String(format: " Motor %.1f %%\n Rotation %.2f°", motor.right, wheel.fr - 80)
+        self.infoRightFront.text =  String(format: " Motor %.1f %%\n Rotation %.2f°", motor.right, wheel.fr - 80 - GlobalSettings.getCalibrationFrontRight())
         self.infoRightCenter.text = String(format: " Motor %.1f %%", motor.rightCenter)
-        self.infoRightBack.text =   String(format: " Motor %.1f %%\n Rotation %.2f°", motor.right, wheel.br - 80)
+        self.infoRightBack.text =   String(format: " Motor %.1f %%\n Rotation %.2f°", motor.right, wheel.br - 80 - GlobalSettings.getCalibrationBackRight())
         
         
         if let l = self.steeringLeftPoly {

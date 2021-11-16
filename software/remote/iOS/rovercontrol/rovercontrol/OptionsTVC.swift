@@ -24,14 +24,14 @@ class OptionsTVC: JxContentTableViewController {
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .top)
+        //self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .top)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         MovementManager.shared.addDelegate(self)
 
-        //self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .top)
+        self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .top)
         
     }
 //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -54,6 +54,10 @@ class OptionsTVC: JxContentTableViewController {
     var repeatTimer: Timer?
     var lastPressedDPad:MovementManager.ButtonType?
     
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.seactionHeadlineText(forSection: section)
+    }
 }
 
 extension OptionsTVC: MovementManagerDelegate {
@@ -123,16 +127,10 @@ extension OptionsTVC: MovementManagerDelegate {
                 
                 self.tableView(self.tableView, didSelectRowAt: self.selectedIndexPath)
                 self.selectRow(at: self.selectedIndexPath)
-            }else if button == .ButtonB || button == .DpadLeft {
+            }else if button == .ButtonX || button == .DpadLeft {
                 if self.navigationController?.viewControllers.count ?? 0 > 1 {
                     self.navigationController?.popViewController(animated: true)
-                }else{
-                    if let root = self.view.window?.rootViewController as? MainVC {
-                        root.hideOptionsOverlay()
-                    }
                 }
-            } else if button == .ButtonX {
-                self.navigationController?.popToRootViewController(animated: false)
             }
             
             if self.repeatTimer == nil {

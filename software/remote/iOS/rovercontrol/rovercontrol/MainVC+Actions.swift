@@ -36,18 +36,20 @@ extension MainVC {
         if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
             if let r = mySceneDelegate.rover {
                 r.toggleSpeed()
-                sender.isSelected = !sender.isSelected
             }
         }
     }
     func resetLightButtons() {
         for b in [self.buttonLightRed, self.buttonLightGreen, self.buttonLightBlue] {
-            if b?.backgroundColor != .white {
+            if b?.backgroundColor != buttonDefaultColor {
                 b?.setTitleColor(b?.backgroundColor, for: .normal)
-                b?.backgroundColor = .white
+                b?.backgroundColor = buttonDefaultColor
             }
             b?.isSelected = false
         }
+        
+        self.lightsColorResult.backgroundColor = .black
+        self.lightsColorResult.layer.cornerRadius = 8
     }
     
     @IBAction func openSettings(_ sender: UIButton) {
@@ -55,57 +57,59 @@ extension MainVC {
     }
     
     @IBAction func actionLightRed(_ sender: UIButton) {
-        self.actionLight(sender, color: .red)
-//        if sender.isSelected {
-//            resetLightButtons()
-//            let d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 0)
-//            CommunicationManager.shared.sendHeadInformation(d)
-//            sender.isSelected = false
-//        }else{
-//            resetLightButtons()
-//            sender.backgroundColor = .red
-//            sender.setTitleColor(.white, for: .normal)
-//            sender.isSelected = true
-//
-//            let d = Rover.HeadInformation(colorRed: 1, colorGreen: 0, colorBlue: 0)
-//            CommunicationManager.shared.sendHeadInformation(d)
-//        }
+        self.actionLight(sender, color: .red, on: !sender.isSelected)
     }
     @IBAction func actionLighGreen(_ sender: UIButton) {
-        self.actionLight(sender, color: .green)
+        self.actionLight(sender, color: .green, on: !sender.isSelected)
         
     }
     @IBAction func actionLighBlue(_ sender: UIButton) {
-        self.actionLight(sender, color: .blue)
+        self.actionLight(sender, color: .blue, on: !sender.isSelected)
         
     }
-    func actionLight(_ sender: UIButton, color: UIColor) {
-        if sender.isSelected {
-            resetLightButtons()
-            let d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 0)
-            CommunicationManager.shared.sendHeadInformation(d)
-            sender.isSelected = false
-        }else{
-            resetLightButtons()
-            sender.backgroundColor = color
-            sender.setTitleColor(.white, for: .normal)
-            sender.isSelected = true
-            
-            var d:Rover.HeadInformation
-            
-            switch color {
+    func actionLight(_ sender: UIButton, color: UIColor, on: Bool) {
+        
+        var d:Rover.HeadInformation
+        
+        let maxValue: Int = 1
+        
+        switch color {
             case .red:
-                d = Rover.HeadInformation(colorRed: 1, colorGreen: 0, colorBlue: 0)
+                d = Rover.HeadInformation(colorRed: on ? maxValue : 0)
             case .green:
-                d = Rover.HeadInformation(colorRed: 0, colorGreen: 1, colorBlue: 0)
+                d = Rover.HeadInformation(colorGreen: on ? maxValue : 0)
             case .blue:
-                d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 1)
+                d = Rover.HeadInformation(colorBlue: on ? maxValue : 0)
             default:
-                d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 0)
-            }
-            
-            CommunicationManager.shared.sendHeadInformation(d)
+                return
         }
+        
+        if on {
+            sender.backgroundColor = color
+            sender.setTitleColor(buttonDefaultColor, for: .normal)
+            sender.isSelected = true
+        }else {
+            sender.setTitleColor(sender.backgroundColor, for: .normal)
+            sender.backgroundColor = buttonDefaultColor
+            sender.isSelected = false
+        }
+        
+        CommunicationManager.shared.sendHeadInformation(d)
+        
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        
+        if self.buttonLightRed.isSelected {
+            red = CGFloat(maxValue)
+        }
+        if self.buttonLightGreen.isSelected {
+            green = CGFloat(maxValue)
+        }
+        if self.buttonLightBlue.isSelected {
+            blue = CGFloat(maxValue)
+        }
+        self.lightsColorResult.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
     
     @IBAction func actionLaser(_ sender: UIButton) {
@@ -114,11 +118,11 @@ extension MainVC {
             let d = Rover.HeadInformation(laser: 0)
             CommunicationManager.shared.sendHeadInformation(d)
             sender.setTitleColor(sender.backgroundColor, for: .normal)
-            sender.backgroundColor = .white
+            sender.backgroundColor = buttonDefaultColor
             sender.isSelected = false
         }else{
             sender.backgroundColor = .red
-            sender.setTitleColor(.white, for: .normal)
+            sender.setTitleColor(buttonDefaultColor, for: .normal)
             sender.isSelected = true
             
             let d = Rover.HeadInformation(laser: 1)

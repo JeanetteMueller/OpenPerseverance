@@ -1,8 +1,7 @@
 import socket
 
 class Communication:
-    ip = "" #"192.168.178.55"
-    #ip = "10.0.0.5"
+    ip = ""
     
     udpBuffer = 2048
     
@@ -31,5 +30,8 @@ class Communication:
         return 5007
     
     def getSocket(self): 
-        return socket.socket(socket.AF_INET, # Internet
+        s = socket.socket(socket.AF_INET, # Internet
                              socket.SOCK_DGRAM) # UDP
+                             
+        s.settimeout(5)
+        return s

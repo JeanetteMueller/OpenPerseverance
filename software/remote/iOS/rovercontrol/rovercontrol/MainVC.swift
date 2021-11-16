@@ -11,17 +11,18 @@ import MJPEGStreamLib
 
 class MainVC: UIViewController {
     
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var settingsButton: UIButton!
+    
     
     @IBOutlet weak var stateContainer: UIView!
-    @IBOutlet weak var robotConnectionState: UIView!
-    @IBOutlet weak var videoConnectionState: UIView!
+    @IBOutlet weak var wifiConnectionState: UIView!
     @IBOutlet weak var gamePadConnectionState: UIView!
+    @IBOutlet weak var robotConnectionState: UIView!
+    
     
     @IBOutlet weak var optionsContainer: UIView!
     
     @IBOutlet weak var pauseOverlayView: UIView!
+    @IBOutlet weak var pauseTitle: UILabel!
     @IBOutlet weak var buttonPause: UIButton!
     @IBOutlet weak var buttonUnpause: UIButton!
     
@@ -34,11 +35,11 @@ class MainVC: UIViewController {
     @IBOutlet weak var buttonLightRed: UIButton!
     @IBOutlet weak var buttonLightGreen: UIButton!
     @IBOutlet weak var buttonLightBlue: UIButton!
+    @IBOutlet weak var lightsColorResult: UIView!
     @IBOutlet weak var buttonLaser: UIButton!
     
 
     @IBOutlet weak var cameraContainer1: UIView!
-    @IBOutlet weak var cameraContainer2: UIView!
     @IBOutlet weak var cameraContainer3: UIView!
     
     @IBOutlet weak var camera1Label: UILabel!
@@ -73,21 +74,24 @@ class MainVC: UIViewController {
         
         self.statusLabel.text = "START"
         
+        self.pauseTitle.text = "paused title".localized
+        self.buttonUnpause.setTitle("paused action".localized, for: .normal)
+        self.buttonPause.setTitle("start pause".localized, for: .normal)
         
         
-        self.stateContainer.layer.cornerRadius = 15
+        self.stateContainer.layer.cornerRadius = 5
         self.stateContainer.backgroundColor = .black
         self.stateContainer.layer.borderColor = UIColor.lightGray.cgColor
         self.stateContainer.layer.borderWidth = 1
         
-        self.robotConnectionState.backgroundColor = .red
-        self.robotConnectionState.layer.cornerRadius = 5
-        
-        self.videoConnectionState.backgroundColor = .red
-        self.videoConnectionState.layer.cornerRadius = 5
+        self.wifiConnectionState.backgroundColor = .red
+        self.wifiConnectionState.layer.cornerRadius = 5
         
         self.gamePadConnectionState.backgroundColor = .red
         self.gamePadConnectionState.layer.cornerRadius = 5
+        
+        self.robotConnectionState.backgroundColor = .red
+        self.robotConnectionState.layer.cornerRadius = 5
         
         
         self.camera1ImageView.layer.borderColor = UIColor.lightGray.cgColor
@@ -96,15 +100,15 @@ class MainVC: UIViewController {
         self.camera3ImageView.layer.borderColor = UIColor.lightGray.cgColor
         self.camera3ImageView.layer.borderWidth = 1
         
+        
+        self.view.bringSubviewToFront(stateContainer)
         CommunicationManager.shared.delegate = self
         
         MovementManager.shared.addDelegate(self)
         
-        
         updateCameraButtons()
         
-        
-        self.nameLabel.text = self.systemInfo()
+        self.resetLightButtons()
         
     }
     func systemInfo(_ format: String = "%@\nVersion %@\nBuild %@") -> String {
@@ -133,6 +137,7 @@ class MainVC: UIViewController {
         }
         return "SOMETHING WENT WRONG!"
     }
+    let buttonDefaultColor = UIColor.black
     func updateButtons() {
         for b in [buttonDriveMode,
                   buttonSpeed,
@@ -142,45 +147,57 @@ class MainVC: UIViewController {
                   buttonLaser] {
             
             b?.isEnabled = true
-            b?.backgroundColor = .white
-                
+            b?.layer.borderWidth = 1.0
+            b?.layer.borderColor = UIColor.lightGray.cgColor
+            b?.tintColor = .white
         }
+        buttonDriveMode.backgroundColor = buttonDefaultColor
+        buttonSpeed.setTitle("speed".localized, for: .normal)
+        buttonLightRed.setTitle("color red".localized, for: .normal)
+        buttonLightGreen.setTitle("color green".localized, for: .normal)
+        buttonLightBlue.setTitle("color blue".localized, for: .normal)
+        buttonLaser.setTitle("laser".localized, for: .normal)
+        
         if buttonLightRed.isSelected {
+            
             buttonLightRed.backgroundColor = .red
-            buttonLightRed.setTitleColor(.white, for: .normal)
+            buttonLightRed.setTitleColor(buttonDefaultColor, for: .normal)
         }else{
             buttonLightRed.setTitleColor(.red, for: .normal)
-            buttonLightRed.backgroundColor = .white
+            buttonLightRed.backgroundColor = buttonDefaultColor
         }
         
         if buttonLightGreen.isSelected {
             buttonLightGreen.backgroundColor = .green
-            buttonLightGreen.setTitleColor(.white, for: .normal)
+            buttonLightGreen.setTitleColor(buttonDefaultColor, for: .normal)
         }else{
             buttonLightGreen.setTitleColor(.green, for: .normal)
-            buttonLightGreen.backgroundColor = .white
+            buttonLightGreen.backgroundColor = buttonDefaultColor
         }
         
         if buttonLightBlue.isSelected {
             buttonLightBlue.backgroundColor = .blue
-            buttonLightBlue.setTitleColor(.white, for: .normal)
+            buttonLightBlue.setTitleColor(buttonDefaultColor, for: .normal)
         }else{
             buttonLightBlue.setTitleColor(.blue, for: .normal)
-            buttonLightBlue.backgroundColor = .white
+            buttonLightBlue.backgroundColor = buttonDefaultColor
         }
         
         
         if buttonLaser.isSelected {
             buttonLaser.backgroundColor = .red
-            buttonLaser.setTitleColor(.white, for: .normal)
+            buttonLaser.setTitleColor(buttonDefaultColor, for: .normal)
         }else{
             buttonLaser.setTitleColor(.red, for: .normal)
-            buttonLaser.backgroundColor = .white
+            buttonLaser.backgroundColor = buttonDefaultColor
         }
         
         
         buttonPause.backgroundColor = .red
         buttonPause.setTitleColor(.white, for: .normal)
+        
+        self.optionsContainer.layer.borderWidth = 1.0
+        self.optionsContainer.layer.borderColor = UIColor.lightGray.cgColor
     }
     func updateCameraButtons() {
         for b in [camera1StartButton, camera1ZoomButton, camera1PhotoButton,
@@ -232,22 +249,22 @@ class MainVC: UIViewController {
         
         if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
             if let r = mySceneDelegate.rover {
-                
+
                 self.roverTopDownView = r.topDownPositionView
                 self.roverTopDownView!.center = CGPoint(x: self.roverTopDownContainerView.frame.size.width / 2,
                                                         y: self.roverTopDownContainerView.frame.size.height / 2)
                 let scale:CGFloat = 1.3
-                
+
                 self.roverTopDownView!.transform = CGAffineTransform(scaleX: scale, y: scale)
                 self.roverTopDownContainerView.addSubview(self.roverTopDownView!)
-                
-                
+
+
                 self.roverSpeedView = r.speedView
                 self.roverSpeedView!.center = CGPoint(x: (self.roverSpeedContainerView?.frame.size.width ?? 2) / 2,
                                                       y: (self.roverSpeedContainerView?.frame.size.height ?? 2) / 2)
                 self.roverSpeedContainerView?.addSubview(self.roverSpeedView!)
-                
-                
+
+
                 self.view.bringSubviewToFront(self.optionsContainer)
             }
         }
@@ -268,29 +285,29 @@ class MainVC: UIViewController {
         //CommunicationManager.shared.sendInfoInformation()
     }
     
-    func showOptionsOverlay() {
-        self.optionsContainer.isHidden = false
-        self.view.bringSubviewToFront(self.optionsContainer)
-        
-        self.optionsContainer.layer.borderWidth = 1.0
-        self.optionsContainer.layer.borderColor = UIColor.lightGray.cgColor
-        
-        if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
-            if let r = mySceneDelegate.rover {
-                r.pause = !self.optionsContainer.isHidden
-            }
-        }
-    }
-    func hideOptionsOverlay() {
-        
-        self.optionsContainer.isHidden = true
-        
-        if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
-            if let r = mySceneDelegate.rover {
-                r.pause = !self.optionsContainer.isHidden
-            }
-        }
-    }
+//    func showOptionsOverlay() {
+//        self.optionsContainer.isHidden = false
+//        self.view.bringSubviewToFront(self.optionsContainer)
+//        
+//        self.optionsContainer.layer.borderWidth = 1.0
+//        self.optionsContainer.layer.borderColor = UIColor.lightGray.cgColor
+//        
+//        if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
+//            if let r = mySceneDelegate.rover {
+//                r.pause = !self.optionsContainer.isHidden
+//            }
+//        }
+//    }
+//    func hideOptionsOverlay() {
+//        
+//        self.optionsContainer.isHidden = true
+//        
+//        if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
+//            if let r = mySceneDelegate.rover {
+//                r.pause = !self.optionsContainer.isHidden
+//            }
+//        }
+//    }
     func updateAppearance() {
         
     }
@@ -324,11 +341,11 @@ class MainVC: UIViewController {
                 
                 switch rover.speed {
                 case .Normal:
-                    self.buttonSpeed.setImage(UIImage(named: "speed_normal"), for: .normal)
+                    self.buttonSpeed.backgroundColor = .yellow
                 case .Fast:
-                    self.buttonSpeed.setImage(UIImage(named: "speed_fast"), for: .normal)
+                    self.buttonSpeed.backgroundColor = .red
                 default:
-                    self.buttonSpeed.setImage(UIImage(named: "speed_slow"), for: .normal)
+                    self.buttonSpeed.backgroundColor = .green
                 }
 
             }else{

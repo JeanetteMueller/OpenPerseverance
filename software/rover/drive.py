@@ -1,99 +1,64 @@
 #!/usr/bin/env python
 from __future__ import division
-
+from threading import Thread
+import sys
 import socket
 import json
 import time
 from time import sleep
-import PCA9685
-from MotorDriver import MotorDriver
 from Communication import Communication
-from Helper import Helper
+from Communicator import Communicator
+
+from adafruit_motorkit import MotorKit
+import board
 
 com = Communication("drive")
 
 sock = com.getSocket()
 sock.bind((com.ip, com.getPortForDrive()))
 
+kit1 = MotorKit(address=0x62)
+kit2 = MotorKit(address=0x61)
 
-#Vorder Rader
-motorController1 = PCA9685.PCA9685(0x41, debug=False)
-motorController1.setPWMFreq(60)
-#Center Rader
-motorController2 = PCA9685.PCA9685(0x42, debug=False)
-motorController2.setPWMFreq(60)
-#Hinter Rader
-motorController3 = PCA9685.PCA9685(0x44, debug=False)
-motorController3.setPWMFreq(60)
-
-
-Motor = MotorDriver()
-
-
-def gotMessage(data):
-
-#    i2cdetect -y
-    jsonData = json.loads(data)
+class DriveReactor(Thread):
+    changed = 1
     
-    if "drive" in jsonData:
-        drive = jsonData["drive"]
-        if "ml" in drive:
-            ml = drive["ml"]
+    def __init__(self):
+        Thread.__init__(self)
+        self.daemon = True
+        self.start()
 
-            if ml > 0:
-                Motor.MotorRun(motorController1, 1,'forward', ml)
-                Motor.MotorRun(motorController3, 1,'forward', ml)
-            elif ml < 0:
-                ml = ml * -1
-                Motor.MotorRun(motorController1, 1, 'backward', ml)
-                Motor.MotorRun(motorController3, 1, 'backward', ml)
-            else:
-                Motor.MotorStop(motorController1, 1)
-                Motor.MotorStop(motorController3, 1)
-
-        if "mlc" in drive:
-            mlc = drive["mlc"]
-            print("motor left center")
-
-            if mlc > 0:
-                Motor.MotorRun(motorController2, 1,'forward', mlc)
-            elif mlc < 0:
-                Motor.MotorRun(motorController2, 1, 'backward', mlc * -1)
-            else:
-                Motor.MotorStop(motorController2, 1)
+    def run(self):
+        print("start run")
+    def parseMessage(self,msg):
+        jsonData = json.loads(msg)
+        print("parse message for steer")
         
+        if "drive" in jsonData:
+            drive = jsonData["drive"]
+            if "ml" in drive:
+                if "mlc" in drive:
+                    if "mr" in drive:
+                        if "mrc" in drive:
+                            ml = drive["ml"]
+                            kit1.motor1.throttle = ml
+                            kit1.motor3.throttle = ml
+                            
+                            mlc = drive["mlc"]
+                            kit1.motor2.throttle = mlc
+                            
+                            mr = drive["mr"]
+                            mr = mr * -1
+                            kit2.motor1.throttle = mr
+                            kit2.motor3.throttle = mr
+                            
+                            mrc = drive["mrc"]
+                            mrc = mrc * -1
+                            kit2.motor2.throttle = mrc
+                            self.changed = 1
 
-        if "mr" in drive:
-            mr = drive["mr"]
+runner = DriveReactor()
+Communicator(sock, runner)
 
-            if mr > 0:
-                Motor.MotorRun(motorController1, 0,'backward', mr)
-                Motor.MotorRun(motorController3, 0,'backward', mr)
-            elif mr < 0:
-                mr = mr * -1
-                Motor.MotorRun(motorController1, 0, 'forward', mr)
-                Motor.MotorRun(motorController3, 0, 'forward', mr)
-            else:
-                print("stop")
-                Motor.MotorStop(motorController1, 0)
-                Motor.MotorStop(motorController3, 0)
-
-
-        if "mrc" in drive:
-            mrc = drive["mrc"]
-
-            if mrc > 0:
-                Motor.MotorRun(motorController2, 0,'backward', mrc)
-            elif mrc < 0:
-                Motor.MotorRun(motorController2, 0, 'forward', mrc * -1)
-            else:
-                Motor.MotorStop(motorController2, 0)
-
-    
 while True:
-    data, addr = sock.recvfrom(com.udpBuffer)
-    print("received message drive: %s" % data)
-    
-    gotMessage(data)
-    
-    #sleep(0.01)
+    pass

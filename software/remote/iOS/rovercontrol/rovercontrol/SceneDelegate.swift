@@ -7,6 +7,7 @@
 
 import UIKit
 import JxThemeManager
+import NetworkExtension
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -38,9 +39,45 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
 
+        let configuration = NEHotspotConfiguration(ssid: "RoverControl", passphrase: "danain3D!", isWEP: false)
+        configuration.joinOnce = true
+        
+        NEHotspotConfigurationManager.shared.apply(configuration) { (error) in
+            if let e = error {
+                if e.localizedDescription == "already associated."
+                {
+                    print("Connected")
+                    self.connected(scene)
+                } else{
+                    print("No Connected")
+                    self.notConnected(scene)
+                }
+            } else {
+                print("Connected")
+                self.connected(scene)
+            }
+        }
         
         
         
+    }
+    func connected(_ scene: UIScene) {
+        if let windowScene = scene as? UIWindowScene{
+            if let main = windowScene.windows.first?.rootViewController as? MainVC {
+                main.wifiConnectionState.backgroundColor = .green
+            }
+        }
+        
+        restartServices()
+    }
+    func notConnected (_ scene: UIScene) {
+        if let windowScene = scene as? UIWindowScene{
+            if let main = windowScene.keyWindow?.rootViewController as? MainVC {
+                main.wifiConnectionState.backgroundColor = .red
+            }
+        }
+    }
+    func restartServices() {
         MovementManager.shared.addDelegate(self.rover!)
         
         CommunicationManager.shared.udpRestart()
@@ -53,6 +90,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         MovementManager.shared.removeDelegate(self.rover!)
         
         CommunicationManager.shared.udpDisconnect()
+        
+        if let windowScene = scene as? UIWindowScene{
+            if let main = windowScene.windows.first?.rootViewController as? MainVC {
+                main.wifiConnectionState.backgroundColor = .red
+            }
+        }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

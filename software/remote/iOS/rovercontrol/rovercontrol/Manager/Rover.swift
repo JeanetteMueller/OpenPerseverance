@@ -23,10 +23,10 @@ class Rover {
         let br: Float
         
         init(fl: Float, fr: Float, bl: Float, br: Float) {
-            self.fl = fl + GlobalSettings.getCalibrationFrontLeft() ///+ 5
-            self.fr = fr + GlobalSettings.getCalibrationFrontRight() ///- 5
-            self.bl = bl + GlobalSettings.getCalibrationBackLeft() ///+ 3
-            self.br = br + GlobalSettings.getCalibrationBackRight() ///- 7
+            self.fl = fl + GlobalSettings.getCalibrationFrontLeft()
+            self.fr = fr + GlobalSettings.getCalibrationFrontRight()
+            self.bl = bl + GlobalSettings.getCalibrationBackLeft()
+            self.br = br + GlobalSettings.getCalibrationBackRight()
         }
     }
     
@@ -55,9 +55,9 @@ class Rover {
     }
     
     enum Speed: Float {
-        case Slow = 50
-        case Normal = 75
-        case Fast = 100
+        case Slow = 0.70
+        case Normal = 0.85
+        case Fast = 1.0
     }
     
     var driving = Drive.Drive {
@@ -87,14 +87,7 @@ class Rover {
         }
     }
     var speed = Speed.Slow {
-        didSet {
-            switch self.speed {
-            case .Slow:
-                append("Set Speed: Slow")
-            default:
-                append("Set Speed: Normal")
-            }
-            
+        didSet {  
             NotificationCenter.default.post(name: .RoverSpeedModeChanges, object: self)
         }
     }
@@ -127,7 +120,7 @@ class Rover {
     
     
     let maxTowerRotate:Float = 170
-    let rangeTowerRotate:Float = 4
+    let rangeTowerRotate:Float = 3
     
     let maxTowerTilt:Float = 170
     let rangeTowerTilt:Float = 85

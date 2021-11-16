@@ -83,7 +83,7 @@ class CommunicationManager {
             case .Dev:
                 return "192.168.178.44"
             default:
-                return "10.0.0.85"
+                return "192.168.50.185"
             }
         }
     }
@@ -91,6 +91,11 @@ class CommunicationManager {
     var frontCameraIpAdress: String {
         get {
             return "10.0.0.87"
+        }
+    }
+    var towerCameraIpAdress: String {
+        get {
+            return "192.168.50.185"
         }
     }
     
@@ -293,8 +298,8 @@ class CommunicationManager {
         let sendData = [
             "tower": [
 //                "position": tower.position,
-                "rotation": tower.rotation,
-                "tilt": tower.tilt
+                "r": tower.rotation,
+                "t": tower.tilt
             ]
         ]
         

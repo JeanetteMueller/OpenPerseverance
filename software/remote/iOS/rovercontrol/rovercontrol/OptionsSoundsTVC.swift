@@ -18,36 +18,34 @@ class OptionsSoundsTVC: OptionsTVC {
         headlines.append("Sounds")
         var c = [ContentTableViewCellData]()
         
-        
         var files = [
-            "Arrest that robot.mp3",
-            "Beeps 1.mp3",
-            "Beeps 2.mp3",
-            "citizen of the earth, you will be destroyed.mp3",
-            "Countdown - 10, 9, 8.mp3",
-            "Destroy.mp3",
-            "Directive.mp3",
-            "Distance to target.mp3",
-            "Hahaha.mp3",
-            "Identification please.mp3",
-            "Ignition.mp3",
-            "Lock on Target.mp3",
+            "Nr 5 - Arrest that robot.mp3",
             "Nr 5 - Malfunction.mp3",
             "Nr 5 - Robot alert.mp3",
             "Nr 5 - Software.mp3",
             "Nr 5 - What planet.mp3",
-            "Override.mp3",
-            "Rock Music.mp3",
-            "Self Destruct initiated.mp3",
+            "R2D2 - Beeps 1.mp3",
+            "R2D2 - Beeps 2.mp3",
+            "R2D2 - Vocal Beeps 2.mp3",
+            "Robot - citizen of the earth, you will be destroyed.mp3",
+            "Robot - Countdown - 10, 9, 8.mp3",
+            "Robot - Destroy.mp3",
+            "Robot - Distance to target.mp3",
+            "Robot - Hahaha.mp3",
+            "Robot - Identification please.mp3",
+            "Robot - Ignition.mp3",
+            "Robot - Lock on Target.mp3",
+            "Robot - Override.mp3",
+            "Robot - Self Destruct initiated.mp3",
+            "Robot - System override.mp3",
+            "Robot - Terminate.mp3",
             "Startup iMac.mp3",
-            "System override.mp3",
-            "Terminate.mp3",
             "Terminator - Ill be back.mp3",
-            "Vocal Beeps 2.mp3",
             "Wall-E - 1.mp3",
+            "Wall-E - Directive.mp3",
             "Wall-E - No.mp3",
             "Wall-E - Solar Charge and Boot.mp3",
-            "Whoa.mp3",
+            "Wall-E - Whoa.mp3",
         ]
         
         for file in files {
@@ -67,14 +65,20 @@ class OptionsSoundsTVC: OptionsTVC {
         headlines.append("Music")
         c = [ContentTableViewCellData]()
         
-        
         files = [
-            "Terminator Theme Song.mp3",
             "Rock Music.mp3",
         ]
         
         for file in files {
-            c.append(DetailViewCell.BasicCell(withTitle: file,  andAction: { (cell, path) in
+            
+            var filetitle = file
+            let suffix = ".mp3"
+            
+            if filetitle.hasSuffix(suffix) {
+                filetitle = filetitle.subString(to: filetitle.length - suffix.length)
+            }
+            
+            c.append(DetailViewCell.BasicCell(withTitle: filetitle,  andAction: { (cell, path) in
                 //self.selectRow(at: path)
                 
                 let s = Rover.SoundInformation(file: file, action: 0)

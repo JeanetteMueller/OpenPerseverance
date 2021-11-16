@@ -181,13 +181,30 @@ extension Rover: MovementManagerDelegate {
         
         let manager = MovementManager.shared
         
-        currentTowerTilt += Float(manager.current_leftThumbstick.y * 4 )
+        currentTowerTilt += Float(manager.current_leftThumbstick.y * 2)
         
-        self.tower = Rover.TowerInformation(rotation:Float(manager.current_leftThumbstick.x * -1) * (rangeTowerRotate / 2) + (maxTowerRotate / 2),
+        let tiltMin:Float = 40
+        let tiltMax:Float = 110
+        
+        
+        if currentTowerTilt < tiltMin {
+            currentTowerTilt = tiltMin
+        }
+        if currentTowerTilt > tiltMax {
+            currentTowerTilt = tiltMax
+        }
+        
+        currentTowerTilt = Float(manager.current_leftThumbstick.y)
+        
+        let newRotation = Float(manager.current_leftThumbstick.x * -1) * (rangeTowerRotate) + (maxTowerRotate / 2)
+        
+        self.tower = Rover.TowerInformation(rotation:newRotation,
                                             tilt:currentTowerTilt)
         
-        if MovementManager.shared.current_leftThumbstick.x > 0.05 || MovementManager.shared.current_leftThumbstick.x < -0.05 ||
-            MovementManager.shared.current_leftThumbstick.y > 0.05 || MovementManager.shared.current_leftThumbstick.y < -0.05{
+        let deadLimit = 0.02
+        
+        if MovementManager.shared.current_leftThumbstick.x > deadLimit || MovementManager.shared.current_leftThumbstick.x < -deadLimit ||
+            MovementManager.shared.current_leftThumbstick.y > deadLimit || MovementManager.shared.current_leftThumbstick.y < -deadLimit{
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.repeatActionTowerTilt()

@@ -33,11 +33,11 @@ extension MainVC: MovementManagerDelegate {
         switch button {
         case .ButtonX:
             if pressed {
-                if self.optionsContainer.isHidden {
-                    self.showOptionsOverlay()
-                }else{
-                    self.hideOptionsOverlay()
-                }
+//                if self.optionsContainer.isHidden {
+//                    self.showOptionsOverlay()
+//                }else{
+//                    self.hideOptionsOverlay()
+//                }
             }
         default:
             return

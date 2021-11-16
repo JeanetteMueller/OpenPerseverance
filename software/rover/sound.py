@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 from __future__ import division
 
+from threading import Thread
+import sys
 import socket
 import json
 import time
+import math
 import os
+from time import sleep
 
 from Communication import Communication
+from Communicator import Communicator
 from Helper import Helper
 
 com = Communication("sound")
@@ -14,53 +19,39 @@ com = Communication("sound")
 sock = com.getSocket()
 sock.bind((com.ip, com.getPortForSound()))
 
-
-def gotMessage(data):
-    print("gotMessage")
-#    i2cdetect -y
-    jsonData = json.loads(data)
+class SoundReactor(Thread):
+    helper = Helper()
     
-    if "sound" in jsonData:
-        sound = jsonData["sound"]
+    filename = "Robot - Identification please.mp3"
+    changed = 1
+    
+    def __init__(self):
+        Thread.__init__(self)
+        self.daemon = True
+        self.start()
+
+    def run(self):
+        while True:
+            if self.changed == 1:
+                f = "mpg321 '/home/pi/sounds/" + self.filename + "' -g 100"
+                print(f)
+                os.system(f)
+                self.changed = 0
+
+    def parseMessage(self,msg):
+        jsonData = json.loads(msg)
+        print("parse message for sound")
+        if "sound" in jsonData:
+            sound = jsonData["sound"]
         
-        print("got sound")
+            print("got sound")
         
-        if "file" in sound:
-            fileName = sound["file"]
-            
-            print("got file")
-            
-            f = "omxplayer '/home/pi/sounds/" + fileName + "'"
-            
-            print(f)
-        
-            os.system(f)
+            if "file" in sound:
+                self.filename = sound["file"]
+                self.changed = 1
 
-        if "action" in sound:
-            action = sound["action"]
-        
+runner = SoundReactor()
+Communicator(sock, runner)
 
-def loop():
-    fileName = "Identification please.mp3"
-    f = "omxplayer '/home/pi/sounds/" + fileName + "' --vol 352"
-
-    print(f)
-
-    os.system(f)
-
-
-def destroy():
-    print("Exiting")
-
-if __name__ == '__main__': # Program start from here
-    try:
-        loop()
-    except KeyboardInterrupt:
-        # When 'Ctrl+C' is pressed, the child program destroy() will be executed.
-        destroy()
-        
 while True:
-    data, addr = sock.recvfrom(com.udpBuffer)
-    print("received message: %s" % data)
-
-    gotMessage(data)
+    pass

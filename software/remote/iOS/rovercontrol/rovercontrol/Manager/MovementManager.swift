@@ -262,9 +262,9 @@ class MovementManager {
     }
 
     func thumbstickChangedHandler(_ button: ThumbstickType, _ xvalue: Float, _ yvalue: Float) {
-//        let analogValueX = String(format: "%.2f", xvalue)
-//        let analogValueY = String(format: "%.2f", yvalue)
-        //print("thumbstickChangedHandler " + button.rawValue + " " + analogValueX + " / " + analogValueY)
+       let analogValueX = String(format: "%.2f", xvalue)
+        let analogValueY = String(format: "%.2f", yvalue)
+        print("thumbstickChangedHandler " + button.rawValue + " " + analogValueX + " / " + analogValueY)
 
         switch button {
             case .Left:

@@ -16,7 +16,14 @@ class SettingsVC: JxContentTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Close", style: .done, target: self, action: #selector(self.close))
+        if self.navigationController?.viewControllers.count == 1 {
+        
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close",
+                                                                     style: .done,
+                                                                     target: self,
+                                                                     action: #selector(self.close))
+            
+        }
     }
     @objc func close() {
         self.navigationController?.dismiss(animated: true, completion: {
@@ -27,21 +34,21 @@ class SettingsVC: JxContentTableViewController {
         
         super.prepareContent()
         
-        headlines.append("")
-        var a = [ContentTableViewCellData]()
-        a.append(DetailViewCell.SwitchCell(withTitle: "Development Environment",
-                                           isOn: GlobalSettings.getEnvironment() == .Dev,
-                                           andAction: { cell, indexpath, on in
-            
-            GlobalSettings.setEnvironment(on == true ? .Dev : .Normal)
-            
-        }))
-        content.append(a)
+//        headlines.append("")
+//        var a = [ContentTableViewCellData]()
+//        a.append(DetailViewCell.SwitchCell(withTitle: "Development Environment",
+//                                           isOn: GlobalSettings.getEnvironment() == .Dev,
+//                                           andAction: { cell, indexpath, on in
+//
+//            GlobalSettings.setEnvironment(on == true ? .Dev : .Normal)
+//
+//        }))
+//        content.append(a)
         
-        headlines.append("Calibration")
+        headlines.append("settings calibration".localized)
         var b = [ContentTableViewCellData]()
         
-        b.append(DetailViewCell.StepperCell(withTitle: "Vorne links",
+        b.append(DetailViewCell.StepperCell(withTitle: "settings calibration front left".localized,
                                             withValue: Double(GlobalSettings.getCalibrationFrontLeft()),
                                             withMin: -90,
                                             withMax: 90,
@@ -51,7 +58,7 @@ class SettingsVC: JxContentTableViewController {
             self.updateCurrentWheelRotation()
             self.reload()
         }))
-        b.append(DetailViewCell.StepperCell(withTitle: "Vorne rechts",
+        b.append(DetailViewCell.StepperCell(withTitle: "settings calibration front right".localized,
                                             withValue: Double(GlobalSettings.getCalibrationFrontRight()),
                                             withMin: -90,
                                             withMax: 90,
@@ -61,7 +68,7 @@ class SettingsVC: JxContentTableViewController {
             self.updateCurrentWheelRotation()
             self.reload()
         }))
-        b.append(DetailViewCell.StepperCell(withTitle: "Hinten links",
+        b.append(DetailViewCell.StepperCell(withTitle: "settings calibration back left".localized,
                                             withValue: Double(GlobalSettings.getCalibrationBackLeft()),
                                             withMin: -90,
                                             withMax: 90,
@@ -71,7 +78,7 @@ class SettingsVC: JxContentTableViewController {
             self.updateCurrentWheelRotation()
             self.reload()
         }))
-        b.append(DetailViewCell.StepperCell(withTitle: "Hinten rechts",
+        b.append(DetailViewCell.StepperCell(withTitle: "settings calibration back right".localized,
                                             withValue: Double(GlobalSettings.getCalibrationBackRight()),
                                             withMin: -90,
                                             withMax: 90,
@@ -99,6 +106,9 @@ class SettingsVC: JxContentTableViewController {
 //        self.topDownPositionView.updateWheelRotation(wr)
 //
 //        CommunicationManager.shared.sendWheelRotation(wr)
+    }
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.seactionHeadlineText(forSection: section)
     }
 }
 

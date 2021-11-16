@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  rovercontrol
+
+  Created by Jeanette Müller on 26.10.21.
+  
+*/
+
+"speed"         = "Geschwindigkeit";
+"color blue"    = "Blau";
+"color red"     = "Rot";
+"color green"   = "Grün";
+"laser"         = "Laser";
+
+"options sounds"    = "Geräusche";
+"options lights"    = "Lichter";
+"options actions"   = "Aktionen";
+
+"settings calibration"              = "Kalibrierung";
+"settings calibration front left"   = "Vorne links";
+"settings calibration front right"   = "Vorne rechts";
+"settings calibration back left"   = "hinten links";
+"settings calibration back right"   = "hinten rechts";
+
+"start pause"               = "Pause";
+"paused title"              = "Fernsteuerung pausiert";
+"paused action"             = "Fortfahren";

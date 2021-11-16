@@ -63,7 +63,5 @@ class OptionsLightsTVC: OptionsTVC {
         content.append(c)
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.seactionHeadlineText(forSection: section)
-    }
+
 }

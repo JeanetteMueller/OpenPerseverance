@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  rovercontrol
+
+  Created by Jeanette Müller on 26.10.21.
+  
+*/
+
+"speed"         = "Speed";
+"color blue"    = "Blue";
+"color red"     = "Red";
+"color green"   = "Green";
+"laser"         = "Laser";
+
+"options sounds"    = "Sounds";
+"options lights"    = "Lights";
+"options actions"   = "Actions";
+
+"settings calibration"              = "Calibration";
+"settings calibration front left"   = "Front left";
+"settings calibration front right"   = "Front right";
+"settings calibration back left"   = "Back left";
+"settings calibration back left"   = "Back right";
+
+"start pause"               = "Pause";
+"paused title"              = "Remote Control paused";
+"paused action"             = "Restart Systems";

@@ -21,9 +21,8 @@ extension MainVC {
         }
     }
     
-    var camera1BasicHeight: CGFloat { get {return 270} }
-    var camera2BasicHeight: CGFloat { get {return 270} }
-    var camera3BasicHeight: CGFloat { get {return 270} }
+    var camera1BasicHeight: CGFloat { get {return 180} }
+    var camera3BasicHeight: CGFloat { get {return 180} }
     
     
     func getImageViewByCam(_ cam: CameraType) -> UIImageView {
@@ -77,16 +76,14 @@ extension MainVC {
             // Start Loading Indicator
             camera1Stream.didStartLoading = { [unowned self] in
                 self.camera1LoadingIndicator.startAnimating()
-                self.videoConnectionState.backgroundColor = .orange
             }
             // Stop Loading Indicator
             camera1Stream.didFinishLoading = { [unowned self] in
                 self.camera1LoadingIndicator.stopAnimating()
-                self.videoConnectionState.backgroundColor = .green
             }
             
             // Your stream url should be here !
-            let url = URL(string: "http://\( CommunicationManager.shared.frontCameraIpAdress ):81/stream")
+            let url = URL(string: "http://\( CommunicationManager.shared.frontCameraIpAdress):81/stream")
             camera1Stream.contentURL = url
             camera1Stream.play() // Play the stream
             
@@ -131,12 +128,10 @@ extension MainVC {
             // Start Loading Indicator
             camera3Stream.didStartLoading = { [unowned self] in
                 self.camera3LoadingIndicator.startAnimating()
-                self.videoConnectionState.backgroundColor = .orange
             }
             // Stop Loading Indicator
             camera3Stream.didFinishLoading = { [unowned self] in
                 self.camera3LoadingIndicator.stopAnimating()
-                self.videoConnectionState.backgroundColor = .green
                 
             }
             
@@ -144,8 +139,7 @@ extension MainVC {
             
             // MUSS WAS NEUES mit 192.168.50.??? sein
             
-            //let url = URL(string: "http://192.168.178.55:8081/?action=stream")
-            let url = URL(string: "http://10.0.0.85:8081/?action=stream")
+            let url = URL(string: "http://\(CommunicationManager.shared.towerCameraIpAdress):8081/?action=stream")
             camera3Stream.contentURL = url
             camera3Stream.play() // Play the stream
             camera3PhotoButton.isHidden = false
