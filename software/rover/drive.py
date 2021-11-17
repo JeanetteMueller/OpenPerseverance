@@ -23,16 +23,32 @@ kit2 = MotorKit(address=0x61)
 class DriveReactor(Thread):
     changed = 1
     
+    motorLeft = 0
+    motorLeftCenter = 0
+    
+    motorRight = 0
+    motorRightCenter = 0
+    
     def __init__(self):
         Thread.__init__(self)
         self.daemon = True
         self.start()
 
     def run(self):
-        print("start run")
+        #print("start run")
+        while True:
+            kit1.motor1.throttle = self.motorLeft
+            kit1.motor3.throttle = self.motorLeft
+            kit1.motor2.throttle = self.motorLeftCenter
+            kit2.motor1.throttle = self.motorRight
+            kit2.motor3.throttle = self.motorRight
+            kit2.motor2.throttle = self.motorRightCenter
+            
+            sleep(0.02)
+            
     def parseMessage(self,msg):
         jsonData = json.loads(msg)
-        print("parse message for steer")
+        #print("parse message for drive " + str(msg))
         
         if "drive" in jsonData:
             drive = jsonData["drive"]
@@ -40,22 +56,11 @@ class DriveReactor(Thread):
                 if "mlc" in drive:
                     if "mr" in drive:
                         if "mrc" in drive:
-                            ml = drive["ml"]
-                            kit1.motor1.throttle = ml
-                            kit1.motor3.throttle = ml
+                            self.motorLeft = drive["ml"]
+                            self.motorLeftCenter = drive["mlc"]
+                            self.motorRight = drive["mr"] * -1
+                            self.motorRightCenter = drive["mrc"] * -1
                             
-                            mlc = drive["mlc"]
-                            kit1.motor2.throttle = mlc
-                            
-                            mr = drive["mr"]
-                            mr = mr * -1
-                            kit2.motor1.throttle = mr
-                            kit2.motor3.throttle = mr
-                            
-                            mrc = drive["mrc"]
-                            mrc = mrc * -1
-                            kit2.motor2.throttle = mrc
-                            self.changed = 1
 
 runner = DriveReactor()
 Communicator(sock, runner)

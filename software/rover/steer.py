@@ -33,8 +33,6 @@ class SteerReactor(Thread):
     steerBackLeft   = 85
     steerBackRight  = 85
     
-    changed = 1
-    
     def __init__(self):
         Thread.__init__(self)
         self.daemon = True
@@ -42,18 +40,15 @@ class SteerReactor(Thread):
 
     def run(self):
         while True:
-            if self.changed == 1:
-                print("update steer")
-                pwm.set_pwm(0, 0, int(self.helper.getPulseFromAngle(self.steerFrontLeft, servo_min, servo_max)))
-                pwm.set_pwm(4, 0, int(self.helper.getPulseFromAngle(self.steerFrontRight, servo_min, servo_max)))
-                pwm.set_pwm(8, 0, int(self.helper.getPulseFromAngle(self.steerBackLeft, servo_min, servo_max)))
-                pwm.set_pwm(12, 0, int(self.helper.getPulseFromAngle(self.steerBackRight, servo_min, servo_max)))
-                sleep(0.005)
-                self.changed = 0
+            pwm.set_pwm(0, 0, int(self.helper.getPulseFromAngle(self.steerFrontLeft, servo_min, servo_max)))
+            pwm.set_pwm(4, 0, int(self.helper.getPulseFromAngle(self.steerFrontRight, servo_min, servo_max)))
+            pwm.set_pwm(8, 0, int(self.helper.getPulseFromAngle(self.steerBackLeft, servo_min, servo_max)))
+            pwm.set_pwm(12, 0, int(self.helper.getPulseFromAngle(self.steerBackRight, servo_min, servo_max)))
+            
+            sleep(0.02)
 
     def parseMessage(self,msg):
         jsonData = json.loads(msg)
-        print("parse message for steer")
         
         if "steer" in jsonData:
             steer = jsonData["steer"]
@@ -65,7 +60,8 @@ class SteerReactor(Thread):
                             self.steerFrontRight = steer["fr"]
                             self.steerBackLeft = steer["bl"]
                             self.steerBackRight = steer["br"]
-                            self.changed = 1
+                            
+                            
 
 runner = SteerReactor()
 Communicator(sock, runner)

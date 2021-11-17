@@ -37,23 +37,22 @@ Motor2 = DRV8825(dir_pin=24, step_pin=18, enable_pin=4, mode_pins=(21, 22, 27))
 #Motor2.Stop()
 
 
-    
 def rotateBy(motor, deg, duration):
-    
+
     dir = 'forward'
     if (deg < 0):
         dir = 'backward'
         deg = deg * -1
-        
-    s = 6406.0 / 360.0 * deg
-    delay = duration / s
-    
-    
-        
+    s = 6406.0 / 16 / 360.0 * deg
+
+    delay = 0
+    if (duration > 0):
+    	delay = duration / s
+
+    #motor.SetMicroStep('software', 'halfstep')
     motor.TurnStep(Dir=dir, steps=int(s), stepdelay=delay)
     motor.Stop()
-    
-    
-#rotateBy(Motor1, 360, 2.0)
 
-rotateBy(Motor2, 360, 2.0)
+#rotateBy(Motor1, 90, 0.5)
+
+rotateBy(Motor2, 90, 0.5)
