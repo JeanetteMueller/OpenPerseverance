@@ -25,33 +25,33 @@ class PCA9685:
   __ALLLED_OFF_L       = 0xFC
   __ALLLED_OFF_H       = 0xFD
 
-  def __init__(self, address, debug=False):
+  def __init__(self, address=0x40, debug=False):
     self.bus = smbus.SMBus(1)
     self.address = address
     self.debug = debug
     if (self.debug):
       print("Reseting PCA9685")
     self.write(self.__MODE1, 0x00)
-
+	
   def write(self, reg, value):
     "Writes an 8-bit value to the specified register/address"
     self.bus.write_byte_data(self.address, reg, value)
     if (self.debug):
       print("I2C: Write 0x%02X to register 0x%02X" % (value, reg))
-
+	  
   def read(self, reg):
     "Read an unsigned byte from the I2C device"
     result = self.bus.read_byte_data(self.address, reg)
     if (self.debug):
       print("I2C: Device 0x%02X returned 0x%02X from reg 0x%02X" % (self.address, result & 0xFF, reg))
     return result
-
+	
   def setPWMFreq(self, freq):
     "Sets the PWM frequency"
     prescaleval = 25000000.0    # 25MHz
-    prescaleval = prescaleval / 4096.0       # 12-bit
-    prescaleval = prescaleval / float(freq)
-    prescaleval = prescaleval - 1.0
+    prescaleval /= 4096.0       # 12-bit
+    prescaleval /= float(freq)
+    prescaleval -= 1.0
     if (self.debug):
       print("Setting PWM frequency to %d Hz" % freq)
       print("Estimated pre-scale: %d" % prescaleval)
@@ -69,26 +69,15 @@ class PCA9685:
 
   def setPWM(self, channel, on, off):
     "Sets a single PWM channel"
-    self.write(self.__LED0_ON_L + 4*channel, on & 0xFF)
-    self.write(self.__LED0_ON_H + 4*channel, 0xff & (on >> 8))
-    self.write(self.__LED0_OFF_L + 4*channel, off & 0xFF)
-    self.write(self.__LED0_OFF_H + 4*channel, 0xff & (off >> 8))
+    self.write(self.__LED0_ON_L+4*channel, on & 0xFF)
+    self.write(self.__LED0_ON_H+4*channel, on >> 8)
+    self.write(self.__LED0_OFF_L+4*channel, off & 0xFF)
+    self.write(self.__LED0_OFF_H+4*channel, off >> 8)
     if (self.debug):
       print("channel: %d  LED_ON: %d LED_OFF: %d" % (channel,on,off))
-
-  def setDutycycle(self, channel, pulse):
-    self.setPWM(channel, 0, int(pulse * int(4096 / 100)))
-
-  def setLevel(self, channel, value):
-    if (value == 1):
-      self.setPWM(channel, 0, 4095)
-    else:
-      self.setPWM(channel, 0, 0)
-
-# pwm = PCA9685(0x5f, debug=False)
-# pwm.setPWMFreq(50)
-# pwm.setDutycycle(0,100)
-# pwm.setLevel(1,0)
-# pwm.setLevel(2,1)
-
+	  
+  def setServoPulse(self, channel, pulse):
+    "Sets the Servo Pulse,The PWM frequency must be 50HZ"
+    pulse = pulse*4096/20000        #PWM frequency is 50HZ,the period is 20000us
+    self.setPWM(channel, 0, int(pulse))
 
