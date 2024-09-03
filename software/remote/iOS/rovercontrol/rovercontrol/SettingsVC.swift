@@ -12,24 +12,6 @@ import GameController
 
 class SettingsVC: JxContentTableViewController {
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        if self.navigationController?.viewControllers.count == 1 {
-        
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close",
-                                                                     style: .done,
-                                                                     target: self,
-                                                                     action: #selector(self.close))
-            
-        }
-    }
-    @objc func close() {
-        self.navigationController?.dismiss(animated: true, completion: {
-            
-        })
-    }
     override func prepareContent() {
         
         super.prepareContent()

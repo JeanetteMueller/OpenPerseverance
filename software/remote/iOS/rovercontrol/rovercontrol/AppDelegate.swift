@@ -15,9 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         ThemeManager.shared.theme = Theme.RoverControl
-    
+        
         return true
     }
+    
+    
 
     // MARK: UISceneSession Lifecycle
 

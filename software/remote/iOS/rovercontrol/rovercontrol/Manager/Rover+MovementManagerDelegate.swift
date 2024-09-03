@@ -39,23 +39,13 @@ extension Rover: MovementManagerDelegate {
         }
     }
     
-
-    var armJoint1max:Float { get { return 170 }}
-    var armJoint1min:Float { get { return -20 }}
-    
-    var armJoint2max:Float { get { return 105 }}
-    var armJoint2min:Float { get { return 6 }}
-    
     func inputManager(_ manager: MovementManager, button: MovementManager.ButtonType, isPressed pressed: Bool, pressValue value: Float?) {
         
         statusReset()
         
         if pressed {
             switch button {
-            case .ButtonA:
-                if !self.pause {
-                    
-                }
+
             case .ButtonB:
                 if !self.pause {
                     if self.driving == .Drive {
@@ -64,100 +54,13 @@ extension Rover: MovementManagerDelegate {
                         self.driving = .Drive
                     }
                 }
-            case .ButtonX:
-                if !self.pause {
-                    
-                }
-            case .ButtonY:
-                if !self.pause {
-                    
-                }
             case .R1:
                 self.toggleSpeed()
-            
-            case .DpadLeft, .DpadRight, .DpadUp, .DpadDown:
-                if !self.pause {
-                    self.dpadPressedButton = button
-                    
-                    self.dpadRepeatTimerAction(nil)
-                    
-                    self.dPadRepeatTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.dpadRepeatTimerAction(_:)), userInfo: nil, repeats: true)
-            
-//            case .L2:
-//                self.updateDrivingAndSteering(manager)
-//            case .R2:
-//                self.updateDrivingAndSteering(manager)
-                }
+
             default:
                 //Nothing
                 print("Nothing to do")
             }
-        } else{
-            if !self.pause {
-                switch button {
-                
-                    case .DpadLeft, .DpadRight, .DpadUp, .DpadDown:
-                        
-                        if let t = self.dPadRepeatTimer {
-                            t.invalidate()
-                        }
-                        self.dPadRepeatTimer = nil
-                        self.dpadPressedButton = nil
-                    
-                default:
-                    //Nothing
-                    print("Nothing to do")
-                }
-            }
-        }
-    }
-    
-    @objc func dpadRepeatTimerAction(_ sender: Any?) {
-        
-        print("dpadRepearTimerAction")
-        
-        if let button = self.dpadPressedButton {
-            if button == .DpadLeft {
-                self.armJoint1 += 1
-            }else if button == .DpadRight {
-                self.armJoint1 -= 1
-            }
-            if self.armJoint1 < self.armJoint1min {
-                self.armJoint1 = self.armJoint1min
-            }else if self.armJoint1 > self.armJoint1max {
-                self.armJoint1 = self.armJoint1max
-            }
-            
-            if button == .DpadUp {
-                self.armJoint2 += 1
-            }else if button == .DpadDown {
-                self.armJoint2 -= 1
-            }
-            if self.armJoint2 < self.armJoint2min {
-                self.armJoint2 = self.armJoint2min
-            }else if self.armJoint2 > self.armJoint2max {
-                self.armJoint2 = self.armJoint2max
-            }
-            
-            //                let joint1_maxArmRotation:Float = 170
-            //                let joint2_maxArmRotation:Float = 100
-            //                let joint3_maxArmRotation:Float = 170
-            //                let joint4_maxArmRotation:Float = 170
-            //
-            //                let joint1_halfArmRotation = joint1_maxArmRotation / 2
-            //                let joint2_halfArmRotation = joint2_maxArmRotation / 2
-            //                let joint3_halfArmRotation = joint3_maxArmRotation / 2
-            //                let joint4_halfArmRotation = joint4_maxArmRotation / 2
-            
-            
-            let arm = Rover.ArmInformation(joint1: self.armJoint1,
-                                           joint2: self.armJoint2,
-                                           joint3: self.armJoint3,
-                                           joint4: self.armJoint4)
-            
-            self.topDownPositionView.updateArmInformation(arm)
-            
-            CommunicationManager.shared.sendArmInformation(arm)
         }
     }
     
@@ -196,7 +99,12 @@ extension Rover: MovementManagerDelegate {
         
         currentTowerTilt = Float(manager.current_leftThumbstick.y)
         
-        let newRotation = Float(manager.current_leftThumbstick.x * -1) * (rangeTowerRotate) + (maxTowerRotate / 2)
+        //endless rotation
+        //let newRotation = Float(manager.current_leftThumbstick.x * -1) * (rangeTowerRotate) + (maxTowerRotate / 2)
+        
+        
+        
+        let newRotation = Float(((manager.current_leftThumbstick.x * -1) + 1) * (maxTowerRotate/2) )
         
         self.tower = Rover.TowerInformation(rotation:newRotation,
                                             tilt:currentTowerTilt)
@@ -206,7 +114,7 @@ extension Rover: MovementManagerDelegate {
         if MovementManager.shared.current_leftThumbstick.x > deadLimit || MovementManager.shared.current_leftThumbstick.x < -deadLimit ||
             MovementManager.shared.current_leftThumbstick.y > deadLimit || MovementManager.shared.current_leftThumbstick.y < -deadLimit{
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.repeatActionTowerTilt()
                 
             }
@@ -225,10 +133,8 @@ extension Rover: MovementManagerDelegate {
     
     func updateDrivingAndSteering(_ manager: MovementManager) {
         
-
         self.steeringCircleDistanceInner = nil
         self.steeringCircleDistanceOuter = nil
-        
         
         
         //lenkung
@@ -332,7 +238,7 @@ extension Rover: MovementManagerDelegate {
                 
                 let motorPercentage = inner / outer
                 
-                print("motorPercentage \(motorPercentage)")
+                //print("motorPercentage \(motorPercentage)")
                 
                 if manager.current_rightThumbstick.x < 0 {
                     //nach links

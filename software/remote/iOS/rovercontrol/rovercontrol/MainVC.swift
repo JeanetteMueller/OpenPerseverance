@@ -32,34 +32,15 @@ class MainVC: UIViewController {
     
     @IBOutlet weak var statusLabel: UILabel!
     
-    @IBOutlet weak var buttonLightRed: UIButton!
-    @IBOutlet weak var buttonLightGreen: UIButton!
-    @IBOutlet weak var buttonLightBlue: UIButton!
-    @IBOutlet weak var lightsColorResult: UIView!
-    @IBOutlet weak var buttonLaser: UIButton!
-    
-
-    @IBOutlet weak var cameraContainer1: UIView!
     @IBOutlet weak var cameraContainer3: UIView!
     
-    @IBOutlet weak var camera1Label: UILabel!
-    @IBOutlet weak var camera1ImageView: UIImageView!
-    @IBOutlet weak var camera1LoadingIndicator: UIActivityIndicatorView!
-    var camera1Stream: MJPEGStreamLib!
-    @IBOutlet weak var camera1StartButton: UIButton!
-    @IBOutlet weak var camera1ZoomButton: UIButton!
-    @IBOutlet weak var camera1PhotoButton: UIButton!
-    @IBOutlet weak var camera1Height: NSLayoutConstraint!
     
-    
-    @IBOutlet weak var camera3Label: UILabel!
+
     @IBOutlet weak var camera3ImageView: UIImageView!
     @IBOutlet weak var camera3LoadingIndicator: UIActivityIndicatorView!
     var camera3Stream: MJPEGStreamLib!
     @IBOutlet weak var camera3StartButton: UIButton!
-    @IBOutlet weak var camera3ZoomButton: UIButton!
     @IBOutlet weak var camera3PhotoButton: UIButton!
-    @IBOutlet weak var camera3Height: NSLayoutConstraint!
     
     
     @IBOutlet weak var roverTopDownContainerView: UIView!
@@ -67,6 +48,10 @@ class MainVC: UIViewController {
     
     @IBOutlet weak var roverSpeedContainerView: UIView?
     var roverSpeedView: RoverSpeedView?
+    
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,9 +79,6 @@ class MainVC: UIViewController {
         self.robotConnectionState.layer.cornerRadius = 5
         
         
-        self.camera1ImageView.layer.borderColor = UIColor.lightGray.cgColor
-        self.camera1ImageView.layer.borderWidth = 1
-        
         self.camera3ImageView.layer.borderColor = UIColor.lightGray.cgColor
         self.camera3ImageView.layer.borderWidth = 1
         
@@ -107,8 +89,6 @@ class MainVC: UIViewController {
         MovementManager.shared.addDelegate(self)
         
         updateCameraButtons()
-        
-        self.resetLightButtons()
         
     }
     func systemInfo(_ format: String = "%@\nVersion %@\nBuild %@") -> String {
@@ -140,11 +120,8 @@ class MainVC: UIViewController {
     let buttonDefaultColor = UIColor.black
     func updateButtons() {
         for b in [buttonDriveMode,
-                  buttonSpeed,
-                  buttonLightRed,
-                  buttonLightGreen,
-                  buttonLightBlue,
-                  buttonLaser] {
+                  buttonSpeed
+                  ] {
             
             b?.isEnabled = true
             b?.layer.borderWidth = 1.0
@@ -153,45 +130,6 @@ class MainVC: UIViewController {
         }
         buttonDriveMode.backgroundColor = buttonDefaultColor
         buttonSpeed.setTitle("speed".localized, for: .normal)
-        buttonLightRed.setTitle("color red".localized, for: .normal)
-        buttonLightGreen.setTitle("color green".localized, for: .normal)
-        buttonLightBlue.setTitle("color blue".localized, for: .normal)
-        buttonLaser.setTitle("laser".localized, for: .normal)
-        
-        if buttonLightRed.isSelected {
-            
-            buttonLightRed.backgroundColor = .red
-            buttonLightRed.setTitleColor(buttonDefaultColor, for: .normal)
-        }else{
-            buttonLightRed.setTitleColor(.red, for: .normal)
-            buttonLightRed.backgroundColor = buttonDefaultColor
-        }
-        
-        if buttonLightGreen.isSelected {
-            buttonLightGreen.backgroundColor = .green
-            buttonLightGreen.setTitleColor(buttonDefaultColor, for: .normal)
-        }else{
-            buttonLightGreen.setTitleColor(.green, for: .normal)
-            buttonLightGreen.backgroundColor = buttonDefaultColor
-        }
-        
-        if buttonLightBlue.isSelected {
-            buttonLightBlue.backgroundColor = .blue
-            buttonLightBlue.setTitleColor(buttonDefaultColor, for: .normal)
-        }else{
-            buttonLightBlue.setTitleColor(.blue, for: .normal)
-            buttonLightBlue.backgroundColor = buttonDefaultColor
-        }
-        
-        
-        if buttonLaser.isSelected {
-            buttonLaser.backgroundColor = .red
-            buttonLaser.setTitleColor(buttonDefaultColor, for: .normal)
-        }else{
-            buttonLaser.setTitleColor(.red, for: .normal)
-            buttonLaser.backgroundColor = buttonDefaultColor
-        }
-        
         
         buttonPause.backgroundColor = .red
         buttonPause.setTitleColor(.white, for: .normal)
@@ -200,8 +138,7 @@ class MainVC: UIViewController {
         self.optionsContainer.layer.borderColor = UIColor.lightGray.cgColor
     }
     func updateCameraButtons() {
-        for b in [camera1StartButton, camera1ZoomButton, camera1PhotoButton,
-                  camera3StartButton, camera3ZoomButton, camera3PhotoButton] {
+        for b in [camera3StartButton, camera3PhotoButton] {
         
             b?.setTitleColor(.white, for: .normal)
         }
@@ -212,11 +149,8 @@ class MainVC: UIViewController {
         
         self.setActionButtonStyle([buttonPause,
                                    buttonDriveMode,
-                                   buttonSpeed,
-                                   buttonLightRed,
-                                   buttonLightGreen,
-                                   buttonLightBlue,
-                                   buttonLaser])
+                                   buttonSpeed
+                                   ])
         
         
         
@@ -242,8 +176,6 @@ class MainVC: UIViewController {
                                                object: nil)
         
         
-        camera1Height.constant = camera1BasicHeight
-        camera3Height.constant = camera3BasicHeight
         self.view.layoutIfNeeded()
         
         
@@ -269,7 +201,7 @@ class MainVC: UIViewController {
             }
         }
         
-        //self.camera3ImageView.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
+        self.camera3ImageView.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
         
         updateRoverData()
         

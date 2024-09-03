@@ -45,7 +45,7 @@ class RoverSpeedView: UIView {
     }
     
     func updateInformation(_ x:Float, _ y: Float) {
-        print("updateInformation: \(x) x \(y)")
+        //print("updateInformation: \(x) x \(y)")
         
         self.marker.center = CGPoint(x: CGFloat(x * 50) + 50, y: CGFloat(-y * 50) + 50)
         

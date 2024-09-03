@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,7 +17,6 @@
 		263802B12623842500B2F1F0 /* OptionsRootTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802B02623842500B2F1F0 /* OptionsRootTVC.swift */; };
 		263802B42623903B00B2F1F0 /* OptionsLightsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802B32623903B00B2F1F0 /* OptionsLightsTVC.swift */; };
 		263802B72623910C00B2F1F0 /* OptionsSoundsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802B62623910C00B2F1F0 /* OptionsSoundsTVC.swift */; };
-		263802BA2623912000B2F1F0 /* OptionsActionsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263802B92623912000B2F1F0 /* OptionsActionsTVC.swift */; };
 		2639030A261879A900261C1F /* IPAdress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26390309261879A900261C1F /* IPAdress.swift */; };
 		2643550B2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2643550A2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift */; };
 		2643550E26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2643550D26129EF900C6AFED /* MainVC+CommunicationManagerDelegate.swift */; };
@@ -49,7 +48,6 @@
 		263802B02623842500B2F1F0 /* OptionsRootTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsRootTVC.swift; sourceTree = "<group>"; };
 		263802B32623903B00B2F1F0 /* OptionsLightsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsLightsTVC.swift; sourceTree = "<group>"; };
 		263802B62623910C00B2F1F0 /* OptionsSoundsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsSoundsTVC.swift; sourceTree = "<group>"; };
-		263802B92623912000B2F1F0 /* OptionsActionsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsActionsTVC.swift; sourceTree = "<group>"; };
 		26390309261879A900261C1F /* IPAdress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPAdress.swift; sourceTree = "<group>"; };
 		2639030D2618844A00261C1F /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		2643550A2612985F00C6AFED /* MainVC+MovementManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainVC+MovementManagerDelegate.swift"; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 				2639030D2618844A00261C1F /* BridgeHeader.h */,
 				2638028B26237A0D00B2F1F0 /* OptionsTVC.swift */,
 				263802B02623842500B2F1F0 /* OptionsRootTVC.swift */,
-				263802B92623912000B2F1F0 /* OptionsActionsTVC.swift */,
 				263802B32623903B00B2F1F0 /* OptionsLightsTVC.swift */,
 				263802B62623910C00B2F1F0 /* OptionsSoundsTVC.swift */,
 				263802A126237E8000B2F1F0 /* Theme.swift */,
@@ -312,7 +309,6 @@
 				26218B992614CA1300F5993B /* MainVC+Actions.swift in Sources */,
 				2639030A261879A900261C1F /* IPAdress.swift in Sources */,
 				269A2A552605012600F3D314 /* AppDelegate.swift in Sources */,
-				263802BA2623912000B2F1F0 /* OptionsActionsTVC.swift in Sources */,
 				269A2A6B260501A600F3D314 /* MovementManager.swift in Sources */,
 				269A2A572605012600F3D314 /* SceneDelegate.swift in Sources */,
 				263802B12623842500B2F1F0 /* OptionsRootTVC.swift in Sources */,
@@ -482,17 +478,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C6M676M9TH;
 				INFOPLIST_FILE = rovercontrol/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.themaverick.rovercontrol.openperseverance;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "rovercontrol openperseverance";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = rovercontrol/BridgeHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -507,8 +504,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = C6M676M9TH;
 				INFOPLIST_FILE = rovercontrol/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -12,17 +12,6 @@ import JxThemeManager
 
 class OptionsRootTVC: OptionsTVC {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "19-gear"),
-                                                                 style: .done,
-                                                                 target: self,
-                                                                 action: #selector(self.showSettings(_:)))
-    }
-    @objc func showSettings(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier: "SettingsVC", sender: sender)
-    }
     override func prepareContent() {
         super.prepareContent()
         
@@ -31,23 +20,10 @@ class OptionsRootTVC: OptionsTVC {
         
         
         
-        c.append(DetailViewCell.BasicCell(withTitle: "options sounds".localized, andAction: { (cell, path) in
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OptionsSoundsTVC") as? OptionsSoundsTVC {
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+        c.append(DetailViewCell.BasicCell(withTitle: "options settings".localized, andImage: UIImage(named: "19-gear"), andAction: { (cell, path) in
+            self.performSegue(withIdentifier: "SettingsVC", sender: nil)
         }))
         
-        c.append(DetailViewCell.BasicCell(withTitle: "options lights".localized, andAction: { (cell, path) in
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OptionsLightsTVC") as? OptionsLightsTVC {
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }))
-        
-        c.append(DetailViewCell.BasicCell(withTitle: "options actions".localized,  andAction: { (cell, path) in
-            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "OptionsActionsTVC") as? OptionsActionsTVC {
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }))
         
         content.append(c)
     }

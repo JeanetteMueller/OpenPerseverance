@@ -9,6 +9,7 @@ import UIKit
 import JxThemeManager
 
 enum Theme: Int, ThemeProtocol {
+    var userInterfaceStyle: UIUserInterfaceStyle { return .light }
     
     case RoverControl
     
@@ -46,8 +47,10 @@ enum Theme: Int, ThemeProtocol {
     var fontSizeContentMedium: CGFloat { return 12 }
     
     var fontSizeContentSmall: CGFloat { return 10 }
-    
-    func getFont(name:String, size:CGFloat) -> UIFont? {
+    func getFont(name: String, size: CGFloat) -> UIFont? {
+        return getFont(name: name, size: size, useFontMetric: true)
+    }
+    func getFont(name:String, size:CGFloat, useFontMetric: Bool) -> UIFont? {
         
         
         guard let customFont = UIFont(name: name, size: size) else {
@@ -122,8 +125,8 @@ enum Theme: Int, ThemeProtocol {
     var cornerRadiusPercent: CGFloat { return 10 }
     var contentInsetFromDisplayBorder: CGFloat { return 10 }
     
-    var tableViewCellDefaultHeight: CGFloat { return 40 }
-    var tableViewHeadlineHeight: CGFloat { return 30 }
+    var tableViewCellDefaultHeight: CGFloat { return 44 }
+    var tableViewHeadlineHeight: CGFloat { return 24 }
     
     var minimalBorderWidth: CGFloat { return 1 }
     

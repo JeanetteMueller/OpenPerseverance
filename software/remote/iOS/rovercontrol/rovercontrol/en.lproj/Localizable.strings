@@ -7,10 +7,6 @@
 */
 
 "speed"         = "Speed";
-"color blue"    = "Blue";
-"color red"     = "Red";
-"color green"   = "Green";
-"laser"         = "Laser";
 
 "options sounds"    = "Sounds";
 "options lights"    = "Lights";

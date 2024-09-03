@@ -41,7 +41,6 @@ class RoverTopDownPositionView: UIView {
         
         body = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 56))
         
-        
         wheelLeftFront = UIView(frame: CGRect(x: 0, y: 0,   width: wheelWidth, height: wheelHeight))
         wheelLeftCenter = UIView(frame: CGRect(x: 0, y: 0,  width: wheelWidth, height: wheelHeight))
         wheelLeftBack = UIView(frame: CGRect(x: 0, y: 0,    width: wheelWidth, height: wheelHeight))
@@ -156,17 +155,6 @@ class RoverTopDownPositionView: UIView {
     var currentMotorInformation: Rover.MotorInformation = Rover.MotorInformation(left: 0, leftCenter: 0, right: 0, rightCenter: 0)
     func updateMotorInformation(_ v: Rover.MotorInformation) {
         self.currentMotorInformation = v
-        self.updateMovableParts()
-    }
-    var currentArmInformation: Rover.ArmInformation = Rover.ArmInformation(joint1: 0, joint2: 0, joint3: 0, joint4: 0)
-    func updateArmInformation(_ v: Rover.ArmInformation) {
-        self.currentArmInformation = v
-        self.updateMovableParts()
-    }
-    
-    var currentLightInformation: Rover.LightInformation = Rover.LightInformation(light1:0, light2:0, light3:0, light4:0)
-    func updateLightInformation(_ v: Rover.LightInformation) {
-        self.currentLightInformation = v
         self.updateMovableParts()
     }
     

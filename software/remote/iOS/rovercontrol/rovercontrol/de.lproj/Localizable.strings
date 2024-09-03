@@ -7,10 +7,6 @@
 */
 
 "speed"         = "Geschwindigkeit";
-"color blue"    = "Blau";
-"color red"     = "Rot";
-"color green"   = "Grün";
-"laser"         = "Laser";
 
 "options sounds"    = "Geräusche";
 "options lights"    = "Lichter";

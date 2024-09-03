@@ -12,22 +12,26 @@ extension MainVC: CommunicationManagerDelegate {
         
         DispatchQueue.main.async {
             switch state {
-            case .Connected:
-                print("State: Ready")
+                case .Connected:
+                print("MainVC State: Ready")
                 self.robotConnectionState.backgroundColor = .green
                 self.updateButtons()
-            case .Preparing:
-                print("State: Setup")
-                self.robotConnectionState.backgroundColor = .red
+            case .Setup:
+                print("MainVC State: Setup")
+                self.robotConnectionState.backgroundColor = .cyan
             case .Cancelled:
-                print("State: Cancelled")
+                print("MainVC State: Cancelled")
                 self.robotConnectionState.backgroundColor = .darkGray
                 self.updateButtons()
             case .Connecting:
-                print("State: Preparing")
+                print("MainVC State: Preparing")
                 self.robotConnectionState.backgroundColor = .yellow
+            case .Failed:
+                print("MainVC State: Failed")
+                self.robotConnectionState.backgroundColor = .red
+                self.updateButtons()
             default:
-                print("ERROR! State not defined!\n")
+                print("MainVC State: not defined!\n")
                 self.robotConnectionState.backgroundColor = .red
                 self.updateButtons()
             }

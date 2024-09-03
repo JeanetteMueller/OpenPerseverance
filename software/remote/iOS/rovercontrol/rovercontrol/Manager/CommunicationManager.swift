@@ -20,18 +20,14 @@ class CommunicationManager {
     }
     var udpClient_Drive: UDPClient?
     var udpClient_Steer: UDPClient?
-    var udpClient_Arm: UDPClient?
-    var udpClient_Light: UDPClient?
     var udpClient_Tower: UDPClient?
-    var udpClient_Sound: UDPClient?
-    var udpClient_Info: UDPClient?
-    
-    var udpClient_Head: UDPClient?
     
     var delegate: CommunicationManagerDelegate?
     
+    var gamePadIsConnected: Bool = false
+    
     enum State {
-        case Disconnected, Preparing, Connecting, Connected, Cancelled, Failed
+        case Disconnected, Setup, Connecting, Connected, Cancelled, Failed
     }
     
     static let shared: CommunicationManager = {
@@ -61,29 +57,23 @@ class CommunicationManager {
     var timerMotorInformation: Timer?
     var lastSendMotorInformation: Rover.MotorInformation?
     
-    var lastArmInformation: Date = Date()
-    var timerArmInformation: Timer?
-    var lastSendArmInformation: Rover.ArmInformation?
-    
-    var calibrate = 0
-    
     var mainIpAdress: String {
         get {
             switch GlobalSettings.getEnvironment() {
-            case .Dev:
-                return "192.168.178.37"
-            default:
-                return "192.168.50.10"
+                case .Dev:
+                    return "192.168.178.37"
+                default:
+                    return "192.168.50.10"
             }
         }
     }
     var towerIpAdress: String {
         get {
             switch GlobalSettings.getEnvironment() {
-            case .Dev:
-                return "192.168.178.44"
-            default:
-                return "192.168.50.185"
+                case .Dev:
+                    return "192.168.178.44"
+                default:
+                    return "192.168.50.185"
             }
         }
     }
@@ -95,84 +85,52 @@ class CommunicationManager {
     }
     var towerCameraIpAdress: String {
         get {
-            return "192.168.50.185"
+            if let address = String.getIPAddress() {
+                if address.count > 0 {
+                    let parts = address.components(separatedBy: ".")
+                    
+                    if parts.count == 4 {
+                        let first = parts[0]
+                        let second = parts[1]
+                        let third = parts[2]
+                        if first == "192", second == "168", third == "178" {
+                            return "192.168.178.38"
+                        }
+                    }
+                }
+            }
+            return "192.168.50.10"
         }
     }
     
     func udpRestart() {
         
-        calibrate = 0
-        
-        if self.udpClient_Drive == nil {
+        if let drive = self.udpClient_Drive {
+            drive.restart()
+        }else {
             self.udpClient_Drive = self.startUdpClient(adress: mainIpAdress, port: 5001)
-        }else if udpClient_Drive!.state != .ready{
-            self.udpClient_Drive!.connect()
         }
         
-        if self.udpClient_Steer == nil {
+        if let steer = self.udpClient_Steer {
+            steer.restart()
+        }else {
             self.udpClient_Steer = self.startUdpClient(adress: mainIpAdress, port: 5002)
-        }else if udpClient_Steer!.state != .ready{
-            self.udpClient_Steer!.connect()
-        }
-
-        if self.udpClient_Arm == nil {
-            self.udpClient_Arm = self.startUdpClient(adress: mainIpAdress, port: 5003)
-        }else if udpClient_Arm!.state != .ready{
-            self.udpClient_Arm!.connect()
         }
         
-        if self.udpClient_Light == nil {
-            self.udpClient_Light = self.startUdpClient(adress: mainIpAdress, port: 5004)
-        }else if udpClient_Light!.state != .ready{
-            self.udpClient_Light!.connect()
-        }
-        
-        if self.udpClient_Tower == nil {
+        if let tower = self.udpClient_Tower {
+            tower.restart()
+        }else {
             self.udpClient_Tower = self.startUdpClient(adress: mainIpAdress, port: 5005)
-        }else if udpClient_Tower!.state != .ready{
-            self.udpClient_Tower!.connect()
-        }
-        
-        if self.udpClient_Sound == nil {
-            self.udpClient_Sound = self.startUdpClient(adress: mainIpAdress, port: 5006)
-        }else if udpClient_Sound!.state != .ready{
-            self.udpClient_Sound!.connect()
-        }
-        
-        
-        if self.udpClient_Head == nil {
-            self.udpClient_Head = self.startUdpClient(adress: towerIpAdress, port: 5004)
-        }else if udpClient_Head!.state != .ready{
-            self.udpClient_Head!.connect()
         }
     }
     func udpDisconnect() {
         self.udpClient_Drive?.disconnect()
         self.udpClient_Steer?.disconnect()
-        self.udpClient_Arm?.disconnect()
-        self.udpClient_Light?.disconnect()
         self.udpClient_Tower?.disconnect()
-        self.udpClient_Sound?.disconnect()
-        self.udpClient_Head?.disconnect()
-        
         
         self.udpClient_Drive = nil
         self.udpClient_Steer = nil
-        self.udpClient_Arm = nil
-        self.udpClient_Light = nil
         self.udpClient_Tower = nil
-        self.udpClient_Sound = nil
-        self.udpClient_Head = nil
-    }
-
-    
-    
-    func udpRestart_Info() {
-        if self.udpClient_Info == nil {
-            self.udpClient_Info = self.startUdpClient(adress: mainIpAdress, port: 5007, asListener: true)
-        }else if udpClient_Info!.state != .ready{
-            self.udpClient_Info!.connect()
-        }
     }
     
     func sendWheelRotation(_ wr: Rover.WheelRotation) {
@@ -180,16 +138,16 @@ class CommunicationManager {
         
         if Date().millisecondsSince1970 < lastMovementWheelRotation.millisecondsSince1970 + 50 {
             //print("not send")
-
+            
             self.lastSendWheelRotation = wr
-
+            
             if self.timerWheelRotation != nil {
                 self.timerWheelRotation?.invalidate()
             }
             self.timerWheelRotation = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (t) in
-
+                
                 if let wr = self.lastSendWheelRotation{
-
+                    
                     //print("send again")
                     self.sendWheelRotation(wr)
                 }
@@ -200,17 +158,18 @@ class CommunicationManager {
         
         let sendData = [
             "steer":[
-                "fl": wr.fl,
-                "fr": wr.fr,
-                "bl": wr.bl,
-                "br": wr.br
+                "time": Int(Date().timeIntervalSince(Date(timeIntervalSince1970: 1636390000)) * 1000),
+                "fl": Float(String(format:"%.4f", wr.fl))!,
+                "fr": Float(String(format:"%.4f", wr.fr))!,
+                "bl": Float(String(format:"%.4f", wr.bl))!,
+                "br": Float(String(format:"%.4f", wr.br))!
             ]
         ]
         
         self.sendData(sendData, to: self.udpClient_Steer)
     }
     func sendMotorInformation(_ mi: Rover.MotorInformation) {
-    
+        
         udpRestart()
         
         if Date().millisecondsSince1970 < lastMovementMotorInformation.millisecondsSince1970 + 50 {
@@ -235,133 +194,71 @@ class CommunicationManager {
         
         let sendData = [
             "drive":[
-                "ml":   mi.left,
-                "mlc":  mi.leftCenter,
-                "mr":   mi.right,
-                "mrc":  mi.rightCenter
+                "time": Int(Date().timeIntervalSince(Date(timeIntervalSince1970: 1636390000)) * 1000),
+                "ml":   Float(String(format:"%.4f", mi.left))!,
+                "mlc":  Float(String(format:"%.4f", mi.leftCenter))!,
+                "mr":   Float(String(format:"%.4f", mi.right))!,
+                "mrc":  Float(String(format:"%.4f", mi.rightCenter))!
             ]
         ]
         
-        self.sendData(sendData, to: self.udpClient_Drive)
-    }
-    func sendArmInformation(_ arm: Rover.ArmInformation) {
-        udpRestart()
+        self.sendData(sendData, to: self.udpClient_Steer)
         
-        if Date().millisecondsSince1970 < lastArmInformation.millisecondsSince1970 + 5 {
-            //print("not send")
-
-            self.lastSendArmInformation = arm
-
-            if self.timerArmInformation != nil {
-                self.timerArmInformation?.invalidate()
+        self.startMotorInformationRepeating(sendData)
+    }
+    var motorInformationRepeatTimer: Timer?
+    var lastMotorInformation: [String: [String: Any]]?
+    
+    private func startMotorInformationRepeating(_ data: [String: [String: Any]]) {
+        self.motorInformationRepeatTimer?.invalidate()
+        self.motorInformationRepeatTimer = nil
+        
+        self.lastMotorInformation = data
+        self.motorInformationRepeatTimer = Timer.scheduledTimer(timeInterval: 0.5,
+                                                                target: self,
+                                                                selector: #selector(repeatLastMotorInformation),
+                                                                userInfo: nil,
+                                                                repeats: true)
+    }
+    
+    @objc func repeatLastMotorInformation() {
+        if var data = self.lastMotorInformation {
+            if self.gamePadIsConnected {
+                
+                data["drive"]?["time"] = Int(Date().timeIntervalSince(Date(timeIntervalSince1970: 1636390000)) * 1000)
+                
+                print("send again")
+                self.sendData(data, to: self.udpClient_Steer)
             }
-            self.timerArmInformation = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (t) in
-
-                if let mi = self.lastSendArmInformation{
-
-                    //print("send again")
-                    self.sendArmInformation(mi)
-                }
-            }
-            return
         }
-        lastArmInformation = Date()
-        
-        let sendData = [
-            "arm":[
-                "1": arm.joint1,
-                "2": arm.joint2,
-                "3": arm.joint3,
-                "4": arm.joint4
-            ]
-        ]
-        
-        self.sendData(sendData, to: self.udpClient_Arm)
     }
-    func sendLightInformation(_ li:Rover.LightInformation) {
-        udpRestart()
-        
-        let sendData = [
-            "light":[
-                "1": li.light1,
-                "2": li.light2,
-                "3": li.light3,
-                "4": li.light4
-            ]
-        ]
-        
-        self.sendData(sendData, to: self.udpClient_Light)
-    }
+    
     func sendTowerInformation(_ tower:Rover.TowerInformation) {
         udpRestart()
         
         let sendData = [
             "tower": [
-//                "position": tower.position,
-                "r": tower.rotation,
-                "t": tower.tilt
+                "time": Int(Date().timeIntervalSince(Date(timeIntervalSince1970: 1636390000)) * 1000),
+                //                "position": tower.position,
+                "r": Float(String(format:"%.4f", tower.rotation))!,
+                "t": Float(String(format:"%.4f", tower.tilt))!
             ]
         ]
         
         self.sendData(sendData, to: self.udpClient_Tower)
     }
-    func sendSoundInformation(_ sound:Rover.SoundInformation) {
-        udpRestart()
+    
+    func sendData(_ data: [String: Any], to client:UDPClient?) {
         
-        let sendData = [
-            "sound": [
-                "file": sound.file,
-                "action": sound.action
-            ]
-        ]
-        
-        self.sendData(sendData, to: self.udpClient_Sound)
-    }
-    func sendInfoInformation() {
-        udpRestart_Info()
-        
-        let sendData = [
-            "info": [
-                "get": "accu"
+        if client?.state == .ready {
+            print("sendData \(data)")
+            do {
+                let d = try JSONSerialization.data(withJSONObject: data, options: [.withoutEscapingSlashes, .sortedKeys])
                 
-            ]
-        ]
-        
-        self.sendData(sendData, to: self.udpClient_Info)
-    }
-    func sendHeadInformation(_ d:Rover.HeadInformation) {
-        udpRestart()
-        
-        var head = [String: Int]()
-        
-        if let r = d.colorRed{
-            head["r"] = r
-        }
-        if let g = d.colorGreen{
-            head["g"] = g
-        }
-        if let b = d.colorBlue{
-            head["b"] = b
-        }
-        if let l = d.laser{
-            head["l"] = l
-        }
-        
-        let sendData = ["head":head]
-        
-        self.sendData(sendData, to: self.udpClient_Head)
-    }
-    
-    
-    func sendData(_ data: Any, to client:UDPClient?) {
-        print("sendData \(data)")
-        
-        do {
-            let d = try JSONSerialization.data(withJSONObject: data, options: [.withoutEscapingSlashes, .sortedKeys])
-            
-            client?.send(d)
-        } catch let error as NSError {
-            print("Failed to send: \(error.localizedDescription)")
+                client?.send(d)
+            } catch let error as NSError {
+                print("Failed to send: \(error.localizedDescription)")
+            }
         }
     }
 }
@@ -374,22 +271,43 @@ extension Double {
 }
 extension CommunicationManager: UDPClientDelegate {
     func udpClient(_ client: UDPClient, didChange state: NWConnection.State) {
+        
+        var retry = false
+        
         switch state {
-        case .ready:
-            print("State: Ready")
-            self.state = .Connected
-        case .setup:
-            print("State: Setup")
-            self.state = .Preparing
-        case .cancelled:
-            print("State: Cancelled")
-            self.state = .Cancelled
-        case .preparing:
-            print("State: Preparing")
-            self.state = .Connecting
-        default:
-            print("ERROR! State not defined!\n")
-            self.state = .Disconnected
+            case let .waiting(error):
+                print("State: waiting: \(error.localizedDescription)")
+                self.state = .Setup
+            case let .failed(error):
+                print("State: failed: \(error.localizedDescription)")
+                self.state = .Failed
+                retry = true
+            case .ready:
+                print("State: Ready")
+                self.state = .Connected
+            case .setup:
+                print("State: Setup")
+                self.state = .Setup
+            case .cancelled:
+                print("State: Cancelled")
+                self.state = .Cancelled
+                
+                retry = true
+                
+            case .preparing:
+                print("State: Preparing")
+                self.state = .Connecting
+            default:
+                print("CommunicationManager ERROR! State not defined!\n")
+                self.state = .Disconnected
+                
+                retry = true
+        }
+        
+        if retry {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.udpRestart();
+            }
         }
         
     }
@@ -397,19 +315,5 @@ extension CommunicationManager: UDPClientDelegate {
     func udpClient(_ client: UDPClient, didReceive data: Data) {
         
         self.delegate?.communicationManager(self, didReceive: data, fromClient: client)
-        
-        if client.isListening {
-            
-            if client.port == self.udpClient_Info?.port {
-                
-                client.disconnect()
-                
-                client.delegate = nil
-                self.udpClient_Info?.delegate = nil
-                self.udpClient_Info = nil
-                
-            }
-            
-        }
     }
 }

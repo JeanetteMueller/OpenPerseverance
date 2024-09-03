@@ -20,7 +20,7 @@ class UDPClient {
     var address: NWEndpoint.Host
     var port: NWEndpoint.Port
     var delegate: UDPClientDelegate?
-    private var listening = true
+    private var listening = false
     var isListening: Bool {
         get {
             return listening
@@ -60,6 +60,11 @@ class UDPClient {
             self.state = newState
             
             switch (newState) {
+                case let .waiting(error):
+                    print("State: waiting: \(error.localizedDescription)")
+                    
+                case let .failed(error):
+                    print("State: failed: \(error.localizedDescription)")
                 case .ready:
                     print("State: Ready")
                     if self.listening { self.listen() }
@@ -71,11 +76,10 @@ class UDPClient {
                 case .preparing:
                     print("State: Preparing")
                 default:
-                    print("ERROR! State not defined!\n")
+                    print("UDPClient ERROR! State not defined = \(newState)!\n")
             }
-            
-            
         }
+        
         connection.start(queue: .global())
     }
     
@@ -110,5 +114,11 @@ class UDPClient {
         self.connection.cancel()
         self.connection.cancelCurrentEndpoint()
         
+    }
+    
+    func restart() {
+        if self.state != .ready {
+            self.connect()
+        }
     }
 }

@@ -16,6 +16,7 @@ extension Notification.Name {
 
 class Rover {
     
+    
     struct WheelRotation {
         let fl: Float
         let fr: Float
@@ -32,17 +33,7 @@ class Rover {
     
     //typealias WheelRotation = (fl:Float, fr:Float, bl:Float, br:Float)
     typealias MotorInformation = (left:Float, leftCenter:Float, right:Float, rightCenter:Float)
-    typealias ArmInformation = (joint1:Float, joint2:Float, joint3:Float, joint4:Float)
-    typealias LightInformation = (light1:Int, light2:Int, light3:Int, light4:Int)
     typealias TowerInformation = (rotation:Float, tilt:Float)
-    typealias SoundInformation = (file:String, action:Int)
-    
-    struct HeadInformation {
-        var colorRed: Int?
-        var colorGreen: Int?
-        var colorBlue: Int?
-        var laser: Int?
-    }
     
     var pause: Bool = false
     
@@ -55,8 +46,8 @@ class Rover {
     }
     
     enum Speed: Float {
-        case Slow = 0.70
-        case Normal = 0.85
+        case Slow = 0.40
+        case Normal = 0.70
         case Fast = 1.0
     }
     
@@ -101,25 +92,7 @@ class Rover {
         }
     }
     
-    var armJoint1:Float = 170 / 2
-    var armJoint2:Float = 170 / 2
-    var armJoint3:Float = 170 / 2
-    var armJoint4:Float = 170 / 2
-    
-    var dpadPressedButton: MovementManager.ButtonType?
-    var dPadRepeatTimer:Timer?
-    
-    
-    var lights = LightInformation(light1: 0, light2: 0, light3: 0, light4: 0) {
-        didSet {
-            self.topDownPositionView.updateLightInformation(self.lights)
-            
-            CommunicationManager.shared.sendLightInformation(self.lights)
-        }
-    }
-    
-    
-    let maxTowerRotate:Float = 170
+    let maxTowerRotate:CGFloat = 170
     let rangeTowerRotate:Float = 3
     
     let maxTowerTilt:Float = 170
@@ -134,27 +107,7 @@ class Rover {
             CommunicationManager.shared.sendTowerInformation(self.tower)
         }
     }
-    
-    func toggleAllLight() {
-        
-        let multi = 12 // 16
-        
-        if self.lights.light1 > 0 {
-            self.lights = LightInformation(light1: 0, light2: 0, light3: 0, light4: 0)
-        }else{
-            self.lights = LightInformation(light1: 255 * multi, light2: 255 * multi, light3: 255 * multi, light4: 255 * multi)
-        }
-        
-//        var multi = self.lights.light1 + 1
-//
-//        if multi > 16 {
-//            multi = 0
-//        }
-//
-//        self.lights = LightInformation(light1: multi, light2: 255, light3: 255, light4: 255 * multi)
-        
-    }
-    
+
     
     var status = ""
     

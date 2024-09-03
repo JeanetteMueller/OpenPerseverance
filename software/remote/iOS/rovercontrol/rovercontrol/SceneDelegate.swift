@@ -14,6 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     var rover: Rover?
+    
+    var connectToWifi: Bool = true
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -38,29 +40,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-
-        let configuration = NEHotspotConfiguration(ssid: "RoverControl", passphrase: "danain3D!", isWEP: false)
-        configuration.joinOnce = true
         
-        NEHotspotConfigurationManager.shared.apply(configuration) { (error) in
-            if let e = error {
-                if e.localizedDescription == "already associated."
-                {
+        restartServices()
+        
+        if connectToWifi {
+            let configuration = NEHotspotConfiguration(ssid: "RoverControl", passphrase: "danain3D!", isWEP: false)
+            configuration.joinOnce = true
+            
+            NEHotspotConfigurationManager.shared.apply(configuration) { (error) in
+                if let e = error {
+                    if e.localizedDescription == "already associated."
+                    {
+                        print("Connected")
+                        self.connected(scene)
+                    } else{
+                        print("No Connected")
+                        self.notConnected(scene)
+                    }
+                } else {
                     print("Connected")
                     self.connected(scene)
-                } else{
-                    print("No Connected")
-                    self.notConnected(scene)
                 }
-            } else {
-                print("Connected")
-                self.connected(scene)
             }
         }
-        
-        
-        
     }
+    
     func connected(_ scene: UIScene) {
         if let windowScene = scene as? UIWindowScene{
             if let main = windowScene.windows.first?.rootViewController as? MainVC {
@@ -70,16 +74,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         restartServices()
     }
-    func notConnected (_ scene: UIScene) {
+    
+    func notConnected(_ scene: UIScene) {
         if let windowScene = scene as? UIWindowScene{
             if let main = windowScene.keyWindow?.rootViewController as? MainVC {
                 main.wifiConnectionState.backgroundColor = .red
             }
         }
     }
+    
     func restartServices() {
-        MovementManager.shared.addDelegate(self.rover!)
-        
+        if let r = self.rover {
+            MovementManager.shared.removeDelegate(r)
+            MovementManager.shared.addDelegate(r)
+        }
         CommunicationManager.shared.udpRestart()
     }
 
@@ -87,9 +95,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
         
-        MovementManager.shared.removeDelegate(self.rover!)
-        
-        CommunicationManager.shared.udpDisconnect()
+        self.connectToWifi = true
         
         if let windowScene = scene as? UIWindowScene{
             if let main = windowScene.windows.first?.rootViewController as? MainVC {
@@ -111,8 +117,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        
+        self.connectToWifi = true
+        
+        MovementManager.shared.removeDelegate(self.rover!)
+        
+        CommunicationManager.shared.udpDisconnect()
     }
-
-
 }
 

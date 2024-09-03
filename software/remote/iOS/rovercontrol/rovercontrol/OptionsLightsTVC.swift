@@ -18,35 +18,35 @@ class OptionsLightsTVC: OptionsTVC {
         headlines.append("Tower")
         var c = [ContentTableViewCellData]()
         
-        c.append(DetailViewCell.BasicCell(withTitle: "Off", andAction: { (cell, path) in
-            //self.selectRow(at: path)
-            
-            let d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 0)
-            
-            CommunicationManager.shared.sendHeadInformation(d)
-        }))
-        c.append(DetailViewCell.BasicCell(withTitle: "Red", andTextColor: UIColor.red, andAction: { (cell, path) in
-            //self.selectRow(at: path)
-            
-            let d = Rover.HeadInformation(colorRed: 1, colorGreen: 0, colorBlue: 0)
-            
-            CommunicationManager.shared.sendHeadInformation(d)
-        }))
-        c.append(DetailViewCell.BasicCell(withTitle: "Green", andTextColor: UIColor.green, andAction: { (cell, path) in
-            //self.selectRow(at: path)
-            
-            let d = Rover.HeadInformation(colorRed: 0, colorGreen: 1, colorBlue: 0)
-            
-            CommunicationManager.shared.sendHeadInformation(d)
-        }))
-        c.append(DetailViewCell.BasicCell(withTitle: "Blue", andTextColor: UIColor.blue, andAction: { (cell, path) in
-            //self.selectRow(at: path)
-            
-            let d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 1)
-            
-            CommunicationManager.shared.sendHeadInformation(d)
-            
-        }))
+//        c.append(DetailViewCell.BasicCell(withTitle: "Off", andAction: { (cell, path) in
+//            //self.selectRow(at: path)
+//            
+//            let d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 0)
+//            
+//            CommunicationManager.shared.sendHeadInformation(d)
+//        }))
+//        c.append(DetailViewCell.BasicCell(withTitle: "Red", andTextColor: UIColor.red, andAction: { (cell, path) in
+//            //self.selectRow(at: path)
+//            
+//            let d = Rover.HeadInformation(colorRed: 1, colorGreen: 0, colorBlue: 0)
+//            
+//            CommunicationManager.shared.sendHeadInformation(d)
+//        }))
+//        c.append(DetailViewCell.BasicCell(withTitle: "Green", andTextColor: UIColor.green, andAction: { (cell, path) in
+//            //self.selectRow(at: path)
+//            
+//            let d = Rover.HeadInformation(colorRed: 0, colorGreen: 1, colorBlue: 0)
+//            
+//            CommunicationManager.shared.sendHeadInformation(d)
+//        }))
+//        c.append(DetailViewCell.BasicCell(withTitle: "Blue", andTextColor: UIColor.blue, andAction: { (cell, path) in
+//            //self.selectRow(at: path)
+//            
+//            let d = Rover.HeadInformation(colorRed: 0, colorGreen: 0, colorBlue: 1)
+//            
+//            CommunicationManager.shared.sendHeadInformation(d)
+//            
+//        }))
         
         content.append(c)
         

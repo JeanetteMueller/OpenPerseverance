@@ -14,7 +14,6 @@ class GlobalSettings {
     }
 }
 
-
 extension GlobalSettings {
     
     class func setEnvironment(_ val: Environment) {
@@ -22,7 +21,7 @@ extension GlobalSettings {
     }
     class func getEnvironment() -> Environment {
         let val = UserDefaults.standard.integer(forKey: "settings_environment")
-        return Environment.init(rawValue: val) ?? .Normal
+        return Environment(rawValue: val) ?? .Normal
     }
 }
 

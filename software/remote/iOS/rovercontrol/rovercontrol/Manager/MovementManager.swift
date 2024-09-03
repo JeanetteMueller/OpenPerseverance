@@ -90,11 +90,7 @@ class MovementManager {
         case Disconnected, Connected
     }
     
-    var state = State.Disconnected {
-        didSet {
-            
-        }
-    }
+    var state = State.Disconnected
 
     static let shared: MovementManager = {
 
@@ -136,6 +132,7 @@ class MovementManager {
         controllers.insert(controller)
         
         self.state = State.Connected
+        CommunicationManager.shared.gamePadIsConnected = true
 
         for d in self.delegates {
             d.inputManager(self, didConnect: controller)
@@ -181,6 +178,7 @@ class MovementManager {
         controllers.remove(controller)
         
         self.state = State.Disconnected
+        CommunicationManager.shared.gamePadIsConnected = false
 
         if !self.pause {
             for d in self.delegates {
@@ -264,7 +262,8 @@ class MovementManager {
     func thumbstickChangedHandler(_ button: ThumbstickType, _ xvalue: Float, _ yvalue: Float) {
        let analogValueX = String(format: "%.2f", xvalue)
         let analogValueY = String(format: "%.2f", yvalue)
-        print("thumbstickChangedHandler " + button.rawValue + " " + analogValueX + " / " + analogValueY)
+        
+        //print("thumbstickChangedHandler " + button.rawValue + " " + analogValueX + " / " + analogValueY)
 
         switch button {
             case .Left:

@@ -2,14 +2,12 @@ PODS:
   - JxContentTable (0.1.3):
     - JxSwiftHelperForUiKit
     - JxThemeManager
-    - PinchToZoomImageView
     - ScrollableGraphView
   - JxSwiftHelper (0.1.3)
   - JxSwiftHelperForUiKit (0.1.0):
     - JxSwiftHelper
   - JxThemeManager (0.1.0)
   - MJPEGStreamLib (0.2.1)
-  - PinchToZoomImageView (1.1.2)
   - ScrollableGraphView (4.0.6)
 
 DEPENDENCIES:
@@ -22,7 +20,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - MJPEGStreamLib
-    - PinchToZoomImageView
     - ScrollableGraphView
 
 EXTERNAL SOURCES:
@@ -36,14 +33,13 @@ EXTERNAL SOURCES:
     :path: "../../../../../ios/JxProjekte/JxThemeManager/"
 
 SPEC CHECKSUMS:
-  JxContentTable: ec2e069c3358f385240ebbc237e19df7d8c324dd
-  JxSwiftHelper: 08abf204a1a66584759c92424b36bb07f34bfc8f
-  JxSwiftHelperForUiKit: 1185e64372d6331bd11da2ef6d34bfcd2f773334
+  JxContentTable: 43124b5a9e9e915ab5b5503bb18488544eaabe4e
+  JxSwiftHelper: 849b34f092f09b7d5f26600d05c3d637ad16a1d5
+  JxSwiftHelperForUiKit: 065dc4300660c0e55920a7e8c9705ad707033a2f
   JxThemeManager: d74d0ecd273cad4bc16c7742124a0b67c367ae3c
   MJPEGStreamLib: 516e82b6bcd93cac6d671a37052a15908502e6c5
-  PinchToZoomImageView: c743d831ac886f22900ccd8e38b3033c89ac8603
   ScrollableGraphView: 4af35d4ea9ecdec665d34a74da51da161ddff8ac
 
-PODFILE CHECKSUM: b9b18f55d8a2301475c2c3fd6c357040dfbb81a4
+PODFILE CHECKSUM: 2f4b4b41afc897757f1cac0d073aa251ff8df19b
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.14.3
