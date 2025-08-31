@@ -58,12 +58,12 @@ class OptionsSoundsTVC: OptionsTVC {
         super.prepareContent()
         
         headlines.append("Sounds")
-        var c = [ContentTableViewCellData]()
+        var c = [JxContentTableViewCell]()
         
         var files = OptionsSoundsTVC.soundFiles
         
         for file in files {
-            c.append(DetailViewCell.BasicCell(withTitle: file,  andAction: { (cell, path) in
+            c.append(DetailViewCell.BasicCell(withTitle: file,  andAction: { (vc, cell, path) in
                 //self.selectRow(at: path)
                 
 //                let s = Rover.SoundInformation(file: file, action: 0)
@@ -77,7 +77,7 @@ class OptionsSoundsTVC: OptionsTVC {
         content.append(c)
         
         headlines.append("Music")
-        c = [ContentTableViewCellData]()
+        c = [JxContentTableViewCell]()
         
         files = [
             "Rock Music.mp3",
@@ -92,7 +92,7 @@ class OptionsSoundsTVC: OptionsTVC {
                 filetitle = filetitle.subString(to: filetitle.length - suffix.length)
             }
             
-            c.append(DetailViewCell.BasicCell(withTitle: filetitle,  andAction: { (cell, path) in
+            c.append(DetailViewCell.BasicCell(withTitle: filetitle,  andAction: { (vc, cell, path) in
                 //self.selectRow(at: path)
                 
 //                let s = Rover.SoundInformation(file: file, action: 0)

@@ -16,11 +16,9 @@ class OptionsRootTVC: OptionsTVC {
         super.prepareContent()
         
         headlines.append("")
-        var c = [ContentTableViewCellData]()
+        var c = [JxContentTableViewCell]()
         
-        
-        
-        c.append(DetailViewCell.BasicCell(withTitle: "options settings".localized, andImage: UIImage(named: "19-gear"), andAction: { (cell, path) in
+        c.append(DetailViewCell.BasicCell(withTitle: "options settings".localized, andImage: UIImage(named: "19-gear"), andAction: { ( vc, cell, path) in
             self.performSegue(withIdentifier: "SettingsVC", sender: nil)
         }))
         

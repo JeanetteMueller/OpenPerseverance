@@ -28,7 +28,7 @@ class SettingsVC: JxContentTableViewController {
 //        content.append(a)
         
         headlines.append("settings calibration".localized)
-        var b = [ContentTableViewCellData]()
+        var b = [JxContentTableViewCell]()
         
         b.append(DetailViewCell.StepperCell(withTitle: "settings calibration front left".localized,
                                             withValue: Double(GlobalSettings.getCalibrationFrontLeft()),

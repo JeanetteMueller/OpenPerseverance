@@ -16,7 +16,7 @@ class OptionsLightsTVC: OptionsTVC {
         super.prepareContent()
         
         headlines.append("Tower")
-        var c = [ContentTableViewCellData]()
+        var c = [JxContentTableViewCell]()
         
 //        c.append(DetailViewCell.BasicCell(withTitle: "Off", andAction: { (cell, path) in
 //            //self.selectRow(at: path)
@@ -51,12 +51,12 @@ class OptionsLightsTVC: OptionsTVC {
         content.append(c)
         
         
-        c = [ContentTableViewCellData]()
+        c = [JxContentTableViewCell]()
         headlines.append("Body")
-        c.append(DetailViewCell.BasicCell(withTitle: "Light 1", andAction: { (cell, path) in
+        c.append(DetailViewCell.BasicCell(withTitle: "Light 1", andAction: { (vc, cell, path) in
 
         }))
-        c.append(DetailViewCell.BasicCell(withTitle: "Light 2", andAction: { (cell, path) in
+        c.append(DetailViewCell.BasicCell(withTitle: "Light 2", andAction: { (vc, cell, path) in
 
         }))
         
